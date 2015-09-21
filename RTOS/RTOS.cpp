@@ -106,6 +106,7 @@ void taskReadSonar(void *p)
 	int cm, duration;
 	while(1) {
 		//if(xSemaphoreTake(sonarSema, portMAX_DELAY)) {
+			vTaskSuspendAll();
 			digitalWrite(trigger_1, LOW);
 			delayMicroseconds(5);
 			digitalWrite(trigger_1, HIGH);
@@ -113,6 +114,7 @@ void taskReadSonar(void *p)
 			digitalWrite(trigger_1, LOW);
 			pinMode(echo_1, INPUT);
 			duration = (int)pulseIn(echo_1, HIGH);
+			xTaskResumeAll();
 			cm = (int)((duration/2) / 29.1);
 			data[1] = cm;
 			//xSemaphoreGive(analogSema);
