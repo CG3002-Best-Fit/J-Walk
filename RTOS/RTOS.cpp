@@ -15,6 +15,7 @@
 #include <semphr.h>
 #include <Wire.h>
 #include <queue.h>
+#include <SharpIR.h>
 #define STACK_DEPTH 128
 // Tasks flash LEDs at Pins 12 and 13 at 1Hz and 2Hz respectively.
 /*
@@ -41,14 +42,15 @@ void task2(void *p)
 	}
 } 
 */
-xSemaphoreHandle sonarSema, magnetoSema, gyroSema, acceSema = 0;
+// xSemaphoreHandle sonarSema, magnetoSema, gyroSema, acceSema, analogSema = 0;
 int echo_1 = 3; //pin 3 for sonar echo
 int trigger_1 = 4; //pin 4 for sonar trigger
-int analog_1 = 0; 
+int analog_1 = A0; 
 int numOfData = 8;
 LSM303 compass;
 L3G gyro;
-int data[8];
+SharpIR sharp(A0, 25, 93, 20150);
+int data[9];
 /*
 index 1 for sonar
 index 2 for acc.x
@@ -57,12 +59,9 @@ index 4 for acc.z
 index 5 for gyro.x
 index 6 for gyro.y
 index 7 for gyro.z
-index 8 for compass heading
+index 8 for analog distance sensor
+index 9 for compass heading
 */
-
-ISR(USART1_RX_vect) {
-	
-}
 
 void printArray(void *p) {
 	int i;
@@ -72,40 +71,33 @@ void printArray(void *p) {
 			canRead = Serial.read();
 		}
 		if(canRead - '0'){
-			Serial.print(7);
-			Serial.print('\r');
-			for(i = 1; i < 8; i++) {
-				Serial.print(data[i]);
+			//Serial.print(numOfData);
+			//Serial.print('\r');
+			for(i = 1; i < 9; i++) {
+				Serial.println(data[i]);
 				Serial.print('\r');
 			}
 			canRead = '0';
 		}
+		/*if(canRead - '0') {
+			i = canRead - '0';
+			Serial.print(data[i]);
+			canRead = '0';
+		}*/
 		vTaskDelay(1000);
-		/*
-		if(Serial.available()){
-			canRead = Serial.read();
-		}
-		if(canRead - '0'){
-			Serial.print(3);
-			Serial.print('\r');
-			Serial.print(1234567890);
-			Serial.print('\r');
-			Serial.print(-12);
-			Serial.print('\r');
-			Serial.print(456.2);
-			Serial.print('\r');
-		*/
 	}
 }
 
 void taskReadInfrared(void *p)
 {
-	int vol, distance;
+	int distance;
 	while(1) {
-		vol = analogRead(analog_1);
-		distance = ((vol / 1023) * 130) + 20;
-		data[5] = distance;	
-		vTaskDelay(1000);
+		//if(xSemaphoreTake(analogSema, portMAX_DELAY)) {
+			distance = sharp.distance();
+			data[8] = distance;
+			//xSemaphoreGive(gyroSema);
+			vTaskDelay(1000);
+		//}
 	}
 }
 
@@ -113,7 +105,7 @@ void taskReadSonar(void *p)
 {
 	int cm, duration;
 	while(1) {
-		if(xSemaphoreTake(sonarSema, portMAX_DELAY)) {
+		//if(xSemaphoreTake(sonarSema, portMAX_DELAY)) {
 			digitalWrite(trigger_1, LOW);
 			delayMicroseconds(5);
 			digitalWrite(trigger_1, HIGH);
@@ -123,9 +115,9 @@ void taskReadSonar(void *p)
 			duration = (int)pulseIn(echo_1, HIGH);
 			cm = (int)((duration/2) / 29.1);
 			data[1] = cm;
-			xSemaphoreGive(gyroSema);
+			//xSemaphoreGive(analogSema);
 			vTaskDelay(5000);
-		}
+		//}
 	}
 }
 
@@ -133,7 +125,7 @@ void taskReadAcc(void *p)
 {
 	int accX, accY, accZ;
 	while(1){
-		if(xSemaphoreTake(acceSema, portMAX_DELAY)) {
+		//if(xSemaphoreTake(acceSema, portMAX_DELAY)) {
 			compass.read();
 			accX = (int)((float)compass.a.x / 1000.000 * 61 * 0.001 * 9.8);
 			accY = (int)((float)compass.a.y / 1000.000 * 61 * 0.001 * 9.8);
@@ -141,9 +133,9 @@ void taskReadAcc(void *p)
 			data[2] = accX;
 			data[3] = accY;
 			data[4] = accZ;
-			xSemaphoreGive(sonarSema);
+		//	xSemaphoreGive(sonarSema);
 			vTaskDelay(1000);
-		}
+		//}
 	}
 }
 
@@ -151,7 +143,7 @@ void taskReadGyro(void *p)
 {
 	int gyroX, gyroY, gyroZ;
 	while(1){
-		if(xSemaphoreTake(gyroSema, portMAX_DELAY)) {
+		//if(xSemaphoreTake(gyroSema, portMAX_DELAY)) {
 			gyro.read();
 	
 			gyroX = (int)((float)gyro.g.x * 8.75 /1000.00);
@@ -161,9 +153,9 @@ void taskReadGyro(void *p)
 			data[5] = gyroX;
 			data[6] = gyroY;
 			data[7] = gyroZ;
-			xSemaphoreGive(acceSema);
+			//xSemaphoreGive(acceSema);
 			vTaskDelay(1000);
-		}
+		//}
 	}
 }
 
@@ -172,13 +164,13 @@ void taskReadMagneto(void *p)
 	
 	int heading;
 	while(1){
-		if(xSemaphoreTake(magnetoSema, portMAX_DELAY)) {
+	//	if(xSemaphoreTake(magnetoSema, portMAX_DELAY)) {
 			compass.read();
 			heading = (int) compass.heading();
-			data[8] = 99;
-			xSemaphoreGive(sonarSema);
+			data[9] = 99;
+		//	xSemaphoreGive(sonarSema);
 			vTaskDelay(5000);
-		}
+		//}
 	}
 }
 
@@ -189,11 +181,12 @@ void vApplicationIdleHook()
 
 void setup(void) 
 {
-	vSemaphoreCreateBinary(sonarSema);
+	/*vSemaphoreCreateBinary(sonarSema);
 	vSemaphoreCreateBinary(acceSema);
 	vSemaphoreCreateBinary(magnetoSema);
 	vSemaphoreCreateBinary(gyroSema);
-	xSemaphoreGive(gyroSema);
+	vSemaphoreCreateBinary(analogSema);
+	xSemaphoreGive(gyroSema);*/
 	// Starting up serial monitor
 	Serial.begin(9600);
 	// Setting up compass
@@ -207,18 +200,20 @@ void setup(void)
 	// Setting up sonar sensor
 	pinMode(trigger_1, OUTPUT);
 	pinMode(echo_1, INPUT);
+	pinMode(analog_1, INPUT);
 }
 
 int main(void)
 {
 	init();
 	setup();
-	TaskHandle_t t1, t2, t3, t4, t5;
+	TaskHandle_t t1, t2, t3, t4, t5, t6;
 	// Create tasks
 	xTaskCreate(printArray, "printA", STACK_DEPTH, NULL, 10, &t1);
-	xTaskCreate(taskReadGyro, "Read Gyrometer", STACK_DEPTH, NULL, 5, &t2);
-	xTaskCreate(taskReadAcc, "Read Accelerometer", STACK_DEPTH, NULL, 5, &t3);
-	//xTaskCreate(taskReadMagneto, "Read Magneto", STACK_DEPTH, NULL, 5, &t4);
-	xTaskCreate(taskReadSonar, "Read Ultrasonic", STACK_DEPTH, NULL, 5, &t5);
+	xTaskCreate(taskReadGyro, "Read Gyrometer", STACK_DEPTH, NULL, 9, &t2);
+	xTaskCreate(taskReadAcc, "Read Accelerometer", STACK_DEPTH, NULL, 8, &t3);
+	xTaskCreate(taskReadInfrared, "Read Infrared", STACK_DEPTH, NULL, 7, &t4);
+	//xTaskCreate(taskReadMagneto, "Read Magneto", STACK_DEPTH, NULL, 6, &t5);
+	xTaskCreate(taskReadSonar, "Read Ultrasonic", STACK_DEPTH, NULL, 5, &t6);
 	vTaskStartScheduler();
 }

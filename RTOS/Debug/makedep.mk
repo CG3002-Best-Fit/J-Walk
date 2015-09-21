@@ -18,6 +18,8 @@ queue.c
 
 RTOS.cpp
 
+SharpIR.cpp
+
 tasks.c
 
 twi.c
