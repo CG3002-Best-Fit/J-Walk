@@ -4519,11 +4519,11 @@ int main(void)
     1cce:	86 ed       	ldi	r24, 0xD6	; 214
     1cd0:	9e e0       	ldi	r25, 0x0E	; 14
     1cd2:	ba d1       	rcall	.+884    	; 0x2048 <xTaskGenericCreate>
-	xTaskCreate(taskReadGyro, "Read Gyrometer", STACK_DEPTH, NULL, 9, &t2);
+	xTaskCreate(taskReadGyro, "Read Gyrometer", STACK_DEPTH, NULL, 4, &t2);
     1cd4:	ce 01       	movw	r24, r28
     1cd6:	09 96       	adiw	r24, 0x09	; 9
     1cd8:	7c 01       	movw	r14, r24
-    1cda:	09 e0       	ldi	r16, 0x09	; 9
+    1cda:	04 e0       	ldi	r16, 0x04	; 4
     1cdc:	20 e0       	ldi	r18, 0x00	; 0
     1cde:	30 e0       	ldi	r19, 0x00	; 0
     1ce0:	40 ea       	ldi	r20, 0xA0	; 160
@@ -4589,6 +4589,7 @@ int main(void)
     1d50:	8a e8       	ldi	r24, 0x8A	; 138
     1d52:	9c e0       	ldi	r25, 0x0C	; 12
     1d54:	79 d1       	rcall	.+754    	; 0x2048 <xTaskGenericCreate>
+	//Serial.println(freeRAM());
 	vTaskStartScheduler();
     1d56:	80 d2       	rcall	.+1280   	; 0x2258 <vTaskStartScheduler>
 }
@@ -4639,10 +4640,10 @@ SharpIR sharp(A0, 25, 93, 20150);
     1da0:	80 ea       	ldi	r24, 0xA0	; 160
     1da2:	98 e0       	ldi	r25, 0x08	; 8
     1da4:	37 d0       	rcall	.+110    	; 0x1e14 <_ZN7SharpIRC1Eiiii>
-	xTaskCreate(taskReadAcc, "Read Accelerometer", STACK_DEPTH, NULL, 8, &t3);
 	xTaskCreate(taskReadInfrared, "Read Infrared", STACK_DEPTH, NULL, 7, &t4);
 	xTaskCreate(taskReadMagneto, "Read Magneto", STACK_DEPTH, NULL, 6, &t5);
 	xTaskCreate(taskReadSonar, "Read Ultrasonic", STACK_DEPTH, NULL, 5, &t6);
+	//Serial.println(freeRAM());
 	vTaskStartScheduler();
 }
     1da6:	1f 91       	pop	r17

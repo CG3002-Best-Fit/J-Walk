@@ -219,10 +219,11 @@ int main(void)
 	TaskHandle_t t1, t2, t3, t4, t5, t6;
 	// Create tasks
 	xTaskCreate(printArray, "printA", STACK_DEPTH, NULL, 10, &t1);
-	xTaskCreate(taskReadGyro, "Read Gyrometer", STACK_DEPTH, NULL, 9, &t2);
+	xTaskCreate(taskReadGyro, "Read Gyrometer", STACK_DEPTH, NULL, 4, &t2);
 	xTaskCreate(taskReadAcc, "Read Accelerometer", STACK_DEPTH, NULL, 8, &t3);
 	xTaskCreate(taskReadInfrared, "Read Infrared", STACK_DEPTH, NULL, 7, &t4);
 	xTaskCreate(taskReadMagneto, "Read Magneto", STACK_DEPTH, NULL, 6, &t5);
 	xTaskCreate(taskReadSonar, "Read Ultrasonic", STACK_DEPTH, NULL, 5, &t6);
+	//Serial.println(freeRAM());
 	vTaskStartScheduler();
 }
