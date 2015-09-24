@@ -16,7 +16,7 @@
 #include <Wire.h>
 #include <queue.h>
 #include <SharpIR.h>
-#define STACK_DEPTH 128
+#define STACK_DEPTH 160
 // Tasks flash LEDs at Pins 12 and 13 at 1Hz and 2Hz respectively.
 /*
 void task1(void *p)
@@ -46,11 +46,11 @@ void task2(void *p)
 int echo_1 = 3; //pin 3 for sonar echo
 int trigger_1 = 4; //pin 4 for sonar trigger
 int analog_1 = A0; 
-int numOfData = 8;
+int numOfData = 9;
 LSM303 compass;
 L3G gyro;
 SharpIR sharp(A0, 25, 93, 20150);
-int data[9];
+int data[10];
 /*
 index 1 for sonar
 index 2 for acc.x
@@ -63,6 +63,12 @@ index 8 for analog distance sensor
 index 9 for compass heading
 */
 
+int freeRAM() {
+	extern int __heap_start, *__brkval;
+	int v;
+	return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int)__brkval);
+}
+
 void printArray(void *p) {
 	int i;
 	char canRead = '0';
@@ -73,19 +79,19 @@ void printArray(void *p) {
 		if(canRead - '0'){
 			//Serial.print(numOfData);
 			//Serial.print('\r');
-			for(i = 1; i < 9; i++) {
+			for(i = 1; i < 10; i++) {
 				Serial.println(data[i]);
 				Serial.print('\r');
 			}
+			Serial.println(freeRAM());
 			canRead = '0';
 		}
-		/*if(canRead - '0') {
-			i = canRead - '0';
-			Serial.print(data[i]);
-			canRead = '0';
-		}*/
 		vTaskDelay(1000);
 	}
+	/*while(1) {
+		dprintf("Sonar: %d Acc.x: %d Acc.y: %d Acc.z: %d Gyro.x: %d Gyro.y: %d Gyro.z: %d AnalogD: %d", data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
+		vTaskDelay(5000);
+	}*/
 }
 
 void taskReadInfrared(void *p)
@@ -114,9 +120,9 @@ void taskReadSonar(void *p)
 			digitalWrite(trigger_1, LOW);
 			pinMode(echo_1, INPUT);
 			duration = (int)pulseIn(echo_1, HIGH);
-			xTaskResumeAll();
 			cm = (int)((duration/2) / 29.1);
 			data[1] = cm;
+			xTaskResumeAll();
 			//xSemaphoreGive(analogSema);
 			vTaskDelay(5000);
 		//}
@@ -162,14 +168,15 @@ void taskReadGyro(void *p)
 }
 
 void taskReadMagneto(void *p)
-{
-	
+{	
 	int heading;
 	while(1){
 	//	if(xSemaphoreTake(magnetoSema, portMAX_DELAY)) {
+			vTaskSuspendAll();
 			compass.read();
 			heading = (int) compass.heading();
-			data[9] = 99;
+			data[9] = heading;
+			xTaskResumeAll();
 		//	xSemaphoreGive(sonarSema);
 			vTaskDelay(5000);
 		//}
@@ -215,7 +222,7 @@ int main(void)
 	xTaskCreate(taskReadGyro, "Read Gyrometer", STACK_DEPTH, NULL, 9, &t2);
 	xTaskCreate(taskReadAcc, "Read Accelerometer", STACK_DEPTH, NULL, 8, &t3);
 	xTaskCreate(taskReadInfrared, "Read Infrared", STACK_DEPTH, NULL, 7, &t4);
-	//xTaskCreate(taskReadMagneto, "Read Magneto", STACK_DEPTH, NULL, 6, &t5);
+	xTaskCreate(taskReadMagneto, "Read Magneto", STACK_DEPTH, NULL, 6, &t5);
 	xTaskCreate(taskReadSonar, "Read Ultrasonic", STACK_DEPTH, NULL, 5, &t6);
 	vTaskStartScheduler();
 }
