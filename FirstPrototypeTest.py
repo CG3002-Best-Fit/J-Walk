@@ -254,7 +254,7 @@ def main():
                     if int(eachNode['nodeId']) > int(nextNode['nodeId']):
                         continue
                     if eachLink == nextNode['nodeId']:
-                        endingX= float(nextNode['x'])
+                        endingX= float(nextNode['x']) 
                         endingY = float(nextNode['y'])
 
                         edgeLength = math.sqrt(math.pow((endingY - startingY),2)+ math.pow((endingX-startingX),2))
@@ -349,8 +349,7 @@ def main():
                 currentDirection=currentDirection+360                
             if currentDirection<0:
                 currentDirection = currentDirection + 360
-                
-            shortestDistance = sys.maxint
+            
             nextNodeCounter = 1
             for eachNode in path:
                 if nextNodeCounter < len(path):
@@ -367,7 +366,13 @@ def main():
                         xNextNode = float(everyNode['x'])
                         yNextNode = float(everyNode['y'])
                         distanceNextNode = math.sqrt(math.pow((yCurrentLocation - yNextNode),2)+ math.pow((xCurrentLocation-xNextNode),2))
-                        
+                            
+                    if eachNode== path[0] and int(everyNode['nodeId']) == path[0] :
+                        shortestDistance= distanceCurrentNode
+                        nearestX = xCurrentNode
+                        nearestY = yCurrentNode
+                        nearestNode = path[0]
+                                        
                 if distanceNextNode <= distanceBetweenNode or distanceNextNode< shortestDistance:
                     shortestDistance= distanceNextNode
                     nearestNode = nextNode
@@ -380,6 +385,7 @@ def main():
                     nearestX = xCurrentNode
                     nearestY = yCurrentNode
                 nextNodeCounter = nextNodeCounter+1
+            
             
             if nearestNode == path[len(path)-1] and nearestX == xCurrentLocation and nearestY == yCurrentLocation:
                 print"You are at your destination."
