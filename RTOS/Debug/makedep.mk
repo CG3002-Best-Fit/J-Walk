@@ -10,6 +10,8 @@ L3G.cpp
 
 list.c
 
+LPS.cpp
+
 LSM303.cpp
 
 port.c

@@ -41,6 +41,7 @@ C_SRCS +=  \
 ../heap_1.c \
 ../L3G.cpp \
 ../list.c \
+../LPS.cpp \
 ../LSM303.cpp \
 ../port.c \
 ../queue.c \
@@ -63,6 +64,7 @@ CPPFile1.o \
 heap_1.o \
 L3G.o \
 list.o \
+LPS.o \
 LSM303.o \
 port.o \
 queue.o \
@@ -78,6 +80,7 @@ CPPFile1.o \
 heap_1.o \
 L3G.o \
 list.o \
+LPS.o \
 LSM303.o \
 port.o \
 queue.o \
@@ -93,6 +96,7 @@ CPPFile1.d \
 heap_1.d \
 L3G.d \
 list.d \
+LPS.d \
 LSM303.d \
 port.d \
 queue.d \
@@ -108,6 +112,7 @@ CPPFile1.d \
 heap_1.d \
 L3G.d \
 list.d \
+LPS.d \
 LSM303.d \
 port.d \
 queue.d \
@@ -158,17 +163,19 @@ LINKER_SCRIPT_DEP+=
 
 
 
+
+
 ./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: AVR8/GNU C Compiler : 4.8.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino" -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Demo\Common\include" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\portable\GCC\ATMega2560" -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire" -I"c:\PROGRA~2\atmel\ATMELT~1\AVR8GC~1\native\34F2F6~1.106\AVR8-G~1\avr\include\util" -I"C:\Users\uSER\Downloads\lsm303-arduino-master\LSM303" -I"C:\Users\uSER\Downloads\l3g-arduino-master\l3g-arduino-master\L3G" -I"C:\Users\uSER\Downloads\SharpIR\SharpIR"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino" -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Demo\Common\include" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\portable\GCC\ATMega2560" -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire" -I"c:\PROGRA~2\atmel\ATMELT~1\AVR8GC~1\native\34F2F6~1.106\AVR8-G~1\avr\include\util" -I"C:\Users\uSER\Downloads\lsm303-arduino-master\LSM303" -I"C:\Users\uSER\Downloads\l3g-arduino-master\l3g-arduino-master\L3G" -I"C:\Users\uSER\Downloads\SharpIR\SharpIR" -I"C:\Users\uSER\Downloads\LPS"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 ./%.o: .././%.cpp
 	@echo Building file: $<
 	@echo Invoking: AVR8/GNU C Compiler : 4.8.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-g++.exe$(QUOTE) -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino" -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Demo\Common\include" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\portable\GCC\ATMega2560" -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire" -I"c:\PROGRA~2\atmel\ATMELT~1\AVR8GC~1\native\34F2F6~1.106\AVR8-G~1\avr\include\util" -I"C:\Users\uSER\Downloads\lsm303-arduino-master\LSM303" -I"C:\Users\uSER\Downloads\l3g-arduino-master\l3g-arduino-master\L3G" -I"C:\Users\uSER\Downloads\SharpIR\SharpIR"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -c -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-g++.exe$(QUOTE) -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino" -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Demo\Common\include" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include" -I"C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\portable\GCC\ATMega2560" -I"C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire" -I"c:\PROGRA~2\atmel\ATMELT~1\AVR8GC~1\native\34F2F6~1.106\AVR8-G~1\avr\include\util" -I"C:\Users\uSER\Downloads\lsm303-arduino-master\LSM303" -I"C:\Users\uSER\Downloads\l3g-arduino-master\l3g-arduino-master\L3G" -I"C:\Users\uSER\Downloads\SharpIR\SharpIR" -I"C:\Users\uSER\Downloads\LPS"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -c -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 

@@ -1,9 +1,16 @@
-RTOS.d RTOS.o: .././RTOS.cpp \
- c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h \
- c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
+LPS.d LPS.o: .././LPS.cpp C:\Users\uSER\Downloads\LPS/LPS.h \
+ C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
+ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\stdlib.h \
+ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stddef.h \
+ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdbool.h \
+ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\string.h \
+ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\math.h \
+ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\inttypes.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdint.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\stdint.h \
+ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h \
+ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\iom2560.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\iomxx0_1.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\portpins.h \
@@ -11,21 +18,6 @@ RTOS.d RTOS.o: .././RTOS.cpp \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\version.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\lock.h \
- C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/FreeRTOS.h \
- c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stddef.h \
- C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/FreeRTOSConfig.h \
- C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/projdefs.h \
- C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/portable.h \
- C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\portable\GCC\ATMega2560/portmacro.h \
- C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/mpu_wrappers.h \
- C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/task.h \
- C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/list.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
- c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\stdlib.h \
- c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdbool.h \
- c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\string.h \
- c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\math.h \
- c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/binary.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/WCharacter.h \
@@ -43,25 +35,34 @@ RTOS.d RTOS.o: .././RTOS.cpp \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\mega/pins_arduino.h \
- C:\Users\uSER\Downloads\l3g-arduino-master\l3g-arduino-master\L3G/L3G.h \
- C:\Users\uSER\Downloads\lsm303-arduino-master\LSM303/LSM303.h \
- C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/semphr.h \
- C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/queue.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\libraries\Wire/Wire.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Stream.h \
- C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/queue.h \
- C:\Users\uSER\Downloads\SharpIR\SharpIR/SharpIR.h \
- C:\Users\uSER\Downloads\LPS/LPS.h
+ C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Stream.h
 
-c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h:
+C:\Users\uSER\Downloads\LPS/LPS.h:
 
-c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h:
+C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\stdlib.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stddef.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdbool.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\string.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\math.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\pgmspace.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\inttypes.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdint.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\stdint.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\iom2560.h:
 
@@ -76,36 +77,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-g
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\fuse.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\lock.h:
-
-C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/FreeRTOS.h:
-
-c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stddef.h:
-
-C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/FreeRTOSConfig.h:
-
-C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/projdefs.h:
-
-C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/portable.h:
-
-C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\portable\GCC\ATMega2560/portmacro.h:
-
-C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/mpu_wrappers.h:
-
-C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/task.h:
-
-C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/list.h:
-
-C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h:
-
-c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\stdlib.h:
-
-c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdbool.h:
-
-c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\string.h:
-
-c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\math.h:
-
-c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\pgmspace.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
 
@@ -141,20 +112,6 @@ C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h:
 
 C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\mega/pins_arduino.h:
 
-C:\Users\uSER\Downloads\l3g-arduino-master\l3g-arduino-master\L3G/L3G.h:
-
-C:\Users\uSER\Downloads\lsm303-arduino-master\LSM303/LSM303.h:
-
-C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/semphr.h:
-
-C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/queue.h:
-
 C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\libraries\Wire/Wire.h:
 
 C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Stream.h:
-
-C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/queue.h:
-
-C:\Users\uSER\Downloads\SharpIR\SharpIR/SharpIR.h:
-
-C:\Users\uSER\Downloads\LPS/LPS.h:

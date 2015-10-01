@@ -106,6 +106,7 @@
       <Value>C:\Users\uSER\Downloads\lsm303-arduino-master\LSM303</Value>
       <Value>C:\Users\uSER\Downloads\l3g-arduino-master\l3g-arduino-master\L3G</Value>
       <Value>C:\Users\uSER\Downloads\SharpIR\SharpIR</Value>
+      <Value>C:\Users\uSER\Downloads\LPS</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -132,6 +133,7 @@
       <Value>C:\Users\uSER\Downloads\lsm303-arduino-master\LSM303</Value>
       <Value>C:\Users\uSER\Downloads\l3g-arduino-master\l3g-arduino-master\L3G</Value>
       <Value>C:\Users\uSER\Downloads\SharpIR\SharpIR</Value>
+      <Value>C:\Users\uSER\Downloads\LPS</Value>
     </ListValues>
   </avrgcccpp.compiler.directories.IncludePaths>
   <avrgcccpp.compiler.optimization.level>Optimize (-O1)</avrgcccpp.compiler.optimization.level>
@@ -168,6 +170,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="list.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LPS.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LPS.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="LSM303.cpp">
