@@ -191,20 +191,32 @@ def dijkstra(aGraph, start, target):
 
 # Main function
 def main():
-    block= raw_input("Block: ") #obtain start location
-    level = raw_input("Level: ")
-
+    while 1: #Loop to check if the block and level input leads to a valid map
+        block= raw_input("Block: ") #obtain start location
+        level = raw_input("Level: ")
+        buildingInfo=[]
+        buildingInfo.append([])
     
-    buildingInfo=[]
-    buildingInfo.append([])
-    
-    buildingInfo[0].append(block)
-    buildingInfo[0].append(level)
-
+        buildingInfo[0].append(block)
+        buildingInfo[0].append(level)
+        totalInfo= downloadMap(buildingInfo[0])
+        
+        if totalInfo['info'] != None:
+            break
+        else:
+            print("Block/ Level is invalid")
+        
     
     totalInfoMatrix=[]
-    length = 0 # Starting location for the array to download map
-    totalLength = 1 # minimum number of maps
+    totalInfoMatrix.append(totalInfo)   # Stores all information of the starting map downloaded into an array
+    searchLocation = len(totalInfoMatrix)-1
+    newMapInfo = searchNewMap(totalInfoMatrix[searchLocation]['map'])   # extract out only the map information ( wifi and compass excluded) 
+    newBuildingSearch = searchNewBuilding(newMapInfo, buildingInfo, len(buildingInfo))
+ 
+    buildingInfo= newBuildingSearch[0]  # extract out the buildings(blocks and level) found that are linked to starting map
+    totalLength = newBuildingSearch[1]  # extract out the total number of buildings found    
+     
+    length = 1 # Starting location for the array to download map
     #Loop to download all the maps that are connected directly or indirectly to starting and ending map.
     #Loop will end when no new maps are found
     #First map downloaded is the map of the ending point if it is different from the starting map
@@ -232,6 +244,7 @@ def main():
 
     mapGraph=[]
     buildingCounter = 0
+    #Assigning edge connected to each node
     for x in xrange(0, maxRange):
         mapGraph.append([])
         g = Graph()
@@ -263,13 +276,27 @@ def main():
                     
         mapGraph[x].append(g)
         buildingCounter = buildingCounter+1
-        
-    testType = int(raw_input("Test type: "))
-    if testType ==1 :
-        while 1:
-               
-            while 1:
-                startNodeId = int(raw_input("Starting node: "))
+    
+    while 1:
+
+        while 1:#Loop to check for valid input
+            try:
+                testType = int(raw_input("Test type: "))
+            except ValueError:
+                print("Input invalid")
+            else:
+                break
+            
+        if testType ==1 :  
+            while 1:#Loop to check if the node exist
+                while 1:#Loop to check for valid input
+                    try:
+                        startNodeId = int(raw_input("Starting node: "))
+                    except ValueError:
+                        print("Input invalid")
+                    else:
+                        break
+
                 exist =False
                 for everyNode in totalInfoMatrix[0]['map']:
                     
@@ -281,8 +308,15 @@ def main():
                 else:
                     print("Starting Node invalid.")
                     
-            while 1:
-                endNodeId= int(raw_input("Ending node: "))
+            while 1:#Loop to check if the node exist
+                while 1:#Loop to check for valid input
+                    try:
+                        endNodeId= int(raw_input("Ending node: "))
+                    except ValueError:
+                        print("Input invalid")
+                    else:
+                        break
+
                 exist =False                
                 for everyNode in totalInfoMatrix[0]['map']:
                     if int(everyNode['nodeId']) == endNodeId:
@@ -301,10 +335,15 @@ def main():
             print 'The shortest path : %s' %(path[::-1])
             
      
-    elif testType ==2:             
-        while 1:
-            while 1:
-                startNodeId = int(raw_input("Starting node: "))
+        elif testType ==2:             
+            while 1:#Loop to check if node exist
+                while 1:#Loop to check for valid input
+                    try:
+                        startNodeId = int(raw_input("Starting node: "))
+                    except ValueError:
+                        print("Input invalid")
+                    else:
+                        break
                 exist =False
                 for everyNode in totalInfoMatrix[0]['map']:
                     if int(everyNode['nodeId']) == startNodeId:
@@ -315,8 +354,15 @@ def main():
                 else:
                     print("Starting Node invalid.")
                     
-            while 1:
-                endNodeId= int(raw_input("Ending node: "))
+            while 1:#Loop to check if node exist
+                while 1:#Loop to check for valid input
+                    try:
+                        endNodeId= int(raw_input("Ending node: "))
+                    except ValueError:
+                        print("Input invalid")
+                    else:
+                        break
+
                 exist =False
                 for everyNode in totalInfoMatrix[0]['map']:
                     
@@ -335,44 +381,71 @@ def main():
             path = [target.get_id()]
             shortest(target, path)            
             path = path[::-1]
-            print path
+            print 'The shortest path : %s' %path
 
             
 
-            xCurrentLocation = float(raw_input("X coordinate: "))
-            yCurrentLocation = float(raw_input("Y coordinate: "))
-            currentDirection = float(raw_input("Bearings: "))
 
+            while 1:#Loop to check for valid input
+                try:
+                    xCurrentLocation = float(raw_input("X coordinate: "))
+                except ValueError:
+                    print("Input invalid")
+                else:
+                    break            
+            while 1:#Loop to check for valid input
+                try:
+                    yCurrentLocation = float(raw_input("Y coordinate: "))
+                except ValueError:
+                    print("Input invalid")
+                else:
+                    break
+            while 1:#Loop to check for valid input
+                try:
+                    currentDirection = float(raw_input("Bearings: "))
+                except ValueError:
+                    print("Input invalid")
+                else:
+                    break
+
+
+            #Convert input of current direction to one that ranges from 0-359 inclusive
             while currentDirection>=360:
                 currentDirection=currentDirection-360
-            while currentDirection<=-360:
+            while currentDirection<0:
                 currentDirection=currentDirection+360                
-            if currentDirection<0:
-                currentDirection = currentDirection + 360
+
             
             nextNodeCounter = 1
+            #The program calculates which node is the nearest next node.
             for eachNode in path:
+                
+                #Check if there is a next node
                 if nextNodeCounter < len(path):
                     nextNode = path[nextNodeCounter]
                     distanceBetweenNode = mapGraph[0][2].get_vertex(eachNode).get_weight(mapGraph[0][2].get_vertex(nextNode))
+                    
                 else:
-                    break           
+                    break 
+                # Obtain information of the current node being checked and the next node in line          
                 for everyNode in totalInfoMatrix[0]['map']:
                     if int(everyNode['nodeId'])== eachNode:
                         xCurrentNode = float(everyNode['x'])
                         yCurrentNode = float(everyNode['y'])
                         distanceCurrentNode = math.sqrt(math.pow((yCurrentLocation - yCurrentNode),2)+ math.pow((xCurrentLocation-xCurrentNode),2))
+                        
                     if int(everyNode['nodeId'])== nextNode:
                         xNextNode = float(everyNode['x'])
                         yNextNode = float(everyNode['y'])
                         distanceNextNode = math.sqrt(math.pow((yCurrentLocation - yNextNode),2)+ math.pow((xCurrentLocation-xNextNode),2))
-                            
+                        
+                    #Assign the distance to starting node as the shortest distance        
                     if eachNode== path[0] and int(everyNode['nodeId']) == path[0] :
                         shortestDistance= distanceCurrentNode
                         nearestX = xCurrentNode
                         nearestY = yCurrentNode
                         nearestNode = path[0]
-                                        
+                        
                 if distanceNextNode <= distanceBetweenNode or distanceNextNode< shortestDistance:
                     shortestDistance= distanceNextNode
                     nearestNode = nextNode
@@ -386,55 +459,51 @@ def main():
                     nearestY = yCurrentNode
                 nextNodeCounter = nextNodeCounter+1
             
-            
+            # To end if you are at the last node 
             if nearestNode == path[len(path)-1] and nearestX == xCurrentLocation and nearestY == yCurrentLocation:
                 print"You are at your destination."
                 continue
 
             NorthToVert = 360 - float(totalInfoMatrix[0]['info']['northAt'])
-            angleFromNorth = None
+            
+            #Find angle to travel with respect to north from current location to next node
+            angleToTravel = None
             if nearestX == xCurrentLocation and nearestY > yCurrentLocation:
-                angleFromNorth = 0 + NorthToVert
+                angleToTravel = 0 + NorthToVert
             elif nearestX == xCurrentLocation and nearestY < yCurrentLocation:
-                angleFromNorth = 180 + NorthToVert
+                angleToTravel = 180 + NorthToVert
             elif nearestY == yCurrentLocation and nearestX > xCurrentLocation:
-                angleFromNorth = 90 + NorthToVert
+                angleToTravel = 90 + NorthToVert
             elif nearestY == yCurrentLocation and nearestX < xCurrentLocation:
-                angleFromNorth = 270 + NorthToVert
-            # What if on the spot itself? please CHECK
+                angleToTravel = 270 + NorthToVert
             
-            if angleFromNorth == None:
-                angle = atan2((nearestY-yCurrentLocation),(nearestX - xCurrentLocation))
+            if angleToTravel == None:
+                angle = math.degrees(atan2((nearestY-yCurrentLocation),(nearestX - xCurrentLocation)))
                 if angle > 90:
-                    angleFromNorth = 360 - angle + 90 + NorthToVert
+                    angleToTravel = 360 - angle + 90 + NorthToVert
                 else:
-                    angleFromNorth = 90 - angle + NorthToVert
+                    angleToTravel = 90 - angle + NorthToVert
                     
-            while angleFromNorth > 360:
-                angleFromNorth = angleFromNorth -360
-                
-                
-            directionComparison = angleFromNorth + (180 - currentDirection)
-            while directionComparison> 360:
-                directionComparison = directionComparison -360
-            
-            
-            if directionComparison == 0:
-                print "Travel straight ",shortestDistance,"cm to node ",nearestNode
-            elif directionComparison <180:
-                directionCorrection = currentDirection - angleFromNorth
-                print "Turn left by ", directionCorrection," degree and travel ",shortestDistance," cm to node ",nearestNode
-            else:
-                directionCorrection = angleFromNorth- currentDirection
-                print "Turn right by ", directionCorrection," degree and travel ",shortestDistance," cm to node ",nearestNode
-    #For checking purpose 
-    #To be removed on later stage
-    #counter = 1
+            while angleToTravel > 360:
+                angleToTravel = angleToTravel -360
 
-  #  for eachInfoMatrix in totalInfoMatrix:
-   #     print (counter)
-    #    print(eachInfoMatrix)
-     #   counter = counter +1
+            leftDirection = currentDirection -180
+            if leftDirection<0:
+                leftDirection= leftDirection+360
+                
+            if angleToTravel == currentDirection:
+                print "Travel straight %.2f"%shortestDistance,"cm to node",nearestNode
+            elif (angleToTravel <currentDirection and angleToTravel > leftDirection and leftDirection <180) or (((angleToTravel<currentDirection) or (angleToTravel > leftDirection)) and leftDirection >=180):
+                directionCorrection = currentDirection - angleToTravel
+                while directionCorrection<0:
+                    directionCorrection = directionCorrection+360
+                print "Turn left by %.2f" %directionCorrection,"degree and travel %.2f" %shortestDistance,"cm to node",nearestNode
+            else:
+    #For checking purpose 
+                directionCorrection = angleToTravel- currentDirection
+                while directionCorrection<0:
+                    directionCorrection = directionCorrection+360
+                print "Turn right by %.2f" %directionCorrection,"degree and travel %.2f" %shortestDistance,"cm to node",nearestNode
 
 if __name__ == "__main__":
     main()
