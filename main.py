@@ -4,11 +4,14 @@ Created on Sep 26, 2015
 @author: bamboo3250
 '''
 
-import serial
+import seriat
 import os
+
 from time import sleep
 from scanner import Scanner
 from audioManager import AudioManager
+from threading import Thread 
+from camera import sendImage
 
 port = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=2.0)
 sc = Scanner("")
@@ -30,38 +33,17 @@ def readlineCR():
             return rv
         rv += ch
 
-#while True:
-#    port.write("1");
-
-#    inputN = readlineCR()
-#    print inputN
-#    N = int(inputN)
-#    print("N = " + str(N))
-    #cnt = 0
-    
-#    for x in range(0, N):
-#        rcv = readlineCR()
-        #port.write("\r\nYou sent:" + rcv)
-        #port.write("1234")
-#        status = "";
-#        if (float(rcv) != values[x]):
-#            status = " (changed)"
-#            values[x] = float(rcv)
-#            print str(x) + " rcv = " + rcv + status
-        
-        
-#        if ((0<=x) and (x<=2) and (float(rcv) < 50)):
-#            if pygame.mixer.get_busy() == False:
-#                chan1.play(warning_audio)
-            
-#    sleep(1)
-#    os.system('clear')
+sensorValues = []
+status = []
 
 def init():
     #port = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=3.0)
-    pass
+    for i in range(0, 15):
+        sensorValues.append(-1)
+        status.append("changed")
 
-def waitForStartUp():
+
+def waitForMegaStartUp():
     while True:
         port.write("H");
         print "Saying Hello"
@@ -71,18 +53,13 @@ def waitForStartUp():
             print "Mega is ready!"
             break
 
-sensorValues = []
-status = []
-for i in range(0, 15):
-    sensorValues.append(-1)
-    status.append("changed")
 
 
 def obstacleDetected(u):
     return (10 <= sensorValues[u] and sensorValues[u] < 80)
 
 
-def poll():
+def pollData():
     pollCount = 0
     while True:
         port.write("P");
@@ -140,9 +117,20 @@ def poll():
         if (obstacleDetected(2)):
             audioManager.playWarning()
 
-    sleep(0.5)
+        sleep(0.5)
+
+def startThreads():
+    pollDataThread = Thread(target = pollData)
+    pollDataThread.start()
+    
+    sendImageThread = Thread(target = sendImage)
+    sendImageThread.start()
+    
+    pollDataThread.join()
+    sendImageThread.join()
+    
 
 if __name__ == '__main__':
-    init();
-    waitForStartUp();
-    poll();
+    waitForMegaStartUp()
+    startThreads()
+    #pollData()
