@@ -15,7 +15,7 @@ class AudioManager(object):
     left_audio = None
     right_audio = None
 
-    def __init__(self, params):
+    def __init__(self):
         pygame.init()
         pygame.mixer.init()
         
