@@ -38,6 +38,7 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../CPPFile1.cpp \
+../CPPFile2.cpp \
 ../heap_1.c \
 ../L3G.cpp \
 ../list.c \
@@ -61,6 +62,7 @@ ASM_SRCS +=
 
 OBJS +=  \
 CPPFile1.o \
+CPPFile2.o \
 heap_1.o \
 L3G.o \
 list.o \
@@ -77,6 +79,7 @@ wiring_pulse.o
 
 OBJS_AS_ARGS +=  \
 CPPFile1.o \
+CPPFile2.o \
 heap_1.o \
 L3G.o \
 list.o \
@@ -93,6 +96,7 @@ wiring_pulse.o
 
 C_DEPS +=  \
 CPPFile1.d \
+CPPFile2.d \
 heap_1.d \
 L3G.d \
 list.d \
@@ -109,6 +113,7 @@ wiring_pulse.d
 
 C_DEPS_AS_ARGS +=  \
 CPPFile1.d \
+CPPFile2.d \
 heap_1.d \
 L3G.d \
 list.d \
@@ -138,6 +143,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

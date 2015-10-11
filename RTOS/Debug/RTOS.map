@@ -91,7 +91,7 @@ c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-t
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_mulsi3.o)
                               LSM303.o (__mulsi3)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_divmodhi4.o)
-                              SharpIR.o (__divmodhi4)
+                              RTOS.o (__divmodhi4)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_udivmodsi4.o)
                               Wire.o (__udivmodsi4)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_divmodsi4.o)
@@ -135,6 +135,12 @@ Discarded input sections
  .debug_line    0x00000000        0x0 CPPFile1.o
  .debug_str     0x00000000        0x0 CPPFile1.o
  .comment       0x00000000       0x31 CPPFile1.o
+ .text          0x00000000        0x0 CPPFile2.o
+ .data          0x00000000        0x0 CPPFile2.o
+ .bss           0x00000000        0x0 CPPFile2.o
+ .debug_line    0x00000000        0x0 CPPFile2.o
+ .debug_str     0x00000000        0x0 CPPFile2.o
+ .comment       0x00000000       0x31 CPPFile2.o
  .text          0x00000000        0x0 heap_1.o
  .data          0x00000000        0x0 heap_1.o
  .bss           0x00000000        0x0 heap_1.o
@@ -145,6 +151,8 @@ Discarded input sections
  .text          0x00000000        0x0 L3G.o
  .data          0x00000000        0x0 L3G.o
  .bss           0x00000000        0x0 L3G.o
+ .text._ZN3L3GC2Ev
+                0x00000000        0xe L3G.o
  .text._ZN3L3G15timeoutOccurredEv
                 0x00000000        0x8 L3G.o
  .text._ZN3L3G10setTimeoutEj
@@ -153,18 +161,50 @@ Discarded input sections
                 0x00000000        0x8 L3G.o
  .text._ZN3L3G16vector_normalizeEPNS_6vectorIfEE
                 0x00000000      0x11a L3G.o
+ .text._ZN3L3G8writeRegEhh
+                0x00000000       0x40 L3G.o
+ .text._ZN3L3G13enableDefaultEv
+                0x00000000       0x30 L3G.o
  .text._ZN3L3G7readRegEh
                 0x00000000       0x50 L3G.o
+ .text._ZN3L3G4readEv
+                0x00000000       0xf0 L3G.o
+ .text._ZN3L3G7testRegEhNS_7regAddrE
+                0x00000000       0x58 L3G.o
+ .text._ZN3L3G4initENS_10deviceTypeENS_8sa0StateE
+                0x00000000      0x13c L3G.o
+ .debug_info    0x00000000      0xd60 L3G.o
+ .debug_abbrev  0x00000000      0x358 L3G.o
+ .debug_loc     0x00000000      0x87c L3G.o
+ .debug_aranges
+                0x00000000       0x70 L3G.o
+ .debug_ranges  0x00000000       0x60 L3G.o
+ .debug_line    0x00000000      0x5ed L3G.o
+ .debug_str     0x00000000      0x6f8 L3G.o
+ .comment       0x00000000       0x31 L3G.o
+ .debug_frame   0x00000000      0x1a4 L3G.o
  .text          0x00000000        0x0 list.o
  .data          0x00000000        0x0 list.o
  .bss           0x00000000        0x0 list.o
  .text          0x00000000        0x0 LPS.o
  .data          0x00000000        0x0 LPS.o
  .bss           0x00000000        0x0 LPS.o
+ .text._ZN3LPSC2Ev
+                0x00000000        0xc LPS.o
+ .text._ZN3LPS24pressureToAltitudeMetersEff
+                0x00000000       0x2e LPS.o
  .text._ZN3LPS22pressureToAltitudeFeetEff
                 0x00000000       0x2e LPS.o
+ .text._ZN3LPS8writeRegEih
+                0x00000000       0x58 LPS.o
+ .text._ZN3LPS13enableDefaultEv
+                0x00000000       0x24 LPS.o
  .text._ZN3LPS7readRegEi
                 0x00000000       0x76 LPS.o
+ .text._ZN3LPS15readPressureRawEv
+                0x00000000       0xa4 LPS.o
+ .text._ZN3LPS21readPressureMillibarsEv
+                0x00000000       0x16 LPS.o
  .text._ZN3LPS20readPressureInchesHgEv
                 0x00000000       0x16 LPS.o
  .text._ZN3LPS18readTemperatureRawEv
@@ -173,6 +213,24 @@ Discarded input sections
                 0x00000000       0x2c LPS.o
  .text._ZN3LPS16readTemperatureFEv
                 0x00000000       0x38 LPS.o
+ .text._ZN3LPS10testWhoAmIEh
+                0x00000000       0x54 LPS.o
+ .text._ZN3LPS12detectDeviceENS_10deviceTypeE
+                0x00000000       0x42 LPS.o
+ .text._ZN3LPS22detectDeviceAndAddressENS_10deviceTypeENS_8sa0StateE
+                0x00000000       0x46 LPS.o
+ .text._ZN3LPS4initENS_10deviceTypeEh
+                0x00000000       0x42 LPS.o
+ .debug_info    0x00000000      0xe9b LPS.o
+ .debug_abbrev  0x00000000      0x325 LPS.o
+ .debug_loc     0x00000000      0x749 LPS.o
+ .debug_aranges
+                0x00000000       0x98 LPS.o
+ .debug_ranges  0x00000000       0x88 LPS.o
+ .debug_line    0x00000000      0x5aa LPS.o
+ .debug_str     0x00000000      0x8a5 LPS.o
+ .comment       0x00000000       0x31 LPS.o
+ .debug_frame   0x00000000      0x190 LPS.o
  .group         0x00000000        0x8 LSM303.o
  .text          0x00000000        0x0 LSM303.o
  .data          0x00000000        0x0 LSM303.o
@@ -244,15 +302,25 @@ Discarded input sections
  .bss           0x00000000        0x0 RTOS.o
  .text._Z10printArrayPv
                 0x00000000       0x3a RTOS.o
- .text._Z16taskReadInfraredPv
-                0x00000000       0x1a RTOS.o
  .text          0x00000000        0x0 SharpIR.o
  .data          0x00000000        0x0 SharpIR.o
  .bss           0x00000000        0x0 SharpIR.o
+ .text._ZN7SharpIRC2Eiiii
+                0x00000000       0x2c SharpIR.o
  .text._ZN7SharpIR2cmEv
                 0x00000000       0xe2 SharpIR.o
  .text._ZN7SharpIR8distanceEv
                 0x00000000       0x82 SharpIR.o
+ .debug_info    0x00000000      0x507 SharpIR.o
+ .debug_abbrev  0x00000000      0x21f SharpIR.o
+ .debug_loc     0x00000000      0x398 SharpIR.o
+ .debug_aranges
+                0x00000000       0x30 SharpIR.o
+ .debug_ranges  0x00000000       0x20 SharpIR.o
+ .debug_line    0x00000000      0x1d9 SharpIR.o
+ .debug_str     0x00000000      0x29a SharpIR.o
+ .comment       0x00000000       0x31 SharpIR.o
+ .debug_frame   0x00000000       0xb0 SharpIR.o
  .text          0x00000000        0x0 tasks.o
  .data          0x00000000        0x0 tasks.o
  .bss           0x00000000        0x0 tasks.o
@@ -397,6 +465,8 @@ Discarded input sections
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(pow.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(pow.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(pow.o)
+ .text.avr-libc.fplib
+                0x00000000       0x98 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(pow.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(sqrt.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(sqrt.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(sqrt.o)
@@ -406,6 +476,10 @@ Discarded input sections
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(exp.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(exp.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(exp.o)
+ .text.avr-libc.fplib
+                0x00000000       0x62 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(exp.o)
+ .progmem.gcc_fplib
+                0x00000000       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(exp.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_mpack.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_mpack.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_mpack.o)
@@ -415,12 +489,20 @@ Discarded input sections
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(ldexp.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(ldexp.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(ldexp.o)
+ .text.avr-libc.fplib
+                0x00000000       0x6c c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(ldexp.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(log.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(log.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(log.o)
+ .text.avr-libc.fplib
+                0x00000000       0x8a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(log.o)
+ .progmem.gcc_fplib
+                0x00000000       0x5a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(log.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(modf.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(modf.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(modf.o)
+ .text.avr-libc.fplib
+                0x00000000       0x66 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(modf.o)
  .text          0x00000000        0x0 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(abi.o)
  .data          0x00000000        0x0 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(abi.o)
  .bss           0x00000000        0x0 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(abi.o)
@@ -515,12 +597,26 @@ Discarded input sections
  .text          0x00000000        0x0 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
  .data          0x00000000        0x0 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
  .bss           0x00000000        0x0 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
+ .text.analogReference
+                0x00000000        0x6 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
  .text.analogRead
                 0x00000000       0x48 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
  .text.analogWrite
                 0x00000000      0x19a C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
  .progmem.gcc_sw_table.analogWrite
                 0x00000000       0x24 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
+ .data.analog_reference
+                0x00000000        0x1 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
+ .debug_info    0x00000000      0x333 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
+ .debug_abbrev  0x00000000      0x183 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
+ .debug_loc     0x00000000       0xf2 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
+ .debug_aranges
+                0x00000000       0x30 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
+ .debug_ranges  0x00000000       0x20 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
+ .debug_line    0x00000000      0x2e3 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
+ .debug_str     0x00000000      0x203 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
+ .comment       0x00000000       0x31 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
+ .debug_frame   0x00000000       0x54 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
  .text          0x00000000        0x0 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
  .data          0x00000000        0x0 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
  .bss           0x00000000        0x0 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
@@ -839,6 +935,7 @@ Linker script and memory map
 Address of section .data set to 0x800200
 LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
 LOAD CPPFile1.o
+LOAD CPPFile2.o
 LOAD heap_1.o
 LOAD L3G.o
 LOAD list.o
@@ -954,7 +1051,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x4328
+.text           0x00000000     0x38ae
  *(.vectors)
  .vectors       0x00000000       0xe4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
                 0x00000000                __vector_default
@@ -965,593 +1062,507 @@ END GROUP
                 0x000000e4      0x192 twi.o
  .progmem.gcc_fplib
                 0x00000276       0x2d c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(atan.o)
- .progmem.gcc_fplib
-                0x000002a3       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(exp.o)
- .progmem.gcc_fplib
-                0x000002cb       0x5a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(log.o)
- *fill*         0x00000325        0x1 
+ *fill*         0x000002a3        0x1 
  .progmem.gcc_sw_table.turnOffPWM
-                0x00000326       0x24 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
-                0x0000034a                . = ALIGN (0x2)
-                0x0000034a                __trampolines_start = .
+                0x000002a4       0x24 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+                0x000002c8                . = ALIGN (0x2)
+                0x000002c8                __trampolines_start = .
  *(.trampolines)
- .trampolines   0x0000034a        0x0 linker stubs
+ .trampolines   0x000002c8        0x0 linker stubs
  *(.trampolines*)
-                0x0000034a                __trampolines_end = .
+                0x000002c8                __trampolines_end = .
  *(.progmem*)
  .progmem.data.digital_pin_to_timer_PGM
-                0x0000034a       0x46 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
-                0x0000034a                digital_pin_to_timer_PGM
+                0x000002c8       0x46 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+                0x000002c8                digital_pin_to_timer_PGM
  .progmem.data.digital_pin_to_bit_mask_PGM
-                0x00000390       0x46 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
-                0x00000390                digital_pin_to_bit_mask_PGM
+                0x0000030e       0x46 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+                0x0000030e                digital_pin_to_bit_mask_PGM
  .progmem.data.digital_pin_to_port_PGM
-                0x000003d6       0x46 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
-                0x000003d6                digital_pin_to_port_PGM
+                0x00000354       0x46 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+                0x00000354                digital_pin_to_port_PGM
  .progmem.data.port_to_input_PGM
-                0x0000041c       0x1a C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
-                0x0000041c                port_to_input_PGM
+                0x0000039a       0x1a C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+                0x0000039a                port_to_input_PGM
  .progmem.data.port_to_output_PGM
-                0x00000436       0x1a C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
-                0x00000436                port_to_output_PGM
+                0x000003b4       0x1a C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+                0x000003b4                port_to_output_PGM
  .progmem.data.port_to_mode_PGM
-                0x00000450       0x1a C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
-                0x00000450                port_to_mode_PGM
-                0x0000046a                . = ALIGN (0x2)
+                0x000003ce       0x1a C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+                0x000003ce                port_to_mode_PGM
+                0x000003e8                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
  *(.lowtext*)
-                0x0000046a                __ctors_start = .
+                0x000003e8                __ctors_start = .
  *(.ctors)
- .ctors         0x0000046a        0x2 RTOS.o
- .ctors         0x0000046c        0x2 Wire.o
- .ctors         0x0000046e        0x2 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
- .ctors         0x00000470        0x2 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
-                0x00000472                __ctors_end = .
-                0x00000472                __dtors_start = .
+ .ctors         0x000003e8        0x2 RTOS.o
+ .ctors         0x000003ea        0x2 Wire.o
+ .ctors         0x000003ec        0x2 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+ .ctors         0x000003ee        0x2 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+                0x000003f0                __ctors_end = .
+                0x000003f0                __dtors_start = .
  *(.dtors)
-                0x00000472                __dtors_end = .
+                0x000003f0                __dtors_end = .
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x00000472        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
-                0x00000472                __init
+ .init0         0x000003f0        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
+                0x000003f0                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x00000472       0x10 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
+ .init2         0x000003f0       0x10 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x00000482       0x1a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_copy_data.o)
-                0x00000482                __do_copy_data
- .init4         0x0000049c       0x10 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_clear_bss.o)
-                0x0000049c                __do_clear_bss
+ .init4         0x00000400       0x1a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_copy_data.o)
+                0x00000400                __do_copy_data
+ .init4         0x0000041a       0x10 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_clear_bss.o)
+                0x0000041a                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
  *(.init6)
- .init6         0x000004ac       0x20 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_ctors.o)
-                0x000004ac                __do_global_ctors
+ .init6         0x0000042a       0x20 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_ctors.o)
+                0x0000042a                __do_global_ctors
  *(.init6)
  *(.init7)
  *(.init7)
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x000004cc        0x8 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
+ .init9         0x0000044a        0x8 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
  *(.init9)
  *(.text)
- .text          0x000004d4        0x2 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
-                0x000004d4                __vector_38
-                0x000004d4                __vector_22
-                0x000004d4                __vector_28
-                0x000004d4                __vector_1
-                0x000004d4                __vector_32
-                0x000004d4                __vector_34
-                0x000004d4                __vector_24
-                0x000004d4                __vector_12
-                0x000004d4                __vector_55
-                0x000004d4                __vector_46
-                0x000004d4                __bad_interrupt
-                0x000004d4                __vector_6
-                0x000004d4                __vector_31
-                0x000004d4                __vector_35
-                0x000004d4                __vector_3
-                0x000004d4                __vector_30
-                0x000004d4                __vector_45
-                0x000004d4                __vector_11
-                0x000004d4                __vector_54
-                0x000004d4                __vector_17
-                0x000004d4                __vector_19
-                0x000004d4                __vector_56
-                0x000004d4                __vector_7
-                0x000004d4                __vector_49
-                0x000004d4                __vector_41
-                0x000004d4                __vector_43
-                0x000004d4                __vector_27
-                0x000004d4                __vector_5
-                0x000004d4                __vector_33
-                0x000004d4                __vector_47
-                0x000004d4                __vector_52
-                0x000004d4                __vector_4
-                0x000004d4                __vector_44
-                0x000004d4                __vector_51
-                0x000004d4                __vector_9
-                0x000004d4                __vector_2
-                0x000004d4                __vector_21
-                0x000004d4                __vector_15
-                0x000004d4                __vector_29
-                0x000004d4                __vector_40
-                0x000004d4                __vector_8
-                0x000004d4                __vector_48
-                0x000004d4                __vector_14
-                0x000004d4                __vector_53
-                0x000004d4                __vector_10
-                0x000004d4                __vector_50
-                0x000004d4                __vector_16
-                0x000004d4                __vector_18
-                0x000004d4                __vector_20
-                0x000004d4                __vector_42
- .text          0x000004d6       0x8a wiring_pulse.o
-                0x000004d6                countPulseASM
-                0x00000560                . = ALIGN (0x2)
+ .text          0x00000452        0x2 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
+                0x00000452                __vector_38
+                0x00000452                __vector_22
+                0x00000452                __vector_28
+                0x00000452                __vector_1
+                0x00000452                __vector_32
+                0x00000452                __vector_34
+                0x00000452                __vector_24
+                0x00000452                __vector_12
+                0x00000452                __vector_55
+                0x00000452                __vector_46
+                0x00000452                __bad_interrupt
+                0x00000452                __vector_6
+                0x00000452                __vector_31
+                0x00000452                __vector_35
+                0x00000452                __vector_3
+                0x00000452                __vector_30
+                0x00000452                __vector_45
+                0x00000452                __vector_11
+                0x00000452                __vector_54
+                0x00000452                __vector_17
+                0x00000452                __vector_19
+                0x00000452                __vector_56
+                0x00000452                __vector_7
+                0x00000452                __vector_49
+                0x00000452                __vector_41
+                0x00000452                __vector_43
+                0x00000452                __vector_27
+                0x00000452                __vector_5
+                0x00000452                __vector_33
+                0x00000452                __vector_47
+                0x00000452                __vector_52
+                0x00000452                __vector_4
+                0x00000452                __vector_44
+                0x00000452                __vector_51
+                0x00000452                __vector_9
+                0x00000452                __vector_2
+                0x00000452                __vector_21
+                0x00000452                __vector_15
+                0x00000452                __vector_29
+                0x00000452                __vector_40
+                0x00000452                __vector_8
+                0x00000452                __vector_48
+                0x00000452                __vector_14
+                0x00000452                __vector_53
+                0x00000452                __vector_10
+                0x00000452                __vector_50
+                0x00000452                __vector_16
+                0x00000452                __vector_18
+                0x00000452                __vector_20
+                0x00000452                __vector_42
+ .text          0x00000454       0x8a wiring_pulse.o
+                0x00000454                countPulseASM
+                0x000004de                . = ALIGN (0x2)
  *(.text.*)
  .text.pvPortMalloc
-                0x00000560       0x6a heap_1.o
-                0x00000560                pvPortMalloc
+                0x000004de       0x6a heap_1.o
+                0x000004de                pvPortMalloc
  .text.vPortFree
-                0x000005ca        0x2 heap_1.o
-                0x000005ca                vPortFree
- .text._ZN3L3GC2Ev
-                0x000005cc        0xe L3G.o
-                0x000005cc                _ZN3L3GC1Ev
-                0x000005cc                _ZN3L3GC2Ev
- .text._ZN3L3G8writeRegEhh
-                0x000005da       0x40 L3G.o
-                0x000005da                _ZN3L3G8writeRegEhh
- .text._ZN3L3G13enableDefaultEv
-                0x0000061a       0x2a L3G.o
-                0x0000061a                _ZN3L3G13enableDefaultEv
- .text._ZN3L3G4readEv
-                0x00000644       0xf0 L3G.o
-                0x00000644                _ZN3L3G4readEv
- .text._ZN3L3G7testRegEhNS_7regAddrE
-                0x00000734       0x58 L3G.o
-                0x00000734                _ZN3L3G7testRegEhNS_7regAddrE
- .text._ZN3L3G4initENS_10deviceTypeENS_8sa0StateE
-                0x0000078c      0x130 L3G.o
-                0x0000078c                _ZN3L3G4initENS_10deviceTypeENS_8sa0StateE
+                0x00000548        0x2 heap_1.o
+                0x00000548                vPortFree
  .text.vListInitialise
-                0x000008bc       0x1c list.o
-                0x000008bc                vListInitialise
+                0x0000054a       0x1c list.o
+                0x0000054a                vListInitialise
  .text.vListInitialiseItem
-                0x000008d8        0x8 list.o
-                0x000008d8                vListInitialiseItem
+                0x00000566        0x8 list.o
+                0x00000566                vListInitialiseItem
  .text.vListInsertEnd
-                0x000008e0       0x42 list.o
-                0x000008e0                vListInsertEnd
+                0x0000056e       0x42 list.o
+                0x0000056e                vListInsertEnd
  .text.vListInsert
-                0x00000922       0x62 list.o
-                0x00000922                vListInsert
+                0x000005b0       0x62 list.o
+                0x000005b0                vListInsert
  .text.uxListRemove
-                0x00000984       0x4c list.o
-                0x00000984                uxListRemove
- .text._ZN3LPSC2Ev
-                0x000009d0        0xc LPS.o
-                0x000009d0                _ZN3LPSC2Ev
-                0x000009d0                _ZN3LPSC1Ev
- .text._ZN3LPS24pressureToAltitudeMetersEff
-                0x000009dc       0x2e LPS.o
-                0x000009dc                _ZN3LPS24pressureToAltitudeMetersEff
- .text._ZN3LPS8writeRegEih
-                0x00000a0a       0x58 LPS.o
-                0x00000a0a                _ZN3LPS8writeRegEih
- .text._ZN3LPS13enableDefaultEv
-                0x00000a62       0x20 LPS.o
-                0x00000a62                _ZN3LPS13enableDefaultEv
- .text._ZN3LPS15readPressureRawEv
-                0x00000a82       0xa4 LPS.o
-                0x00000a82                _ZN3LPS15readPressureRawEv
- .text._ZN3LPS21readPressureMillibarsEv
-                0x00000b26       0x14 LPS.o
-                0x00000b26                _ZN3LPS21readPressureMillibarsEv
- .text._ZN3LPS10testWhoAmIEh
-                0x00000b3a       0x54 LPS.o
-                0x00000b3a                _ZN3LPS10testWhoAmIEh
- .text._ZN3LPS12detectDeviceENS_10deviceTypeE
-                0x00000b8e       0x40 LPS.o
-                0x00000b8e                _ZN3LPS12detectDeviceENS_10deviceTypeE
- .text._ZN3LPS22detectDeviceAndAddressENS_10deviceTypeENS_8sa0StateE
-                0x00000bce       0x42 LPS.o
-                0x00000bce                _ZN3LPS22detectDeviceAndAddressENS_10deviceTypeENS_8sa0StateE
- .text._ZN3LPS4initENS_10deviceTypeEh
-                0x00000c10       0x40 LPS.o
-                0x00000c10                _ZN3LPS4initENS_10deviceTypeEh
+                0x00000612       0x4c list.o
+                0x00000612                uxListRemove
  .text._ZN6LSM303C2Ev
-                0x00000c50       0x3a LSM303.o
-                0x00000c50                _ZN6LSM303C1Ev
-                0x00000c50                _ZN6LSM303C2Ev
+                0x0000065e       0x3a LSM303.o
+                0x0000065e                _ZN6LSM303C1Ev
+                0x0000065e                _ZN6LSM303C2Ev
  .text._ZN6LSM30316vector_normalizeEPNS_6vectorIfEE
-                0x00000c8a      0x11a LSM303.o
-                0x00000c8a                _ZN6LSM30316vector_normalizeEPNS_6vectorIfEE
+                0x00000698      0x11a LSM303.o
+                0x00000698                _ZN6LSM30316vector_normalizeEPNS_6vectorIfEE
  .text._ZN6LSM3037headingIiEEfNS_6vectorIT_EE
-                0x00000da4      0x4ee LSM303.o
-                0x00000da4                _ZN6LSM3037headingIiEEfNS_6vectorIT_EE
+                0x000007b2      0x4ee LSM303.o
+                0x000007b2                _ZN6LSM3037headingIiEEfNS_6vectorIT_EE
  .text._ZN6LSM3037headingEv
-                0x00001292       0x68 LSM303.o
-                0x00001292                _ZN6LSM3037headingEv
+                0x00000ca0       0x68 LSM303.o
+                0x00000ca0                _ZN6LSM3037headingEv
  .text._ZN6LSM30311writeAccRegEhh
-                0x000012fa       0x40 LSM303.o
-                0x000012fa                _ZN6LSM30311writeAccRegEhh
+                0x00000d08       0x40 LSM303.o
+                0x00000d08                _ZN6LSM30311writeAccRegEhh
  .text._ZN6LSM30311writeMagRegEhh
-                0x0000133a       0x40 LSM303.o
-                0x0000133a                _ZN6LSM30311writeMagRegEhh
+                0x00000d48       0x40 LSM303.o
+                0x00000d48                _ZN6LSM30311writeMagRegEhh
  .text._ZN6LSM3038writeRegEhh
-                0x0000137a       0x14 LSM303.o
-                0x0000137a                _ZN6LSM3038writeRegEhh
+                0x00000d88       0x14 LSM303.o
+                0x00000d88                _ZN6LSM3038writeRegEhh
  .text._ZN6LSM30313enableDefaultEv
-                0x0000138e       0x7a LSM303.o
-                0x0000138e                _ZN6LSM30313enableDefaultEv
+                0x00000d9c       0x7a LSM303.o
+                0x00000d9c                _ZN6LSM30313enableDefaultEv
  .text._ZN6LSM3037readAccEv
-                0x00001408       0xf2 LSM303.o
-                0x00001408                _ZN6LSM3037readAccEv
+                0x00000e16       0xf2 LSM303.o
+                0x00000e16                _ZN6LSM3037readAccEv
  .text._ZN6LSM3037readMagEv
-                0x000014fa      0x176 LSM303.o
-                0x000014fa                _ZN6LSM3037readMagEv
+                0x00000f08      0x176 LSM303.o
+                0x00000f08                _ZN6LSM3037readMagEv
  .text._ZN6LSM3034readEv
-                0x00001670       0x12 LSM303.o
-                0x00001670                _ZN6LSM3034readEv
+                0x0000107e       0x12 LSM303.o
+                0x0000107e                _ZN6LSM3034readEv
  .text._ZN6LSM3037testRegEhNS_7regAddrE
-                0x00001682       0x58 LSM303.o
-                0x00001682                _ZN6LSM3037testRegEhNS_7regAddrE
+                0x00001090       0x58 LSM303.o
+                0x00001090                _ZN6LSM3037testRegEhNS_7regAddrE
  .text._ZN6LSM3034initENS_10deviceTypeENS_8sa0StateE
-                0x000016da      0x1b8 LSM303.o
-                0x000016da                _ZN6LSM3034initENS_10deviceTypeENS_8sa0StateE
+                0x000010e8      0x1b8 LSM303.o
+                0x000010e8                _ZN6LSM3034initENS_10deviceTypeENS_8sa0StateE
  .text.pxPortInitialiseStack
-                0x00001892       0xe4 port.o
-                0x00001892                pxPortInitialiseStack
+                0x000012a0       0xe4 port.o
+                0x000012a0                pxPortInitialiseStack
  .text.xPortStartScheduler
-                0x00001976       0x82 port.o
-                0x00001976                xPortStartScheduler
+                0x00001384       0x82 port.o
+                0x00001384                xPortStartScheduler
  .text.vPortYield
-                0x000019f8       0xc0 port.o
-                0x000019f8                vPortYield
+                0x00001406       0xc0 port.o
+                0x00001406                vPortYield
  .text.vPortYieldFromTick
-                0x00001ab8       0xc4 port.o
-                0x00001ab8                vPortYieldFromTick
+                0x000014c6       0xc4 port.o
+                0x000014c6                vPortYieldFromTick
  .text.__vector_13
-                0x00001b7c        0x4 port.o
-                0x00001b7c                __vector_13
+                0x0000158a        0x4 port.o
+                0x0000158a                __vector_13
  .text._Z13taskReadSonarPv
-                0x00001b80      0x1c2 RTOS.o
-                0x00001b80                _Z13taskReadSonarPv
+                0x0000158e      0x1c2 RTOS.o
+                0x0000158e                _Z13taskReadSonarPv
  .text._Z11taskReadAccPv
-                0x00001d42      0x12c RTOS.o
-                0x00001d42                _Z11taskReadAccPv
- .text._Z12taskReadGyroPv
-                0x00001e6e       0xe6 RTOS.o
-                0x00001e6e                _Z12taskReadGyroPv
- .text._Z15taskReadMagnetoPv
-                0x00001f54       0x24 RTOS.o
-                0x00001f54                _Z15taskReadMagnetoPv
- .text._Z17taskReadAltimeterPv
-                0x00001f78       0x44 RTOS.o
-                0x00001f78                _Z17taskReadAltimeterPv
- .text.setup    0x00001fbc       0xbc RTOS.o
-                0x00001fbc                setup
- .text.main     0x00002078       0xf2 RTOS.o
-                0x00002078                main
+                0x00001750      0x10e RTOS.o
+                0x00001750                _Z11taskReadAccPv
+ .text.setup    0x0000185e       0x8a RTOS.o
+                0x0000185e                setup
+ .text.main     0x000018e8       0x9c RTOS.o
+                0x000018e8                main
  .text._GLOBAL__sub_I_echo_1
-                0x0000216a       0x38 RTOS.o
+                0x00001984        0xa RTOS.o
  .text._Z9handShakePv
-                0x000021a2       0xe8 RTOS.o
-                0x000021a2                _Z9handShakePv
- .text._ZN7SharpIRC2Eiiii
-                0x0000228a       0x2c SharpIR.o
-                0x0000228a                _ZN7SharpIRC1Eiiii
-                0x0000228a                _ZN7SharpIRC2Eiiii
+                0x0000198e      0x10a RTOS.o
+                0x0000198e                _Z9handShakePv
  .text.prvResetNextTaskUnblockTime
-                0x000022b6       0x3e tasks.o
+                0x00001a98       0x3e tasks.o
  .text.prvAddCurrentTaskToDelayedList
-                0x000022f4       0x6e tasks.o
+                0x00001ad6       0x6e tasks.o
  .text.xTaskGenericCreate
-                0x00002362      0x210 tasks.o
-                0x00002362                xTaskGenericCreate
+                0x00001b44      0x210 tasks.o
+                0x00001b44                xTaskGenericCreate
  .text.vTaskStartScheduler
-                0x00002572       0x52 tasks.o
-                0x00002572                vTaskStartScheduler
+                0x00001d54       0x52 tasks.o
+                0x00001d54                vTaskStartScheduler
  .text.vTaskSuspendAll
-                0x000025c4        0xc tasks.o
-                0x000025c4                vTaskSuspendAll
+                0x00001da6        0xc tasks.o
+                0x00001da6                vTaskSuspendAll
  .text.xTaskIncrementTick
-                0x000025d0      0x17c tasks.o
-                0x000025d0                xTaskIncrementTick
+                0x00001db2      0x17c tasks.o
+                0x00001db2                xTaskIncrementTick
  .text.xTaskResumeAll
-                0x0000274c      0x102 tasks.o
-                0x0000274c                xTaskResumeAll
+                0x00001f2e      0x102 tasks.o
+                0x00001f2e                xTaskResumeAll
  .text.vTaskDelay
-                0x0000284e       0x38 tasks.o
-                0x0000284e                vTaskDelay
+                0x00002030       0x38 tasks.o
+                0x00002030                vTaskDelay
  .text.prvIdleTask
-                0x00002886       0x72 tasks.o
+                0x00002068       0x72 tasks.o
  .text.vTaskSwitchContext
-                0x000028f8       0xbc tasks.o
-                0x000028f8                vTaskSwitchContext
+                0x000020da       0xbc tasks.o
+                0x000020da                vTaskSwitchContext
  .text.twi_init
-                0x000029b4       0x3c twi.o
-                0x000029b4                twi_init
+                0x00002196       0x3c twi.o
+                0x00002196                twi_init
  .text.twi_readFrom
-                0x000029f0       0x9c twi.o
-                0x000029f0                twi_readFrom
+                0x000021d2       0x9c twi.o
+                0x000021d2                twi_readFrom
  .text.twi_writeTo
-                0x00002a8c       0xba twi.o
-                0x00002a8c                twi_writeTo
+                0x0000226e       0xba twi.o
+                0x0000226e                twi_writeTo
  .text.twi_transmit
-                0x00002b46       0x3e twi.o
-                0x00002b46                twi_transmit
+                0x00002328       0x3e twi.o
+                0x00002328                twi_transmit
  .text.twi_stop
-                0x00002b84       0x16 twi.o
-                0x00002b84                twi_stop
+                0x00002366       0x16 twi.o
+                0x00002366                twi_stop
  .text.twi_releaseBus
-                0x00002b9a        0xc twi.o
-                0x00002b9a                twi_releaseBus
+                0x0000237c        0xc twi.o
+                0x0000237c                twi_releaseBus
  .text.__vector_39
-                0x00002ba6      0x238 twi.o
-                0x00002ba6                __vector_39
+                0x00002388      0x238 twi.o
+                0x00002388                __vector_39
  .text._ZN7TwoWire9availableEv
-                0x00002dde       0x10 Wire.o
-                0x00002dde                _ZN7TwoWire9availableEv
+                0x000025c0       0x10 Wire.o
+                0x000025c0                _ZN7TwoWire9availableEv
  .text._ZN7TwoWire4readEv
-                0x00002dee       0x26 Wire.o
-                0x00002dee                _ZN7TwoWire4readEv
+                0x000025d0       0x26 Wire.o
+                0x000025d0                _ZN7TwoWire4readEv
  .text._ZN7TwoWire4peekEv
-                0x00002e14       0x1e Wire.o
-                0x00002e14                _ZN7TwoWire4peekEv
+                0x000025f6       0x1e Wire.o
+                0x000025f6                _ZN7TwoWire4peekEv
  .text._ZN7TwoWire5flushEv
-                0x00002e32        0x2 Wire.o
-                0x00002e32                _ZN7TwoWire5flushEv
+                0x00002614        0x2 Wire.o
+                0x00002614                _ZN7TwoWire5flushEv
  .text._ZN7TwoWire5writeEPKhj
-                0x00002e34       0x5e Wire.o
-                0x00002e34                _ZN7TwoWire5writeEPKhj
+                0x00002616       0x5e Wire.o
+                0x00002616                _ZN7TwoWire5writeEPKhj
  .text._ZN7TwoWire5writeEh
-                0x00002e92       0x60 Wire.o
-                0x00002e92                _ZN7TwoWire5writeEh
+                0x00002674       0x60 Wire.o
+                0x00002674                _ZN7TwoWire5writeEh
  .text._ZN7TwoWireC2Ev
-                0x00002ef2       0x20 Wire.o
-                0x00002ef2                _ZN7TwoWireC1Ev
-                0x00002ef2                _ZN7TwoWireC2Ev
+                0x000026d4       0x20 Wire.o
+                0x000026d4                _ZN7TwoWireC1Ev
+                0x000026d4                _ZN7TwoWireC2Ev
  .text._ZN7TwoWire5beginEv
-                0x00002f12       0x14 Wire.o
-                0x00002f12                _ZN7TwoWire5beginEv
+                0x000026f4       0x14 Wire.o
+                0x000026f4                _ZN7TwoWire5beginEv
  .text._ZN7TwoWire11requestFromEhhh
-                0x00002f26       0x18 Wire.o
-                0x00002f26                _ZN7TwoWire11requestFromEhhh
+                0x00002708       0x18 Wire.o
+                0x00002708                _ZN7TwoWire11requestFromEhhh
  .text._ZN7TwoWire11requestFromEhh
-                0x00002f3e        0x6 Wire.o
-                0x00002f3e                _ZN7TwoWire11requestFromEhh
+                0x00002720        0x6 Wire.o
+                0x00002720                _ZN7TwoWire11requestFromEhh
  .text._ZN7TwoWire17beginTransmissionEh
-                0x00002f44       0x14 Wire.o
-                0x00002f44                _ZN7TwoWire17beginTransmissionEh
+                0x00002726       0x14 Wire.o
+                0x00002726                _ZN7TwoWire17beginTransmissionEh
  .text._ZN7TwoWire15endTransmissionEh
-                0x00002f58       0x24 Wire.o
-                0x00002f58                _ZN7TwoWire15endTransmissionEh
+                0x0000273a       0x24 Wire.o
+                0x0000273a                _ZN7TwoWire15endTransmissionEh
  .text._ZN7TwoWire15endTransmissionEv
-                0x00002f7c        0x6 Wire.o
-                0x00002f7c                _ZN7TwoWire15endTransmissionEv
+                0x0000275e        0x6 Wire.o
+                0x0000275e                _ZN7TwoWire15endTransmissionEv
  .text._GLOBAL__sub_I__ZN7TwoWire8rxBufferE
-                0x00002f82        0x8 Wire.o
+                0x00002764        0x8 Wire.o
  .text.avr-libc.fplib
-                0x00002f8a        0xa c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(addsf3.o)
-                0x00002f8a                __subsf3
-                0x00002f8c                __addsf3
+                0x0000276c        0xa c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(addsf3.o)
+                0x0000276c                __subsf3
+                0x0000276e                __addsf3
  .text.avr-libc.fplib
-                0x00002f94       0xc0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(addsf3x.o)
-                0x00002fae                __addsf3x
+                0x00002776       0xc0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(addsf3x.o)
+                0x00002790                __addsf3x
  .text.avr-libc.fplib
-                0x00003054       0x74 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(atan2.o)
-                0x00003072                atan2
+                0x00002836       0x74 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(atan2.o)
+                0x00002854                atan2
  .text.avr-libc.fplib
-                0x000030c8       0x50 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(atan.o)
-                0x000030c8                atan
+                0x000028aa       0x50 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(atan.o)
+                0x000028aa                atan
  .text.avr-libc.fplib
-                0x00003118        0x8 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(cmpsf2.o)
-                0x00003118                __nesf2
-                0x00003118                __eqsf2
-                0x00003118                __cmpsf2
-                0x00003118                __ltsf2
-                0x00003118                __lesf2
+                0x000028fa        0x8 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(cmpsf2.o)
+                0x000028fa                __nesf2
+                0x000028fa                __eqsf2
+                0x000028fa                __cmpsf2
+                0x000028fa                __ltsf2
+                0x000028fa                __lesf2
  .text.avr-libc.fplib
-                0x00003120        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(divsf3.o)
-                0x00003120                __divsf3
+                0x00002902        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(divsf3.o)
+                0x00002902                __divsf3
  .text.avr-libc.fplib
-                0x00003124       0xcc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(divsf3x.o)
-                0x0000313a                __divsf3x
-                0x0000313e                __divsf3_pse
+                0x00002906       0xcc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(divsf3x.o)
+                0x0000291c                __divsf3x
+                0x00002920                __divsf3_pse
  .text.avr-libc.fplib
-                0x000031f0        0xa c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fixsfsi.o)
-                0x000031f0                __fixsfsi
+                0x000029d2        0xa c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fixsfsi.o)
+                0x000029d2                __fixsfsi
  .text.avr-libc.fplib
-                0x000031fa       0x58 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fixunssfsi.o)
-                0x000031fa                __fixunssfsi
+                0x000029dc       0x58 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fixunssfsi.o)
+                0x000029dc                __fixunssfsi
  .text.avr-libc.fplib
-                0x00003252       0x7a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(floatsisf.o)
-                0x00003252                __floatunsisf
-                0x00003256                __floatsisf
+                0x00002a34       0x7a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(floatsisf.o)
+                0x00002a34                __floatunsisf
+                0x00002a38                __floatsisf
  .text.avr-libc.fplib
-                0x000032cc       0x48 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_cmp.o)
-                0x000032cc                __fp_cmp
+                0x00002aae       0x48 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_cmp.o)
+                0x00002aae                __fp_cmp
  .text.avr-libc.fplib
-                0x00003314        0xc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_inf.o)
-                0x00003314                __fp_inf
+                0x00002af6        0xc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_inf.o)
+                0x00002af6                __fp_inf
  .text.avr-libc.fplib
-                0x00003320        0x6 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_nan.o)
-                0x00003320                __fp_nan
+                0x00002b02        0x6 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_nan.o)
+                0x00002b02                __fp_nan
  .text.avr-libc.fplib
-                0x00003326       0x4a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_powser.o)
-                0x00003326                __fp_powser
+                0x00002b08       0x4a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_powser.o)
+                0x00002b08                __fp_powser
  .text.avr-libc.fplib
-                0x00003370        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_pscA.o)
-                0x00003370                __fp_pscA
+                0x00002b52        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_pscA.o)
+                0x00002b52                __fp_pscA
  .text.avr-libc.fplib
-                0x0000337e        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_pscB.o)
-                0x0000337e                __fp_pscB
+                0x00002b60        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_pscB.o)
+                0x00002b60                __fp_pscB
  .text.avr-libc.fplib
-                0x0000338c       0x22 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_round.o)
-                0x0000338c                __fp_round
+                0x00002b6e       0x22 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_round.o)
+                0x00002b6e                __fp_round
  .text.avr-libc.fplib
-                0x000033ae       0x44 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_split3.o)
-                0x000033ae                __fp_split3
-                0x000033be                __fp_splitA
+                0x00002b90       0x44 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_split3.o)
+                0x00002b90                __fp_split3
+                0x00002ba0                __fp_splitA
  .text.avr-libc.fplib
-                0x000033f2        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_zero.o)
-                0x000033f2                __fp_zero
-                0x000033f4                __fp_szero
+                0x00002bd4        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_zero.o)
+                0x00002bd4                __fp_zero
+                0x00002bd6                __fp_szero
  .text.avr-libc.fplib
-                0x00003400        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(inverse.o)
-                0x00003400                inverse
+                0x00002be2        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(inverse.o)
+                0x00002be2                inverse
  .text.avr-libc.fplib
-                0x0000340e        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(mulsf3.o)
-                0x0000340e                __mulsf3
+                0x00002bf0        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(mulsf3.o)
+                0x00002bf0                __mulsf3
  .text.avr-libc.fplib
-                0x00003412       0xc2 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(mulsf3x.o)
-                0x00003426                __mulsf3x
-                0x0000342a                __mulsf3_pse
+                0x00002bf4       0xc2 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(mulsf3x.o)
+                0x00002c08                __mulsf3x
+                0x00002c0c                __mulsf3_pse
  .text.avr-libc.fplib
-                0x000034d4       0x98 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(pow.o)
-                0x000034d4                pow
+                0x00002cb6       0x84 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(sqrt.o)
+                0x00002cbe                sqrt
  .text.avr-libc.fplib
-                0x0000356c       0x84 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(sqrt.o)
-                0x00003574                sqrt
+                0x00002d3a        0x6 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(square.o)
+                0x00002d3a                square
  .text.avr-libc.fplib
-                0x000035f0        0x6 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(square.o)
-                0x000035f0                square
+                0x00002d40       0x1c c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_mpack.o)
+                0x00002d40                __fp_mpack
+                0x00002d44                __fp_mpack_finite
  .text.avr-libc.fplib
-                0x000035f6       0x62 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(exp.o)
-                0x00003600                exp
- .text.avr-libc.fplib
-                0x00003658       0x1c c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_mpack.o)
-                0x00003658                __fp_mpack
-                0x0000365c                __fp_mpack_finite
- .text.avr-libc.fplib
-                0x00003674        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_norm2.o)
-                0x00003674                __fp_norm2
- .text.avr-libc.fplib
-                0x00003682       0x6c c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(ldexp.o)
-                0x00003686                ldexp
- .text.avr-libc.fplib
-                0x000036ee       0x8a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(log.o)
-                0x000036f8                log
- .text.avr-libc.fplib
-                0x00003778       0x66 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(modf.o)
-                0x00003778                modf
-                0x00003778                modff
+                0x00002d5c        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(fp_norm2.o)
+                0x00002d5c                __fp_norm2
  .text._ZN14HardwareSerial9availableEv
-                0x000037de       0x16 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
-                0x000037de                _ZN14HardwareSerial9availableEv
+                0x00002d6a       0x16 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+                0x00002d6a                _ZN14HardwareSerial9availableEv
  .text._ZN14HardwareSerial4peekEv
-                0x000037f4       0x1c C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
-                0x000037f4                _ZN14HardwareSerial4peekEv
+                0x00002d80       0x1c C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+                0x00002d80                _ZN14HardwareSerial4peekEv
  .text._ZN14HardwareSerial4readEv
-                0x00003810       0x28 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
-                0x00003810                _ZN14HardwareSerial4readEv
+                0x00002d9c       0x28 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+                0x00002d9c                _ZN14HardwareSerial4readEv
  .text._ZN14HardwareSerial17_tx_udr_empty_irqEv
-                0x00003838       0x42 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
-                0x00003838                _ZN14HardwareSerial17_tx_udr_empty_irqEv
+                0x00002dc4       0x42 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+                0x00002dc4                _ZN14HardwareSerial17_tx_udr_empty_irqEv
  .text._ZN14HardwareSerial5flushEv
-                0x0000387a       0x48 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
-                0x0000387a                _ZN14HardwareSerial5flushEv
+                0x00002e06       0x48 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+                0x00002e06                _ZN14HardwareSerial5flushEv
  .text._ZN14HardwareSerial5writeEh
-                0x000038c2       0x86 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
-                0x000038c2                _ZN14HardwareSerial5writeEh
+                0x00002e4e       0x86 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+                0x00002e4e                _ZN14HardwareSerial5writeEh
  .text._ZN14HardwareSerial5beginEmh
-                0x00003948       0xc8 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
-                0x00003948                _ZN14HardwareSerial5beginEmh
+                0x00002ed4       0xc8 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+                0x00002ed4                _ZN14HardwareSerial5beginEmh
  .text.__vector_25
-                0x00003a10       0x7e C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
-                0x00003a10                __vector_25
+                0x00002f9c       0x7e C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+                0x00002f9c                __vector_25
  .text.__vector_26
-                0x00003a8e       0x52 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
-                0x00003a8e                __vector_26
+                0x0000301a       0x52 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+                0x0000301a                __vector_26
  .text._GLOBAL__sub_I___vector_25
-                0x00003ae0       0x86 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+                0x0000306c       0x86 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
  .text.__vector_36
-                0x00003b66       0x7e C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
-                0x00003b66                __vector_36
+                0x000030f2       0x7e C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+                0x000030f2                __vector_36
  .text.__vector_37
-                0x00003be4       0x52 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
-                0x00003be4                __vector_37
+                0x00003170       0x52 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+                0x00003170                __vector_37
  .text._GLOBAL__sub_I___vector_36
-                0x00003c36       0x86 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+                0x000031c2       0x86 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
  .text._ZN5Print5writeEPKhj
-                0x00003cbc       0x5c C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
-                0x00003cbc                _ZN5Print5writeEPKhj
+                0x00003248       0x5c C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+                0x00003248                _ZN5Print5writeEPKhj
  .text._ZN5Print5printEc
-                0x00003d18       0x10 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
-                0x00003d18                _ZN5Print5printEc
+                0x000032a4       0x10 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+                0x000032a4                _ZN5Print5printEc
  .text._ZN5Print11printNumberEmh
-                0x00003d28       0xf4 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
-                0x00003d28                _ZN5Print11printNumberEmh
+                0x000032b4       0xf4 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+                0x000032b4                _ZN5Print11printNumberEmh
  .text._ZN5Print5printEli
-                0x00003e1c       0x70 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
-                0x00003e1c                _ZN5Print5printEli
+                0x000033a8       0x70 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+                0x000033a8                _ZN5Print5printEli
  .text._ZN5Print5printEii
-                0x00003e8c       0x10 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
-                0x00003e8c                _ZN5Print5printEii
+                0x00003418       0x10 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+                0x00003418                _ZN5Print5printEii
  .text.__vector_23
-                0x00003e9c       0x94 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
-                0x00003e9c                __vector_23
- .text.millis   0x00003f30       0x18 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
-                0x00003f30                millis
+                0x00003428       0x94 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+                0x00003428                __vector_23
+ .text.millis   0x000034bc       0x18 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+                0x000034bc                millis
  .text.delayMicroseconds
-                0x00003f48       0x16 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
-                0x00003f48                delayMicroseconds
- .text.init     0x00003f5e       0xc4 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
-                0x00003f5e                init
- .text.analogReference
-                0x00004022        0x6 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
-                0x00004022                analogReference
+                0x000034d4       0x16 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+                0x000034d4                delayMicroseconds
+ .text.init     0x000034ea       0xc4 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+                0x000034ea                init
  .text.turnOffPWM
-                0x00004028       0xcc C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
- .text.pinMode  0x000040f4       0x7c C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
-                0x000040f4                pinMode
+                0x000035ae       0xcc C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+ .text.pinMode  0x0000367a       0x7c C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+                0x0000367a                pinMode
  .text.digitalWrite
-                0x00004170       0x60 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
-                0x00004170                digitalWrite
- .text.pulseIn  0x000041d0       0x5e C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
-                0x000041d0                pulseIn
+                0x000036f6       0x60 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+                0x000036f6                digitalWrite
+ .text.pulseIn  0x00003756       0x5e C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
+                0x00003756                pulseIn
  .text.libgcc.mul
-                0x0000422e       0x1e c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_mulsi3.o)
-                0x0000422e                __mulsi3
+                0x000037b4       0x1e c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_mulsi3.o)
+                0x000037b4                __mulsi3
  .text.libgcc.div
-                0x0000424c       0x26 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_divmodhi4.o)
-                0x0000424c                _div
-                0x0000424c                __divmodhi4
+                0x000037d2       0x26 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_divmodhi4.o)
+                0x000037d2                _div
+                0x000037d2                __divmodhi4
  .text.libgcc.div
-                0x00004272       0x44 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_udivmodsi4.o)
-                0x00004272                __udivmodsi4
- .text.libgcc   0x000042b6        0xc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_tablejump.o)
-                0x000042b6                __tablejump2__
-                0x000042ba                __tablejump__
+                0x000037f8       0x44 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_udivmodsi4.o)
+                0x000037f8                __udivmodsi4
+ .text.libgcc   0x0000383c        0xc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_tablejump.o)
+                0x0000383c                __tablejump2__
+                0x00003840                __tablejump__
  .text.libgcc.mul
-                0x000042c2       0x14 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_muluhisi3.o)
-                0x000042c2                __muluhisi3
- .text.libgcc   0x000042d6        0x8 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_tablejump_elpm.o)
-                0x000042d6                __tablejump_elpm__
+                0x00003848       0x14 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_muluhisi3.o)
+                0x00003848                __muluhisi3
+ .text.libgcc   0x0000385c        0x8 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_tablejump_elpm.o)
+                0x0000385c                __tablejump_elpm__
  .text.libgcc.div
-                0x000042de       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_udivmodhi4.o)
-                0x000042de                __udivmodhi4
+                0x00003864       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_udivmodhi4.o)
+                0x00003864                __udivmodhi4
  .text.libgcc.mul
-                0x00004306       0x1e c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_umulhisi3.o)
-                0x00004306                __umulhisi3
-                0x00004324                . = ALIGN (0x2)
+                0x0000388c       0x1e c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_umulhisi3.o)
+                0x0000388c                __umulhisi3
+                0x000038aa                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00004324        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_exit.o)
-                0x00004324                _exit
-                0x00004324                exit
+ .fini9         0x000038aa        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_exit.o)
+                0x000038aa                _exit
+                0x000038aa                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -1570,197 +1581,187 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00004324        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_exit.o)
+ .fini0         0x000038aa        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_exit.o)
  *(.fini0)
-                0x00004328                _etext = .
+                0x000038ae                _etext = .
 
-.data           0x00800200       0xa6 load address 0x00004328
+.data           0x00800200       0x7c load address 0x000038ae
                 0x00800200                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
+ .data.canRead  0x00800200        0x1 RTOS.o
+                0x00800200                canRead
  .data.numOfData
-                0x00800200        0x2 RTOS.o
-                0x00800200                numOfData
- .data.analog_1
-                0x00800202        0x2 RTOS.o
-                0x00800202                analog_1
+                0x00800201        0x2 RTOS.o
+                0x00800201                numOfData
  .data.trigger_3
-                0x00800204        0x2 RTOS.o
-                0x00800204                trigger_3
- .data.echo_3   0x00800206        0x2 RTOS.o
-                0x00800206                echo_3
+                0x00800203        0x2 RTOS.o
+                0x00800203                trigger_3
+ .data.echo_3   0x00800205        0x2 RTOS.o
+                0x00800205                echo_3
  .data.trigger_2
-                0x00800208        0x2 RTOS.o
-                0x00800208                trigger_2
- .data.echo_2   0x0080020a        0x2 RTOS.o
-                0x0080020a                echo_2
+                0x00800207        0x2 RTOS.o
+                0x00800207                trigger_2
+ .data.echo_2   0x00800209        0x2 RTOS.o
+                0x00800209                echo_2
  .data.trigger_1
-                0x0080020c        0x2 RTOS.o
-                0x0080020c                trigger_1
- .data.echo_1   0x0080020e        0x2 RTOS.o
-                0x0080020e                echo_1
+                0x0080020b        0x2 RTOS.o
+                0x0080020b                trigger_1
+ .data.echo_1   0x0080020d        0x2 RTOS.o
+                0x0080020d                echo_1
  .data.xNextTaskUnblockTime
-                0x00800210        0x2 tasks.o
- .data.analog_reference
-                0x00800212        0x1 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
-                0x00800212                analog_reference
+                0x0080020f        0x2 tasks.o
  *(.rodata)
- .rodata        0x00800213        0xc LSM303.o
- .rodata        0x0080021f        0xc RTOS.o
+ .rodata        0x00800211        0xc LSM303.o
+ .rodata        0x0080021d        0xc RTOS.o
  *(.rodata*)
  .rodata.str1.1
-                0x0080022b       0x55 RTOS.o
+                0x00800229       0x2d RTOS.o
  .rodata.str1.1
-                0x00800280        0x5 tasks.o
+                0x00800256        0x5 tasks.o
  .rodata._ZTV7TwoWire
-                0x00800285       0x10 Wire.o
-                0x00800285                _ZTV7TwoWire
+                0x0080025b       0x10 Wire.o
+                0x0080025b                _ZTV7TwoWire
  .rodata._ZTV14HardwareSerial
-                0x00800295       0x10 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
-                0x00800295                _ZTV14HardwareSerial
+                0x0080026b       0x10 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+                0x0080026b                _ZTV14HardwareSerial
  *(.gnu.linkonce.d*)
-                0x008002a6                . = ALIGN (0x2)
- *fill*         0x008002a5        0x1 
-                0x008002a6                _edata = .
-                0x008002a6                PROVIDE (__data_end, .)
+                0x0080027c                . = ALIGN (0x2)
+ *fill*         0x0080027b        0x1 
+                0x0080027c                _edata = .
+                0x0080027c                PROVIDE (__data_end, .)
 
-.bss            0x008002a6      0x89f
-                0x008002a6                PROVIDE (__bss_start, .)
+.bss            0x0080027c      0x86e
+                0x0080027c                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.pucAlignedHeap.1837
-                0x008002a6        0x2 heap_1.o
+                0x0080027c        0x2 heap_1.o
  .bss.xNextFreeByte
-                0x008002a8        0x2 heap_1.o
- .bss.ucHeap    0x008002aa      0x5dc heap_1.o
- .bss.data      0x00800886       0x1a RTOS.o
-                0x00800886                data
- .bss.sharp     0x008008a0        0xe RTOS.o
-                0x008008a0                sharp
- .bss.ps        0x008008ae        0x7 RTOS.o
-                0x008008ae                ps
- .bss.gyro      0x008008b5        0xc RTOS.o
-                0x008008b5                gyro
- .bss.compass   0x008008c1       0x26 RTOS.o
-                0x008008c1                compass
- .bss.checkSum  0x008008e7        0x2 RTOS.o
-                0x008008e7                checkSum
+                0x0080027e        0x2 heap_1.o
+ .bss.ucHeap    0x00800280      0x5dc heap_1.o
+ .bss.data      0x0080085c        0xa RTOS.o
+                0x0080085c                data
+ .bss.compass   0x00800866       0x26 RTOS.o
+                0x00800866                compass
+ .bss.checkSum  0x0080088c        0x2 RTOS.o
+                0x0080088c                checkSum
  .bss.uxSchedulerSuspended
-                0x008008e9        0x1 tasks.o
+                0x0080088e        0x1 tasks.o
  .bss.uxTaskNumber
-                0x008008ea        0x1 tasks.o
+                0x0080088f        0x1 tasks.o
  .bss.xNumOfOverflows
-                0x008008eb        0x1 tasks.o
+                0x00800890        0x1 tasks.o
  .bss.xYieldPending
-                0x008008ec        0x1 tasks.o
+                0x00800891        0x1 tasks.o
  .bss.uxPendedTicks
-                0x008008ed        0x1 tasks.o
+                0x00800892        0x1 tasks.o
  .bss.xSchedulerRunning
-                0x008008ee        0x1 tasks.o
+                0x00800893        0x1 tasks.o
  .bss.uxTopReadyPriority
-                0x008008ef        0x1 tasks.o
+                0x00800894        0x1 tasks.o
  .bss.xTickCount
-                0x008008f0        0x2 tasks.o
+                0x00800895        0x2 tasks.o
  .bss.uxCurrentNumberOfTasks
-                0x008008f2        0x1 tasks.o
+                0x00800897        0x1 tasks.o
  .bss.uxTasksDeleted
-                0x008008f3        0x1 tasks.o
+                0x00800898        0x1 tasks.o
  .bss.xTasksWaitingTermination
-                0x008008f4        0x9 tasks.o
+                0x00800899        0x9 tasks.o
  .bss.xPendingReadyList
-                0x008008fd        0x9 tasks.o
+                0x008008a2        0x9 tasks.o
  .bss.pxOverflowDelayedTaskList
-                0x00800906        0x2 tasks.o
+                0x008008ab        0x2 tasks.o
  .bss.pxDelayedTaskList
-                0x00800908        0x2 tasks.o
+                0x008008ad        0x2 tasks.o
  .bss.xDelayedTaskList2
-                0x0080090a        0x9 tasks.o
+                0x008008af        0x9 tasks.o
  .bss.xDelayedTaskList1
-                0x00800913        0x9 tasks.o
+                0x008008b8        0x9 tasks.o
  .bss.pxReadyTasksLists
-                0x0080091c       0x24 tasks.o
+                0x008008c1       0x24 tasks.o
  .bss.pxCurrentTCB
-                0x00800940        0x2 tasks.o
-                0x00800940                pxCurrentTCB
+                0x008008e5        0x2 tasks.o
+                0x008008e5                pxCurrentTCB
  .bss.twi_error
-                0x00800942        0x1 twi.o
+                0x008008e7        0x1 twi.o
  .bss.twi_rxBufferIndex
-                0x00800943        0x1 twi.o
+                0x008008e8        0x1 twi.o
  .bss.twi_rxBuffer
-                0x00800944       0x20 twi.o
+                0x008008e9       0x20 twi.o
  .bss.twi_txBufferLength
-                0x00800964        0x1 twi.o
+                0x00800909        0x1 twi.o
  .bss.twi_txBufferIndex
-                0x00800965        0x1 twi.o
+                0x0080090a        0x1 twi.o
  .bss.twi_txBuffer
-                0x00800966       0x20 twi.o
+                0x0080090b       0x20 twi.o
  .bss.twi_masterBufferLength
-                0x00800986        0x1 twi.o
+                0x0080092b        0x1 twi.o
  .bss.twi_masterBufferIndex
-                0x00800987        0x1 twi.o
+                0x0080092c        0x1 twi.o
  .bss.twi_masterBuffer
-                0x00800988       0x20 twi.o
+                0x0080092d       0x20 twi.o
  .bss.twi_onSlaveReceive
-                0x008009a8        0x2 twi.o
+                0x0080094d        0x2 twi.o
  .bss.twi_onSlaveTransmit
-                0x008009aa        0x2 twi.o
+                0x0080094f        0x2 twi.o
  .bss.twi_inRepStart
-                0x008009ac        0x1 twi.o
+                0x00800951        0x1 twi.o
  .bss.twi_sendStop
-                0x008009ad        0x1 twi.o
+                0x00800952        0x1 twi.o
  .bss.twi_slarw
-                0x008009ae        0x1 twi.o
+                0x00800953        0x1 twi.o
  .bss.twi_state
-                0x008009af        0x1 twi.o
- .bss.Wire      0x008009b0        0xc Wire.o
-                0x008009b0                Wire
+                0x00800954        0x1 twi.o
+ .bss.Wire      0x00800955        0xc Wire.o
+                0x00800955                Wire
  .bss._ZN7TwoWire12transmittingE
-                0x008009bc        0x1 Wire.o
-                0x008009bc                _ZN7TwoWire12transmittingE
+                0x00800961        0x1 Wire.o
+                0x00800961                _ZN7TwoWire12transmittingE
  .bss._ZN7TwoWire14txBufferLengthE
-                0x008009bd        0x1 Wire.o
-                0x008009bd                _ZN7TwoWire14txBufferLengthE
+                0x00800962        0x1 Wire.o
+                0x00800962                _ZN7TwoWire14txBufferLengthE
  .bss._ZN7TwoWire13txBufferIndexE
-                0x008009be        0x1 Wire.o
-                0x008009be                _ZN7TwoWire13txBufferIndexE
+                0x00800963        0x1 Wire.o
+                0x00800963                _ZN7TwoWire13txBufferIndexE
  .bss._ZN7TwoWire8txBufferE
-                0x008009bf       0x20 Wire.o
-                0x008009bf                _ZN7TwoWire8txBufferE
+                0x00800964       0x20 Wire.o
+                0x00800964                _ZN7TwoWire8txBufferE
  .bss._ZN7TwoWire9txAddressE
-                0x008009df        0x1 Wire.o
-                0x008009df                _ZN7TwoWire9txAddressE
+                0x00800984        0x1 Wire.o
+                0x00800984                _ZN7TwoWire9txAddressE
  .bss._ZN7TwoWire14rxBufferLengthE
-                0x008009e0        0x1 Wire.o
-                0x008009e0                _ZN7TwoWire14rxBufferLengthE
+                0x00800985        0x1 Wire.o
+                0x00800985                _ZN7TwoWire14rxBufferLengthE
  .bss._ZN7TwoWire13rxBufferIndexE
-                0x008009e1        0x1 Wire.o
-                0x008009e1                _ZN7TwoWire13rxBufferIndexE
+                0x00800986        0x1 Wire.o
+                0x00800986                _ZN7TwoWire13rxBufferIndexE
  .bss._ZN7TwoWire8rxBufferE
-                0x008009e2       0x20 Wire.o
-                0x008009e2                _ZN7TwoWire8rxBufferE
- .bss.Serial    0x00800a02       0x9d C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
-                0x00800a02                Serial
- .bss.Serial1   0x00800a9f       0x9d C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
-                0x00800a9f                Serial1
+                0x00800987       0x20 Wire.o
+                0x00800987                _ZN7TwoWire8rxBufferE
+ .bss.Serial    0x008009a7       0x9d C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+                0x008009a7                Serial
+ .bss.Serial1   0x00800a44       0x9d C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+                0x00800a44                Serial1
  .bss.timer0_fract
-                0x00800b3c        0x1 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+                0x00800ae1        0x1 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
  .bss.timer0_millis
-                0x00800b3d        0x4 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
-                0x00800b3d                timer0_millis
+                0x00800ae2        0x4 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+                0x00800ae2                timer0_millis
  .bss.timer0_overflow_count
-                0x00800b41        0x4 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
-                0x00800b41                timer0_overflow_count
+                0x00800ae6        0x4 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+                0x00800ae6                timer0_overflow_count
  *(COMMON)
-                0x00800b45                PROVIDE (__bss_end, .)
-                0x00004328                __data_load_start = LOADADDR (.data)
-                0x000043ce                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00800aea                PROVIDE (__bss_end, .)
+                0x000038ae                __data_load_start = LOADADDR (.data)
+                0x0000392a                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800b45        0x0
-                0x00800b45                PROVIDE (__noinit_start, .)
+.noinit         0x00800aea        0x0
+                0x00800aea                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00800b45                PROVIDE (__noinit_end, .)
-                0x00800b45                _end = .
-                0x00800b45                PROVIDE (__heap_start, .)
+                0x00800aea                PROVIDE (__noinit_end, .)
+                0x00800aea                _end = .
+                0x00800aea                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -1803,13 +1804,10 @@ END GROUP
  *(.comment)
  .comment       0x00000000       0x30 heap_1.o
                                  0x31 (size before relaxing)
- .comment       0x00000000       0x31 L3G.o
  .comment       0x00000000       0x31 list.o
- .comment       0x00000000       0x31 LPS.o
  .comment       0x00000000       0x31 LSM303.o
  .comment       0x00000000       0x31 port.o
  .comment       0x00000000       0x31 RTOS.o
- .comment       0x00000000       0x31 SharpIR.o
  .comment       0x00000000       0x31 tasks.o
  .comment       0x00000000       0x31 twi.o
  .comment       0x00000000       0x31 Wire.o
@@ -1818,7 +1816,6 @@ END GROUP
  .comment       0x00000000       0x31 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
  .comment       0x00000000       0x31 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
  .comment       0x00000000       0x31 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
- .comment       0x00000000       0x31 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
  .comment       0x00000000       0x31 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
  .comment       0x00000000       0x31 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
 
@@ -1837,205 +1834,169 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x7f0
+.debug_aranges  0x00000000      0x668
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x38 heap_1.o
  .debug_aranges
-                0x00000038       0x70 L3G.o
+                0x00000038       0x40 list.o
  .debug_aranges
-                0x000000a8       0x40 list.o
+                0x00000078       0xb0 LSM303.o
  .debug_aranges
-                0x000000e8       0x98 LPS.o
+                0x00000128       0x48 port.o
  .debug_aranges
-                0x00000180       0xb0 LSM303.o
+                0x00000170       0x50 RTOS.o
  .debug_aranges
-                0x00000230       0x48 port.o
+                0x000001c0       0xd8 tasks.o
  .debug_aranges
-                0x00000278       0x70 RTOS.o
+                0x00000298       0x70 twi.o
  .debug_aranges
-                0x000002e8       0x30 SharpIR.o
+                0x00000308       0xd8 Wire.o
  .debug_aranges
-                0x00000318       0xd8 tasks.o
+                0x000003e0       0x20 wiring_pulse.o
  .debug_aranges
-                0x000003f0       0x70 twi.o
+                0x00000400       0x68 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
  .debug_aranges
-                0x00000460       0xd8 Wire.o
+                0x00000468       0x38 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
  .debug_aranges
-                0x00000538       0x20 wiring_pulse.o
+                0x000004a0       0x38 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
  .debug_aranges
-                0x00000558       0x68 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+                0x000004d8       0xe8 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
  .debug_aranges
-                0x000005c0       0x38 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+                0x000005c0       0x48 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
  .debug_aranges
-                0x000005f8       0x38 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+                0x00000608       0x38 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
  .debug_aranges
-                0x00000630       0xe8 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
- .debug_aranges
-                0x00000718       0x48 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
- .debug_aranges
-                0x00000760       0x30 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
- .debug_aranges
-                0x00000790       0x38 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
- .debug_aranges
-                0x000007c8       0x28 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
+                0x00000640       0x28 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000    0x12173
+.debug_info     0x00000000     0xf053
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x1ad heap_1.o
- .debug_info    0x000001ad      0xd60 L3G.o
- .debug_info    0x00000f0d      0x2c6 list.o
- .debug_info    0x000011d3      0xe9b LPS.o
- .debug_info    0x0000206e     0x196a LSM303.o
- .debug_info    0x000039d8      0x202 port.o
- .debug_info    0x00003bda     0x2240 RTOS.o
- .debug_info    0x00005e1a      0x507 SharpIR.o
- .debug_info    0x00006321     0x137b tasks.o
- .debug_info    0x0000769c      0x712 twi.o
- .debug_info    0x00007dae     0x2214 Wire.o
- .debug_info    0x00009fc2       0x6c wiring_pulse.o
- .debug_info    0x0000a02e     0x1b20 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
- .debug_info    0x0000bb4e     0x1765 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
- .debug_info    0x0000d2b3     0x1765 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
- .debug_info    0x0000ea18     0x25f9 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
- .debug_info    0x00011011      0x319 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
- .debug_info    0x0001132a      0x333 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
- .debug_info    0x0001165d      0x635 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
- .debug_info    0x00011c92      0x4e1 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
+ .debug_info    0x000001ad      0x2c6 list.o
+ .debug_info    0x00000473     0x196a LSM303.o
+ .debug_info    0x00001ddd      0x202 port.o
+ .debug_info    0x00001fdf     0x1555 RTOS.o
+ .debug_info    0x00003534     0x137b tasks.o
+ .debug_info    0x000048af      0x712 twi.o
+ .debug_info    0x00004fc1     0x2214 Wire.o
+ .debug_info    0x000071d5       0x6c wiring_pulse.o
+ .debug_info    0x00007241     0x1b20 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+ .debug_info    0x00008d61     0x1765 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+ .debug_info    0x0000a4c6     0x1765 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+ .debug_info    0x0000bc2b     0x25f9 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+ .debug_info    0x0000e224      0x319 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+ .debug_info    0x0000e53d      0x635 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+ .debug_info    0x0000eb72      0x4e1 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
 
-.debug_abbrev   0x00000000     0x32ee
+.debug_abbrev   0x00000000     0x2824
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x12e heap_1.o
- .debug_abbrev  0x0000012e      0x358 L3G.o
- .debug_abbrev  0x00000486       0xf8 list.o
- .debug_abbrev  0x0000057e      0x325 LPS.o
- .debug_abbrev  0x000008a3      0x476 LSM303.o
- .debug_abbrev  0x00000d19      0x13d port.o
- .debug_abbrev  0x00000e56      0x4d0 RTOS.o
- .debug_abbrev  0x00001326      0x21f SharpIR.o
- .debug_abbrev  0x00001545      0x304 tasks.o
- .debug_abbrev  0x00001849      0x251 twi.o
- .debug_abbrev  0x00001a9a      0x4e2 Wire.o
- .debug_abbrev  0x00001f7c       0x14 wiring_pulse.o
- .debug_abbrev  0x00001f90      0x369 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
- .debug_abbrev  0x000022f9      0x35d C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
- .debug_abbrev  0x00002656      0x35d C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
- .debug_abbrev  0x000029b3      0x3c2 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
- .debug_abbrev  0x00002d75      0x145 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
- .debug_abbrev  0x00002eba      0x183 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
- .debug_abbrev  0x0000303d      0x15a C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
- .debug_abbrev  0x00003197      0x157 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
+ .debug_abbrev  0x0000012e       0xf8 list.o
+ .debug_abbrev  0x00000226      0x476 LSM303.o
+ .debug_abbrev  0x0000069c      0x13d port.o
+ .debug_abbrev  0x000007d9      0x425 RTOS.o
+ .debug_abbrev  0x00000bfe      0x304 tasks.o
+ .debug_abbrev  0x00000f02      0x251 twi.o
+ .debug_abbrev  0x00001153      0x4e2 Wire.o
+ .debug_abbrev  0x00001635       0x14 wiring_pulse.o
+ .debug_abbrev  0x00001649      0x369 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+ .debug_abbrev  0x000019b2      0x35d C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+ .debug_abbrev  0x00001d0f      0x35d C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+ .debug_abbrev  0x0000206c      0x3c2 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+ .debug_abbrev  0x0000242e      0x145 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+ .debug_abbrev  0x00002573      0x15a C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+ .debug_abbrev  0x000026cd      0x157 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
 
-.debug_line     0x00000000     0x5a72
+.debug_line     0x00000000     0x481d
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x278 heap_1.o
- .debug_line    0x00000278      0x5ed L3G.o
- .debug_line    0x00000865      0x28c list.o
- .debug_line    0x00000af1      0x5aa LPS.o
- .debug_line    0x0000109b      0xa1a LSM303.o
- .debug_line    0x00001ab5      0x34d port.o
- .debug_line    0x00001e02      0x8e3 RTOS.o
- .debug_line    0x000026e5      0x1d9 SharpIR.o
- .debug_line    0x000028be      0xa2c tasks.o
- .debug_line    0x000032ea      0x565 twi.o
- .debug_line    0x0000384f      0x544 Wire.o
- .debug_line    0x00003d93      0x1d9 wiring_pulse.o
- .debug_line    0x00003f6c      0x4a2 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
- .debug_line    0x0000440e      0x283 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
- .debug_line    0x00004691      0x283 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
- .debug_line    0x00004914      0x6bc C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
- .debug_line    0x00004fd0      0x2ec C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
- .debug_line    0x000052bc      0x2e3 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
- .debug_line    0x0000559f      0x2bb C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
- .debug_line    0x0000585a      0x218 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
+ .debug_line    0x00000278      0x28c list.o
+ .debug_line    0x00000504      0xa1a LSM303.o
+ .debug_line    0x00000f1e      0x34d port.o
+ .debug_line    0x0000126b      0x6e1 RTOS.o
+ .debug_line    0x0000194c      0xa2c tasks.o
+ .debug_line    0x00002378      0x565 twi.o
+ .debug_line    0x000028dd      0x544 Wire.o
+ .debug_line    0x00002e21      0x1d9 wiring_pulse.o
+ .debug_line    0x00002ffa      0x4a2 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+ .debug_line    0x0000349c      0x283 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+ .debug_line    0x0000371f      0x283 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+ .debug_line    0x000039a2      0x6bc C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+ .debug_line    0x0000405e      0x2ec C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+ .debug_line    0x0000434a      0x2bb C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+ .debug_line    0x00004605      0x218 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
 
-.debug_frame    0x00000000     0x1750
+.debug_frame    0x00000000     0x12cc
  *(.debug_frame)
  .debug_frame   0x00000000       0x60 heap_1.o
- .debug_frame   0x00000060      0x1a4 L3G.o
- .debug_frame   0x00000204       0x88 list.o
- .debug_frame   0x0000028c      0x190 LPS.o
- .debug_frame   0x0000041c      0x2f4 LSM303.o
- .debug_frame   0x00000710       0x74 port.o
- .debug_frame   0x00000784      0x104 RTOS.o
- .debug_frame   0x00000888       0xb0 SharpIR.o
- .debug_frame   0x00000938      0x2d4 tasks.o
- .debug_frame   0x00000c0c      0x114 twi.o
- .debug_frame   0x00000d20      0x1e0 Wire.o
- .debug_frame   0x00000f00       0xf8 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
- .debug_frame   0x00000ff8       0xcc C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
- .debug_frame   0x000010c4       0xcc C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
- .debug_frame   0x00001190      0x3a4 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
- .debug_frame   0x00001534       0xbc C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
- .debug_frame   0x000015f0       0x54 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
- .debug_frame   0x00001644       0x7c C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
- .debug_frame   0x000016c0       0x90 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
+ .debug_frame   0x00000060       0x88 list.o
+ .debug_frame   0x000000e8      0x2f4 LSM303.o
+ .debug_frame   0x000003dc       0x74 port.o
+ .debug_frame   0x00000450       0xb8 RTOS.o
+ .debug_frame   0x00000508      0x2d4 tasks.o
+ .debug_frame   0x000007dc      0x114 twi.o
+ .debug_frame   0x000008f0      0x1e0 Wire.o
+ .debug_frame   0x00000ad0       0xf8 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+ .debug_frame   0x00000bc8       0xcc C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+ .debug_frame   0x00000c94       0xcc C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+ .debug_frame   0x00000d60      0x3a4 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+ .debug_frame   0x00001104       0xbc C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+ .debug_frame   0x000011c0       0x7c C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+ .debug_frame   0x0000123c       0x90 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
 
-.debug_str      0x00000000     0x3b5e
+.debug_str      0x00000000     0x3263
  *(.debug_str)
  .debug_str     0x00000000      0x1cb heap_1.o
                                 0x20f (size before relaxing)
- .debug_str     0x000001cb      0x605 L3G.o
-                                0x6f8 (size before relaxing)
- .debug_str     0x000007d0      0x149 list.o
+ .debug_str     0x000001cb      0x149 list.o
                                 0x28a (size before relaxing)
- .debug_str     0x00000919      0x4d3 LPS.o
-                                0x8a5 (size before relaxing)
- .debug_str     0x00000dec      0x7db LSM303.o
+ .debug_str     0x00000314      0xb57 LSM303.o
                                 0xc90 (size before relaxing)
- .debug_str     0x000015c7       0xf5 port.o
+ .debug_str     0x00000e6b       0xf5 port.o
                                 0x255 (size before relaxing)
- .debug_str     0x000016bc      0x462 RTOS.o
-                               0x1671 (size before relaxing)
- .debug_str     0x00001b1e       0x8e SharpIR.o
-                                0x29a (size before relaxing)
- .debug_str     0x00001bac      0x539 tasks.o
+ .debug_str     0x00000f60      0x364 RTOS.o
+                                0xe76 (size before relaxing)
+ .debug_str     0x000012c4      0x539 tasks.o
                                 0x924 (size before relaxing)
- .debug_str     0x000020e5      0x1b0 twi.o
+ .debug_str     0x000017fd      0x1b0 twi.o
                                 0x32d (size before relaxing)
- .debug_str     0x00002295      0xf51 Wire.o
+ .debug_str     0x000019ad      0xf70 Wire.o
                                0x13d6 (size before relaxing)
- .debug_str     0x000031e6      0x40d C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+ .debug_str     0x0000291d      0x40d C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
                                0x1268 (size before relaxing)
- .debug_str     0x000035f3       0x40 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+ .debug_str     0x00002d2a       0x40 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
                                 0xf8a (size before relaxing)
- .debug_str     0x00003633       0x40 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+ .debug_str     0x00002d6a       0x40 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
                                 0xf8b (size before relaxing)
- .debug_str     0x00003673      0x343 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+ .debug_str     0x00002daa      0x343 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
                                 0xe38 (size before relaxing)
- .debug_str     0x000039b6       0x66 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+ .debug_str     0x000030ed       0x66 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
                                 0x1f6 (size before relaxing)
- .debug_str     0x00003a1c       0x50 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
-                                0x203 (size before relaxing)
- .debug_str     0x00003a6c       0xa2 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+ .debug_str     0x00003153       0xc0 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
                                 0x264 (size before relaxing)
- .debug_str     0x00003b0e       0x50 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
+ .debug_str     0x00003213       0x50 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
                                 0x245 (size before relaxing)
 
-.debug_loc      0x00000000     0x7f1c
+.debug_loc      0x00000000     0x6a54
  *(.debug_loc)
  .debug_loc     0x00000000       0xf1 heap_1.o
- .debug_loc     0x000000f1      0x87c L3G.o
- .debug_loc     0x0000096d      0x155 list.o
- .debug_loc     0x00000ac2      0x749 LPS.o
- .debug_loc     0x0000120b      0xf0a LSM303.o
- .debug_loc     0x00002115      0x29b port.o
- .debug_loc     0x000023b0      0x3d4 RTOS.o
- .debug_loc     0x00002784      0x398 SharpIR.o
- .debug_loc     0x00002b1c     0x1012 tasks.o
- .debug_loc     0x00003b2e      0x5a3 twi.o
- .debug_loc     0x000040d1      0x89b Wire.o
- .debug_loc     0x0000496c      0x3e7 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
- .debug_loc     0x00004d53      0x17b C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
- .debug_loc     0x00004ece      0x17b C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
- .debug_loc     0x00005049     0x1e77 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
- .debug_loc     0x00006ec0      0x22a C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
- .debug_loc     0x000070ea       0xf2 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
- .debug_loc     0x000071dc      0x719 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
- .debug_loc     0x000078f5      0x627 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
+ .debug_loc     0x000000f1      0x155 list.o
+ .debug_loc     0x00000246      0xf0a LSM303.o
+ .debug_loc     0x00001150      0x29b port.o
+ .debug_loc     0x000013eb      0x35b RTOS.o
+ .debug_loc     0x00001746     0x1012 tasks.o
+ .debug_loc     0x00002758      0x5a3 twi.o
+ .debug_loc     0x00002cfb      0x89b Wire.o
+ .debug_loc     0x00003596      0x3e7 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+ .debug_loc     0x0000397d      0x17b C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+ .debug_loc     0x00003af8      0x17b C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+ .debug_loc     0x00003c73     0x1e77 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+ .debug_loc     0x00005aea      0x22a C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+ .debug_loc     0x00005d14      0x719 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+ .debug_loc     0x0000642d      0x627 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -2055,27 +2016,23 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x7a0
+.debug_ranges   0x00000000      0x658
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x28 heap_1.o
- .debug_ranges  0x00000028       0x60 L3G.o
- .debug_ranges  0x00000088       0x30 list.o
- .debug_ranges  0x000000b8       0x88 LPS.o
- .debug_ranges  0x00000140       0xa0 LSM303.o
- .debug_ranges  0x000001e0       0x38 port.o
- .debug_ranges  0x00000218       0x60 RTOS.o
- .debug_ranges  0x00000278       0x20 SharpIR.o
- .debug_ranges  0x00000298      0x138 tasks.o
- .debug_ranges  0x000003d0       0x60 twi.o
- .debug_ranges  0x00000430       0xc8 Wire.o
- .debug_ranges  0x000004f8       0x58 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
- .debug_ranges  0x00000550       0x28 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
- .debug_ranges  0x00000578       0x28 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
- .debug_ranges  0x000005a0      0x150 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
- .debug_ranges  0x000006f0       0x38 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
- .debug_ranges  0x00000728       0x20 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_analog.o)
- .debug_ranges  0x00000748       0x28 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
- .debug_ranges  0x00000770       0x30 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
+ .debug_ranges  0x00000028       0x30 list.o
+ .debug_ranges  0x00000058       0xa0 LSM303.o
+ .debug_ranges  0x000000f8       0x38 port.o
+ .debug_ranges  0x00000130       0x40 RTOS.o
+ .debug_ranges  0x00000170      0x138 tasks.o
+ .debug_ranges  0x000002a8       0x60 twi.o
+ .debug_ranges  0x00000308       0xc8 Wire.o
+ .debug_ranges  0x000003d0       0x58 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial.o)
+ .debug_ranges  0x00000428       0x28 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial0.o)
+ .debug_ranges  0x00000450       0x28 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(HardwareSerial1.o)
+ .debug_ranges  0x00000478      0x150 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(Print.o)
+ .debug_ranges  0x000005c8       0x38 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring.o)
+ .debug_ranges  0x00000600       0x28 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_digital.o)
+ .debug_ranges  0x00000628       0x30 C:\Users\uSER\Desktop\Workspace\arduino lib\arduino\arduino\Debug\libarduino.a(wiring_pulse.o)
 
 .debug_macro
  *(.debug_macro)

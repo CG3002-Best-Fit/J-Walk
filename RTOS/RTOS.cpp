@@ -10,13 +10,11 @@
 #include <FreeRTOS.h>
 #include <task.h>
 #include <Arduino.h>
-#include <L3G.h>
 #include <LSM303.h>
 #include <semphr.h>
 #include <Wire.h>
 #include <queue.h>
 #include <SharpIR.h>
-#include <LPS.h>
 #define STACK_DEPTH 160
 
 // xSemaphoreHandle sonarSema, magnetoSema, gyroSema, acceSema, analogSema = 0;
@@ -26,36 +24,15 @@ int echo_2 = 5;
 int trigger_2 = 6;
 int echo_3 = 7;
 int trigger_3 = 8;
-
 int checkSum = 0;
-int analog_1 = A0; 
-int numOfData = 12;
+int numOfData = 5;
+char canRead = '0';
 LSM303 compass;
-L3G gyro;
-LPS ps;
-SharpIR sharp(A0, 25, 93, 20150);
-int data[13];
-
-/*
-index 1 for sonar 1
-index 2 for sonar 2
-index 3 for sonar 3
-index 4 for acc.x
-index 5 for acc.y
-index 6 for acc.z
-index 7 for gyro.x
-index 8 for gyro.y
-index 9 for gyro.z
-index 10 for analog distance sensor
-index 11 for compass heading
-index 12 for altimeter
-*/
+int data[5];
 
 void handShake(void *p) {
 	int i;
-	char canRead = '0';
 	while(1) {
-		//vTaskSuspendAll();
 		if(Serial1.available()) {
 			canRead = Serial1.read();
 			if(canRead == 'H') {
@@ -66,7 +43,7 @@ void handShake(void *p) {
 				checkSum = numOfData;
 				Serial1.print(numOfData);
 				Serial1.print('\n');
-				for(i = 1; i < 13; i++) {
+				for(i = 0; i < 5; i++) {
 					checkSum += data[i];
 					Serial1.print(data[i]);
 					Serial1.print('\n');
@@ -80,48 +57,25 @@ void handShake(void *p) {
 				Serial1.print('\r');
 			}
 			canRead = '0';
+			data[3] = 0;
 		}
-		//xTaskResumeAll();
 		vTaskDelay(100);
 	}
 }
-
 
 void printArray(void *p) {
 	int i;
-	//char canRead = '0';
-	while(1) {
-		/*
-		if(Serial1.available()){
-			canRead = Serial1.read();
-		}
-		if(canRead - '0'){
-			Serial1.print(numOfData);
-			Serial1.print('\r');
-			for(i = 1; i < 13; i++) {
-				Serial1.print(data[i]);
-				Serial1.print('\r');
-			}
-			canRead = '0';	
-		}
-		vTaskDelay(100);
-		*/
-		
-		for(i = 1; i < 13; i++) {
-			Serial.println(data[i]);
-		}	
-		vTaskDelay(100);
-	}
-}
+	char canRead = '0';
 
-void taskReadInfrared(void *p)
-{
-	int distance;
+
+	 
 	while(1) {
-		distance = sharp.distance();
-		data[10] = distance;
+		for(i = 0; i < 6; i++) {
+			Serial.println(data[i]);
+		}
 		
-		vTaskDelay(500);
+		vTaskDelay(1000);
+		
 	}
 }
 
@@ -137,7 +91,7 @@ void taskReadSonar(void *p)
 		digitalWrite(trigger_1, LOW);
 		pinMode(echo_1, INPUT);
 		duration_1 = (int)pulseIn(echo_1, HIGH);
-		data[1] = (int)((duration_1/2) / 29.1);
+		data[0] = (int)((duration_1/2) / 29.1);
 			
 		digitalWrite(trigger_2, LOW);
 		delayMicroseconds(5);
@@ -145,7 +99,7 @@ void taskReadSonar(void *p)
 		delayMicroseconds(10);
 		digitalWrite(trigger_2, LOW);
 		duration_2 = (int)pulseIn(echo_2, HIGH);
-		data[2] = (int)((duration_2/2) / 29.1);
+		data[1] = (int)((duration_2/2) / 29.1);
 			
 		digitalWrite(trigger_3, LOW);
 		delayMicroseconds(5);
@@ -153,7 +107,7 @@ void taskReadSonar(void *p)
 		delayMicroseconds(10);
 		digitalWrite(trigger_3, LOW);
 		duration_3 = (int)pulseIn(echo_3, HIGH);
-		data[3] = (int)((duration_3/2) / 29.1);
+		data[2] = (int)((duration_3/2) / 29.1);
 		xTaskResumeAll();
 			
 		vTaskDelay(500);
@@ -162,67 +116,46 @@ void taskReadSonar(void *p)
 
 void taskReadAcc(void *p) 
 {
-	int accX, accY, accZ;
+	int accX, accY, accZ, offset, hasOffset, stepCount;
+	int acc = 0;
+	long lastTimeStepDetected = 0;
+	hasOffset = stepCount = 0;
+	double accSquare = 0;
 	while(1){
 		vTaskSuspendAll();
 		compass.read();
 		xTaskResumeAll();
 		
-		accX = (int)((float)compass.a.x / 1000.000 * 61 * 9.8 / 10.00);
-		accY = (int)((float)compass.a.y / 1000.000 * 61 * 9.8 / 10.00);
-		accZ = (int)((float)compass.a.z / 1000.000 * 61 * 9.8 / 10.00);
-		data[4] = accX;
-		data[5] = accY;
-		data[6] = accZ;
-			
-		vTaskDelay(500);
-	}
-}
-
-void taskReadGyro(void *p)
-{
-	int gyroX, gyroY, gyroZ;
-	while(1){
-		vTaskSuspendAll();
-		gyro.read();
-		xTaskResumeAll();
+		accX = compass.a.x / 1000;
+		accY = compass.a.y / 1000;
+		accZ = compass.a.z / 1000;
 		
-		gyroX = (int)((float)gyro.g.x * 8.75 /1000.00);
-		gyroY = (int)((float)gyro.g.y * 8.75 /1000.00);
-		gyroZ = (int)((float)gyro.g.z * 8.75 /1000.00);
-		data[7] = gyroX;
-		data[8] = gyroY;
-		data[9] = gyroZ;
+		/*
+		Serial.println(accX);
+		Serial.println(accY);
+		Serial.println(accZ);
+		Serial.println(accSquare);
+		*/
+		accSquare = accX*accX + accY*accY + accZ*accZ;
+		acc = (int)sqrt(accSquare);
 
-		vTaskDelay(500);
-	}
-}
-
-void taskReadMagneto(void *p)
-{	
-	int heading;
-	while(1){
-		vTaskSuspendAll();
-		compass.read();
-		xTaskResumeAll();
-		heading = (int) compass.heading();
-		data[11] = heading;
-			
-		vTaskDelay(500);
-	}
-}
-
-void taskReadAltimeter(void *p){
-	int altitude, pressure;
-	while(1){
-		vTaskSuspendAll();
-		pressure = ps.readPressureMillibars();
-		altitude = ps.pressureToAltitudeMeters(pressure);
-		xTaskResumeAll();
+		if (hasOffset == 0) {
+			offset = acc;
+			hasOffset = 1;
+		}
 		
-		data[12] = altitude;
 		
-		vTaskDelay(500);
+		if (acc > 18 || acc < 13) {
+			if (millis() - lastTimeStepDetected > 1000) {
+				//stepCount++;
+				data[3] = 1; //stepCount;
+				lastTimeStepDetected = millis();
+			}
+		}
+		
+		data[4] = (int) compass.heading();
+		
+		vTaskDelay(200);
 	}
 }
 
@@ -230,17 +163,13 @@ void setup(void)
 {
 	// Starting up serial monitor
 	Serial1.begin(9600);
-	//Serial.begin(9600);
+	//Serial1.begin(9600);
 	// Setting up compass
 	Wire.begin();
 	compass.init();
 	compass.enableDefault();
 	compass.m_min = (LSM303::vector<int16_t>){+1824, +347, +1103};
 	compass.m_max = (LSM303::vector<int16_t>){+1884, +420, +1203};
-	gyro.init();
-	gyro.enableDefault();
-	ps.init();
-	ps.enableDefault();
 	// Setting up sonar sensor
 	pinMode(trigger_1, OUTPUT);
 	pinMode(echo_1, INPUT);
@@ -248,23 +177,17 @@ void setup(void)
 	pinMode(trigger_2, OUTPUT);
 	pinMode(echo_3, INPUT);
 	pinMode(trigger_3, OUTPUT);
-	
-	pinMode(analog_1, INPUT);
 }
 
 int main(void)
 {
 	init();
 	setup();
-	TaskHandle_t t1, t2, t3, t4, t5, t6, t7;
+	TaskHandle_t t1, t2, t3;
 	// Create tasks
-	xTaskCreate(handShake, "printA", STACK_DEPTH, NULL, 10, &t1);
-	//xTaskCreate(printArray, "print", STACK_DEPTH, NULL, 10, &t1);
-	xTaskCreate(taskReadGyro, "Read Gyrometer", STACK_DEPTH, NULL, 9, &t2);
-	xTaskCreate(taskReadAcc, "Read Accelerometer", STACK_DEPTH, NULL, 8, &t3);
-	//xTaskCreate(taskReadInfrared, "Read Infrared", STACK_DEPTH, NULL, 7, &t4);
-	xTaskCreate(taskReadMagneto, "Read Magneto", STACK_DEPTH, NULL, 6, &t5);
-	xTaskCreate(taskReadSonar, "Read Ultrasonic", STACK_DEPTH, NULL, 5, &t6);
-	xTaskCreate(taskReadAltimeter, "Read Altimeter", STACK_DEPTH, NULL, 4, &t7);
+	xTaskCreate(handShake, "Handshake", STACK_DEPTH, NULL, 10, &t1);
+	//xTaskCreate(printArray, "printA", STACK_DEPTH, NULL, 10, &t1);
+	xTaskCreate(taskReadAcc, "Read Accelerometer", 250, NULL, 9, &t2);
+	xTaskCreate(taskReadSonar, "Read Ultrasonic", STACK_DEPTH, NULL, 7, &t3);
 	vTaskStartScheduler();
 }

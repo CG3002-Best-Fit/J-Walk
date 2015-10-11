@@ -4,6 +4,8 @@
 
 CPPFile1.cpp
 
+CPPFile2.cpp
+
 heap_1.c
 
 L3G.cpp

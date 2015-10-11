@@ -43,15 +43,13 @@ RTOS.d RTOS.o: .././RTOS.cpp \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\mega/pins_arduino.h \
- C:\Users\uSER\Downloads\l3g-arduino-master\l3g-arduino-master\L3G/L3G.h \
  C:\Users\uSER\Downloads\lsm303-arduino-master\LSM303/LSM303.h \
  C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/semphr.h \
  C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/queue.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\libraries\Wire/Wire.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Stream.h \
  C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/queue.h \
- C:\Users\uSER\Downloads\SharpIR\SharpIR/SharpIR.h \
- C:\Users\uSER\Downloads\LPS/LPS.h
+ C:\Users\uSER\Downloads\SharpIR\SharpIR/SharpIR.h
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -141,8 +139,6 @@ C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h:
 
 C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\mega/pins_arduino.h:
 
-C:\Users\uSER\Downloads\l3g-arduino-master\l3g-arduino-master\L3G/L3G.h:
-
 C:\Users\uSER\Downloads\lsm303-arduino-master\LSM303/LSM303.h:
 
 C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/semphr.h:
@@ -156,5 +152,3 @@ C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Stream.h:
 C:\Users\uSER\Downloads\FreeRTOSV8.1.2\FreeRTOSV8.1.2\FreeRTOS\Source\include/queue.h:
 
 C:\Users\uSER\Downloads\SharpIR\SharpIR/SharpIR.h:
-
-C:\Users\uSER\Downloads\LPS/LPS.h:
