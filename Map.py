@@ -11,6 +11,9 @@ import math
 from distutils.tests.test_register import RawInputs
 from math import atan2
 from pip._vendor.distlib.util import DIRECT_REF
+from AudioManager import AudioManager
+
+audioManager = AudioManager()
 
 class Vertex:
     def __init__(self, node, name,x,y):
@@ -230,9 +233,16 @@ def dijkstra(aGraph, start, target):
 
 def startup():
     while 1: 
-        startBlock= raw_input("Start Block: ") #obtain start location
-        startLevel = raw_input("Start Level: ")
-
+        while 1:
+            audioManager.playRequestStartingBlock()
+            startBlock= raw_input() #obtain start location
+            audioManager.playRequestStartingLevel()
+            startLevel = raw_input()
+            if '*' in startBlock or '*' in startLevel:
+                audioManager.playStartingBlockLevelInvalid()
+            else:
+                break
+            
         buildingInfo=[]
         buildingInfo.append([])
 
@@ -244,7 +254,8 @@ def startup():
         if totalInfo['info'] != None:
             break
         else:
-            print("Block/ Level is invalid")
+            audioManager.playStartingBlockLevelInvalid()
+            #print("Block/ Level is invalid")
             
 
     #Download all map linked to this building
@@ -254,9 +265,11 @@ def startup():
     while 1:#Loop to check if the node exist
         while 1:#Loop to check for valid input
             try:
-                startNode = int(raw_input("Starting node: "))
+                audioManager.playRequestStartingNode()
+                startNode = int(raw_input())
             except ValueError:
-                print("Input invalid")
+                audioManager.playStartingNodeIntegerError()
+                #print("Input invalid")
             else:
                 break
 
@@ -269,7 +282,8 @@ def startup():
         if exist == True:
             break
         else:
-            print("Starting Node invalid.")        
+            audioManager.playStartingNodeInvalid()
+            #print("Starting Node invalid.")        
     
     searchLocation = len(totalInfoMatrix)-1
     newMapInfo = searchNewMap(totalInfoMatrix[searchLocation]['map'])   # search through the map and see if it links to a new map
@@ -303,8 +317,10 @@ def startup():
                     totalLength = totalLength - 1
                 
     while 1:
-        endBlock= raw_input("End Block: ") #obtain start location
-        endLevel = raw_input("End Level: ")
+        audioManager.playRequestEndingBlock()
+        endBlock= raw_input() #obtain start location
+        audioManager.playRequestEndingLevel()
+        endLevel = raw_input()
 
         
         counter =0
@@ -320,16 +336,19 @@ def startup():
                     break
         
         if len(buildingInfo)== counter:
-            print("Invalid end block/level")
+            audioManager.playEndingBlockLevelInvalid()
+            #print("Invalid end block/level")
         else:
             break
 
     while 1:#Loop to check if the node exist
         while 1:#Loop to check for valid input
             try:
-                endNode = int(raw_input("Ending node: "))
+                audioManager.playRequestEndingNode()
+                endNode = int(raw_input())
             except ValueError:
-                print("Input invalid")
+                audioManager.playEndingNodeIntegerError()
+                #print("Input invalid")
             else:
                 break
 
@@ -347,10 +366,11 @@ def startup():
         if exist == True:
             break
         else:
-            print("Ending Node invalid.")
-    return (startNode, endNode,buildingInfo)     
+            audioManager.playEndingNodeInvalid()
+            #print("Ending Node invalid.")
+    return (startNode, endNode,buildingInfo,totalInfoMatrix)     
 
-def parseInfo(buildingInfo):
+def parseInfo(buildingInfo,totalInfoMatrix):
     maxRange = len(buildingInfo)
     
     mapGraph=[]
@@ -388,7 +408,7 @@ def parseInfo(buildingInfo):
     
     return mapGraph
 
-def shortestPath(mapGraph):
+def shortestPath(mapGraph,startNode,endNode):
     for eachGraph in mapGraph:
         if eachGraph[-1]== "Same":
             dijkstra(eachGraph[-2], eachGraph[-2].get_vertex(startNode), eachGraph[-2].get_vertex(endNode))
@@ -416,7 +436,7 @@ def travelDirection(currentDirection, currentX, currentY, path, mapGraph):
                 distance = math.sqrt(math.pow((currentX-nextX),2)+ math.pow((currentY-nextY),2))
             
             NorthToVert = 360 - eachGraph[-2].get_north()
-           #Find angle to travel with respect to north from current location to next node
+            #Find angle to travel with respect to north from current location to next node
             angleToTravel = None
             if nextX == currentX and nextY > currentY:
                 angleToTravel = 0 + NorthToVert
@@ -450,17 +470,17 @@ def travelDirection(currentDirection, currentX, currentY, path, mapGraph):
                 leftDirection= leftDirection+360
             
             if (angleRangeMin<= currentDirection and currentDirection<360) or (angleRangeMax>= currentDirection and currentDirection>=0) or (angleRangeMin<= currentDirection and currentDirection<=angleRangeMax):
-                print "Travel straight %.2f"%shortestDistance,"cm to node",path[0]
+                print "Travel straight %.2f"%distance,"cm to node",path[0]
             elif (angleToTravel <currentDirection and angleToTravel > leftDirection and leftDirection <180) or (((angleToTravel<currentDirection) or (angleToTravel > leftDirection)) and leftDirection >=180):
                 directionCorrection = currentDirection - angleToTravel
                 while directionCorrection<0:
                     directionCorrection = directionCorrection+360
-                print "Turn left by %.2f" %directionCorrection,"degree and travel %.2f" %shortestDistance,"cm to node",path[0]
+                print "Turn left by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0]
             else:
                 directionCorrection = angleToTravel- currentDirection
                 while directionCorrection<0:
                     directionCorrection = directionCorrection+360
-                print "Turn right by %.2f" %directionCorrection,"degree and travel %.2f" %shortestDistance,"cm to node",path[0]
+                print "Turn right by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0]
             break
     return path    
                 

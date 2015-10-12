@@ -4,6 +4,7 @@ Created on Oct 4, 2015
 @author: bamboo3250
 '''
 import pygame
+import pyttsx
 
 class AudioManager(object):
     '''
@@ -18,6 +19,14 @@ class AudioManager(object):
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
+        
+        self.engine = pyttsx.init()
+        
+        self.rate = self.engine.getProperty('rate')
+        self.engine.setProperty('rate', self.rate-50)
+        
+        self.volume = self.engine.getProperty('volume')
+        self.engine.setProperty('volume', self.volume+1.0)
         
         self.warning_audio = pygame.mixer.Sound("beep.wav")
         self.left_audio = pygame.mixer.Sound("left.wav")
@@ -38,5 +47,54 @@ class AudioManager(object):
         
     def playRight(self):
         self.play(self.right_audio)
+        
+    def playRequestStartingBlock(self):
+        self.engine.say('Please enter Starting block.')
+        self.engine.runAndWait()
+    
+    def playRequestStartingLevel(self):
+        self.engine.say('Please enter the Starting level.')
+        self.engine.runAndWait()
+    
+    def playStartingBlockLevelInvalid(self):
+        self.engine.say('Starting block and Level are incorrect, please try again.')
+        self.engine.runAndWait()
+        
+    def playRequestStartingNode(self):
+        self.engine.say('Please enter Starting Node.')
+        self.engine.runAndWait()
+        
+    def playStartingNodeIntegerError(self):
+        self.engine.say('Please enter integers for Starting Node.')
+        self.engine.runAndWait()
+        
+    def playStartingNodeInvalid(self):
+        self.engine.say('Starting Node Invalid, please try again.')
+        self.engine.runAndWait()
+    
+    def playRequestEndingBlock(self):
+        self.engine.say('Please enter Ending block.')
+        self.engine.runAndWait()
+        
+    def playRequestEndingLevel(self):
+        self.engine.say('Please enter Ending level.')
+        self.engine.runAndWait()
+        
+    def playEndingBlockLevelInvalid(self):
+        self.engine.say('Ending block and Level are incorrect, please try again.')
+        self.engine.runAndWait()
+        
+    def playRequestEndingNode(self):
+        self.engine.say('Please enter Ending Node.')
+        self.engine.runAndWait()
+        
+    def playEndingNodeIntegerError(self):
+        self.engine.say('Please enter integers for Ending Node.')
+        self.engine.runAndWait()
+        
+    def playEndingNodeInvalid(self):
+        self.engine.say('Ending Node Invalid, please try again.')
+        self.engine.runAndWait()
+    
         
     
