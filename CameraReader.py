@@ -9,13 +9,6 @@ import time, io
 
 class CameraReader(object):
     imageQueue = []
-    sendImageThread = Thread(target = startReadingImage)
-    
-    def __init__(self):
-        self.sendImageThread.start()
-    
-    def joinThread(self):
-        self.sendImageThread.join()
     
     def startReadingImage(self):
         with picamera.PiCamera() as camera:
@@ -29,6 +22,14 @@ class CameraReader(object):
                 stream.seek(0)
                 buf = stream.read()
                 self.imageQueue.append(buf)
+    
+    sendImageThread = Thread(target = startReadingImage)
+    
+    def __init__(self):
+        self.sendImageThread.start()
+    
+    def joinThread(self):
+        self.sendImageThread.join()
     
     def getImage(self):
         lastImageIndex = len(self.imageQueue) - 1
