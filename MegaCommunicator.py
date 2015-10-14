@@ -46,7 +46,7 @@ class MegaCommunicator(object):
         self.port.write(s);
         return self.readlineCR()
         
-    def waitForMegaStartUp(self):
+    def waitForMegaToStartUp(self):
         while True:
             print "Saying Hello"
             rcv = self.send("H");

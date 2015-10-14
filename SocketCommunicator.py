@@ -12,8 +12,10 @@ class SocketCommunicator(object):
     client_connection = None
     server_connection = None
     
-    RPI_IP = "192.168.1.212"
-    COM_IP = "192.168.1.107"
+    #RPI_IP = "192.168.1.212"   #Sevin
+    RPI_IP = "172.25.104.193"   #COM1
+    #COM_IP = "192.168.1.107"   #Sevin
+    COM_IP = "172.25.98.98"    #COM1
     
     def sendInt(self, num):
         self.client_connection.write(struct.pack('>L', num))
