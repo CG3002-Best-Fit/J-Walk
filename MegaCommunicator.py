@@ -42,7 +42,7 @@ class MegaCommunicator(object):
             rv += ch
     
     def send(self, s):
-        print "Sending " + s
+        #print "Sending " + s
         self.port.write(s);
         return self.readlineCR()
         
@@ -65,7 +65,7 @@ class MegaCommunicator(object):
         self.sc = Scanner(rcv)
         N = self.sc.nextInt()
         temp = N
-        print N
+        #print N
         for i in range (0, N):
             newValue = self.sc.nextInt()
             #print "i = " + str(i) + "  N = " + str(N) + " " + str(len(sensorValues))
@@ -76,7 +76,7 @@ class MegaCommunicator(object):
             self.sensorValues[i] = newValue 
             temp += self.sensorValues[i]
             
-        checkSum = self.nextInt()
+        checkSum = self.sc.nextInt()
         if (checkSum != temp): # request resend immediately
             print str(checkSum) + " " + str(temp)
             print "check sum wrong!"

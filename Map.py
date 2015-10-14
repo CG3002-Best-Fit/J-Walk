@@ -8,9 +8,9 @@ import json
 import sys
 import heapq
 import math
-from distutils.tests.test_register import RawInputs
+#from distutils.tests.test_register import RawInput
 from math import atan2
-from pip._vendor.distlib.util import DIRECT_REF
+#from pip._vendor.distlib.util import DIRECT_REF
 from AudioManager import AudioManager
 
 audioManager = AudioManager()
