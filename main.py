@@ -161,6 +161,8 @@ def getNumberFromKeypad():
                 for i in range(4):
                     if GPIO.input(ROW[i]) == 0:
                         if (MATRIX[i][j] == '#'):
+                            GPIO.output(COL[j],1)
+                            time.sleep(0.05)
                             return result
                         elif (MATRIX[i][j] == '*'):
                             result = ""
@@ -199,7 +201,7 @@ def downloadMaps():
         mapHeading = int(mapInfo['info']['northAt'])
 
 if __name__ == '__main__':
-    megaCommunicator.waitForMegaToStartUp()
+    #megaCommunicator.waitForMegaToStartUp()
     getUserInput()
     #downloadMaps()
     
