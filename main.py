@@ -12,7 +12,6 @@ from CameraReader import CameraReader
 import Map
 import RPi.GPIO as GPIO
 import time
-from StdSuites.AppleScript_Suite import result
 
 isProgramAlive = True
 STEP_LENGTH = 38 #cm
