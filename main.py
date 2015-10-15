@@ -25,7 +25,7 @@ curX = 100
 curY = 100
 curHeading = 0
 
-shortestPath =[]
+shortestPath = []
 graphList = []
 
 audioManager = AudioManager()
@@ -199,8 +199,6 @@ def downloadMaps():
         mapHeading = int(mapInfo['info']['northAt'])
 
 if __name__ == '__main__':
-    global shortestPath, graphList
-    
     megaCommunicator.waitForMegaToStartUp()
     getUserInput()
     #downloadMaps()
