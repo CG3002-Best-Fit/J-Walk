@@ -199,11 +199,12 @@ def downloadMaps():
         mapHeading = int(mapInfo['info']['northAt'])
 
 if __name__ == '__main__':
+    global shortestPath, graphList
+    
     megaCommunicator.waitForMegaToStartUp()
     getUserInput()
     #downloadMaps()
     
-    global shortestPath, graphList
     info = Map.startup()
     startNode = info[0]
     endNode = info[1]
