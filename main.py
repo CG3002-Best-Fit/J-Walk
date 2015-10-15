@@ -169,6 +169,8 @@ def getNumberFromKeypad():
                         else:
                             result = result + MATRIX[i][j]
                         print MATRIX[i][j] + " pressed"
+                        audioManager.playNumber(MATRIX[i][j])
+
                         print "result = " + result
                         
                 GPIO.output(COL[j],1)
