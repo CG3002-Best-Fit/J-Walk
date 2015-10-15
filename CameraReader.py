@@ -30,8 +30,8 @@ class CameraReader(object):
                 stream.truncate()
       
     def __init__(self):
-            self.sendImageThread = Thread(target = self.startReadingImage)
-            self.sendImageThread.start()
+        self.sendImageThread = Thread(target = self.startReadingImage)
+        self.sendImageThread.start()
     
     def joinThread(self):
         self.sendImageThread.join()
