@@ -166,7 +166,8 @@ def getNumberFromKeypad():
                             result = ""
                         else:
                             result = result + MATRIX[i][j]
-                        #print MATRIX[i][j]
+                        print MATRIX[i][j] + " pressed"
+                        print "result = " + result
                         
                 GPIO.output(COL[j],1)
                 time.sleep(0.05)
