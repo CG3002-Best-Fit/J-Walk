@@ -118,12 +118,6 @@ def sendDataToComp():
         print "Oops! Socket or Camera went wrong..."
         isProgramAlive = False
     
-    if (cameraReader != None):
-        cameraReader.close()
-        print "Closed the camera"
-    
-    socketCommunicator.closeConnection()
-    print "Closed connection"
     print "Exiting sendDataToComp()"
         
 def getUserInput():
@@ -190,9 +184,6 @@ def init():
             print "finish setting up socket"
             return True
     except:
-        if (socketCommunicator != None):
-            socketCommunicator.closeConnection()
-            print "Closing connections"
         return False
 
 if __name__ == '__main__':
@@ -203,3 +194,11 @@ if __name__ == '__main__':
     
     print "Oops! Something went wrong. The program will be terminated..."
     AudioManager.closeAudio()
+    
+    if (cameraReader != None):
+        cameraReader.close()
+        print "Closed the camera"
+    
+    if (socketCommunicator != None):
+        socketCommunicator.closeConnection()
+        print "Closed connections"
