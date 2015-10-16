@@ -15,7 +15,7 @@ import time
 isProgramAlive = True
 
 megaCommunicator = MegaCommunicator()
-cameraReader = CameraReader()
+cameraReader = None #CameraReader()
 keypadReader = KeypadReader()
 mapNavigator = MapNavigator()
 
@@ -46,13 +46,13 @@ def navigate():
             break;
 
 def pollData():
-    global isProgramAlive
+    global isProgramAlive, mapNavigator
     try:
         while isProgramAlive:
             isSuccessful = megaCommunicator.pollData()
             if isSuccessful:
+                mapNavigator.setHeading(megaCommunicator.getHeading())
                 if (megaCommunicator.getStep() > 0):
-                    mapNavigator.setHeading(megaCommunicator.getHeading())
                     mapNavigator.stepAhead()
                 
                 if (obstacleDetected(megaCommunicator.getSonar1())):
@@ -68,11 +68,12 @@ def pollData():
         isProgramAlive = False
 
 def sendDataToComp():
-    global isProgramAlive
+    global isProgramAlive, mapNavigator
     print "setting up socket"
     socketCommunicator = SocketCommunicator()
     print "finish setting up socket"
     try:
+        cameraReader = CameraReader()
         print "waiting for Hello"
         packet = socketCommunicator.readInt()
         print "packet = " + str(packet)
@@ -113,21 +114,27 @@ def sendDataToComp():
         isProgramAlive = False
         
 def getUserInput():
+    print "Enter Start Block:"
     startingBlock = keypadReader.getNumber()
     print startingBlock
     
+    print "Enter Start Level:"
     startingLevel = keypadReader.getNumber()
     print startingLevel
     
+    print "Enter Start Id:"
     startingId = keypadReader.getNumber()
     print startingId
     
+    print "Enter End Block:"
     endingBlock = keypadReader.getNumber()
     print endingBlock
     
+    print "Enter End Level:"
     endingLevel = keypadReader.getNumber()
     print endingLevel
     
+    print "Enter End Id:"
     endingId = keypadReader.getNumber()
     print endingId
     return [startingBlock, startingLevel, startingId, endingBlock, endingLevel, endingId]

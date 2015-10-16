@@ -89,9 +89,8 @@ class Graph:
 
     def add_vertex(self, node):
         self.num_vertices = self.num_vertices + 1
-        new_vertex = Vertex(node)
-        self.vert_dict[node] = new_vertex
-        return new_vertex
+        self.vert_dict[node.get_id()] = node
+        return node
 
     def get_vertex(self, n):
         if n in self.vert_dict:
@@ -123,8 +122,8 @@ class MapNavigator(object):
     
     STEP_LENGTH = 38 #cm
 
-    curBuilding = "1" #COM1
-    curLevel = "2"
+    curBuilding = 1 #COM1
+    curLevel = 2
     mapHeading = 0
     
     curX = 500
@@ -139,6 +138,9 @@ class MapNavigator(object):
         self.curLevel = userInput[1]
         
         info = self.startup(userInput[0], userInput[1], userInput[2], userInput[3], userInput[4], userInput[5])
+        if (len(info) != 4) :
+            return False
+
         startNode = info[0]
         endNode = info[1]
         buildingInfo = info[2]
@@ -150,11 +152,11 @@ class MapNavigator(object):
         self.shortestPath = self.shortestPath(self.graphList, startNode, endNode)
 
         for node in totalInfoMatrix[0]['map']:
-            if str(node['nodeId']) == userInput[2]:
+            if int(node['nodeId']) == userInput[2]:
                 self.curX = int(node['x'])
                 self.curY = int(node['y'])
                 break
-            
+        return True            
 
     
     def setHeading(self, newHeading):
@@ -190,10 +192,10 @@ class MapNavigator(object):
             mapName = "XXLevelYY.json"
             
             url = 'http://showmyway.comp.nus.edu.sg/getMapInfo.php?Building=XX&Level=YY'
-            url = url.replace("XX", mapInfo[0])
-            url = url.replace("YY", mapInfo[1])
-            mapName = mapName.replace("XX",mapInfo[0])
-            mapName = mapName.replace("YY",mapInfo[1])
+            url = url.replace("XX", str(mapInfo[0]))
+            url = url.replace("YY", str(mapInfo[1]))
+            mapName = mapName.replace("XX",str(mapInfo[0]))
+            mapName = mapName.replace("YY",str(mapInfo[1]))
             mapDownload.retrieve(url,mapName)
         
         #Load the downloaded json file into the program
@@ -317,7 +319,7 @@ class MapNavigator(object):
                 break
             else:
                 AudioManager.playStartingBlockLevelInvalid()
-                return False
+                return []
                 #print("Block/ Level is invalid")
                 
     
@@ -346,7 +348,7 @@ class MapNavigator(object):
                 break
             else:
                 AudioManager.playStartingNodeInvalid()
-                return False
+                return []
                 #print("Starting Node invalid.")        
         
         searchLocation = len(totalInfoMatrix)-1
@@ -401,7 +403,7 @@ class MapNavigator(object):
             if len(buildingInfo)== counter:
                 AudioManager.playEndingBlockLevelInvalid()
                 #print("Invalid end block/level")
-                return False
+                return []
             else:
                 break
     
@@ -431,7 +433,7 @@ class MapNavigator(object):
                 break
             else:
                 AudioManager.playEndingNodeInvalid()
-                return False
+                return []
                 #print("Ending Node invalid.")
         return (startId, endId,buildingInfo,totalInfoMatrix)     
     
@@ -447,7 +449,7 @@ class MapNavigator(object):
             
             
             for eachNode in totalInfoMatrix[x]['map']:
-                g.add_vertex(int(eachNode['nodeId']), str(eachNode['nodeName']), int(eachNode['x']), int(eachNode['y']))
+                g.add_vertex(Vertex(int(eachNode['nodeId']), str(eachNode['nodeName']), int(eachNode['x']), int(eachNode['y'])))
     
             for eachNode in totalInfoMatrix[x]['map']:
                 startingX = float(eachNode['x'])
@@ -514,10 +516,10 @@ class MapNavigator(object):
                     
                 if angleToTravel == None:
                     angle = math.degrees(atan2((nextY-currentY),(nextX - currentX)))
-                if angle > 90:
-                    angleToTravel = 360 - angle + 90 + NorthToVert
-                else:
-                    angleToTravel = 90 - angle + NorthToVert
+                    if angle > 90:
+                        angleToTravel = 360 - angle + 90 + NorthToVert
+                    else:
+                        angleToTravel = 90 - angle + NorthToVert
                         
                 while angleToTravel >= 360:
                     angleToTravel = angleToTravel -360
@@ -535,17 +537,18 @@ class MapNavigator(object):
                     leftDirection= leftDirection+360
                 
                 if (angleRangeMin<= currentDirection and currentDirection<360) or (angleRangeMax>= currentDirection and currentDirection>=0) or (angleRangeMin<= currentDirection and currentDirection<=angleRangeMax):
-                    print "Travel straight %.2f"%distance,"cm to node",path[0]
+                    continue
+                    #print "Travel straight %.2f"%distance,"cm to node",path[0]
                 elif (angleToTravel <currentDirection and angleToTravel > leftDirection and leftDirection <180) or (((angleToTravel<currentDirection) or (angleToTravel > leftDirection)) and leftDirection >=180):
                     directionCorrection = currentDirection - angleToTravel
                     while directionCorrection<0:
                         directionCorrection = directionCorrection+360
-                    print "Turn left by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0]
+                    #print "Turn left by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0]
                 else:
                     directionCorrection = angleToTravel- currentDirection
                     while directionCorrection<0:
                         directionCorrection = directionCorrection+360
-                    print "Turn right by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0]
+                    #print "Turn right by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0]
                 break
         return path    
                 
