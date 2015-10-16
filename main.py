@@ -18,6 +18,7 @@ megaCommunicator = MegaCommunicator()
 cameraReader = None #CameraReader()
 keypadReader = KeypadReader()
 mapNavigator = MapNavigator()
+socketCommunicator = None
 
 def obstacleDetected(value):
     return (10 <= value and value < 50)
@@ -39,11 +40,18 @@ def startThreads():
     navigateThread.join()
 
 def navigate():
-    while True:
-        hasNextNode = mapNavigator.getInstruction()
-        if hasNextNode == False:
-            print "You reached destination!!!"
-            break;
+    global isProgramAlive
+    try:
+        while isProgramAlive:
+            hasNextNode = mapNavigator.getInstruction()
+            if hasNextNode == False:
+                print "You reached destination!!!"
+                break;
+    except:
+        print "Oops! Something went wrong in navigate()!"
+        isProgramAlive = False
+    finally:
+        print "Navigation is stopping..."
 
 def pollData():
     global isProgramAlive, mapNavigator
@@ -64,29 +72,26 @@ def pollData():
                 if (obstacleDetected(megaCommunicator.getSonar3())):
                     AudioManager.play('warning')
                 time.sleep(0.5)
-    finally:
+    except :
+        print "Oops! Something went wrong in pollData()!"
         isProgramAlive = False
+    finally:
+        print "Exiting pollData()..."
 
 def sendDataToComp():
-    global isProgramAlive, mapNavigator
-    print "setting up socket"
-    socketCommunicator = SocketCommunicator()
-    print "finish setting up socket"
+    global isProgramAlive, mapNavigator, socketCommunicator, cameraReader
     try:
-        cameraReader = CameraReader()
-        print "waiting for Hello"
-        packet = socketCommunicator.readInt()
-        print "packet = " + str(packet)
-        if (packet == 2) :
-            print "Hello received"
-            print "sending ACK"
-            socketCommunicator.sendInt(3)
-            socketCommunicator.flush()
-        
         while isProgramAlive:            
             packet = socketCommunicator.readInt()
             #print "packet = " + str(packet) 
-            if (packet == 123):
+            if (packet == 2) :
+                print "Hello received"
+                print "sending ACK"
+                socketCommunicator.sendInt(3)
+                socketCommunicator.flush()
+            elif (packet == 123):
+                if cameraReader == None:
+                    cameraReader = CameraReader()
                 img = cameraReader.getImage()
                 length = len(img)
                 #print "length of Image = " + str(length)
@@ -108,10 +113,16 @@ def sendDataToComp():
                 break
         # Write a length of zero to the stream to signal we're done
         socketCommunicator.sendInt(0)
-        
+    except:
+        print "Oops! Socket or Camera went wrong..."
+        isProgramAlive = False
     finally:
         socketCommunicator.closeConnection()
-        isProgramAlive = False
+        print "Closed connection"
+        if (cameraReader != None):
+            cameraReader.close()
+            print "Closed the camera"
+        print "Exiting sendDataToComp()"
         
 def getUserInput():
     print "Enter Start Block:"
@@ -142,6 +153,7 @@ def getUserInput():
 def waitForMegaToStartUp():
     megaCommunicator.waitForMegaToStartUp()
     while True:
+        print "Press 1 to stop Calibration!" 
         keyPressed = keypadReader.getKeyPressed()
         if (keyPressed == '1'):
             while True:
@@ -149,18 +161,33 @@ def waitForMegaToStartUp():
                 rcv = megaCommunicator.send("1");
                 print "Received " + rcv
                 if (rcv == "A") :
-                    print "Calibration is ready!"
+                    print "Calibration is finished!"
                     return
 
+def init():
+    global socketCommunicator
+    try:
+        waitForMegaToStartUp()
+        
+        while True:
+            userInput = getUserInput()
+            isValid = mapNavigator.setStartAndEndPoint(userInput)
+            if isValid == False :
+                print "Invalid path!! Please re-enter!!"
+            else :
+                break
+        
+        print "setting up socket"
+        socketCommunicator = SocketCommunicator()
+        print "finish setting up socket"
+        
+        return True
+    except:
+        return False
+
 if __name__ == '__main__':
-    waitForMegaToStartUp()
-    
-    while True:
-        userInput = getUserInput()
-        isValid = mapNavigator.setStartAndEndPoint(userInput)
-        if isValid == False :
-            print "Invalid path!! Please re-enter!!"
-        else :
-            break
-    
-    startThreads()
+    isEverythingReady = init()
+    if isEverythingReady:
+        startThreads()
+    else:
+        print "Oops! Something went wrong. The program will be terminated..."

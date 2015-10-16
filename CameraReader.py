@@ -9,17 +9,18 @@ import time, io
 
 class CameraReader(object):
     imageQueue = []
-    readImageThread = None    
-
+    readImageThread = None
+    camera = None
+    
     def startReadingImage(self):
-        with picamera.PiCamera() as camera:
-            camera.resolution = (640, 480)
+        with picamera.PiCamera() as self.camera:
+            self.camera.resolution = (640, 480)
             # Start a preview and let the camera warm up for 2 seconds
             #camera.start_preview()
             time.sleep(2)
     
             stream = io.BytesIO()
-            for foo in camera.capture_continuous(stream, 'jpeg', use_video_port=True):
+            for foo in self.camera.capture_continuous(stream, 'jpeg', use_video_port=True):
                 stream.seek(0)
                 buf = stream.read()
                 self.imageQueue.append(buf)
@@ -41,3 +42,7 @@ class CameraReader(object):
         if (lastImageIndex >= 0):
             return self.imageQueue[lastImageIndex]
         return []
+    
+    def close(self):
+        if self.camera != None:
+            self.camera.close()

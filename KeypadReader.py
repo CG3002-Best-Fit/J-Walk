@@ -32,7 +32,8 @@ class KeypadReader(object):
                             GPIO.output(self.COL[j],1)
                             time.sleep(0.05)
                             return self.MATRIX[i][j]
-                    
+                    GPIO.output(self.COL[j],1)
+                    time.sleep(0.05)
             
         except KeyboardInterrupt:
                 GPIO.cleanup();
@@ -62,7 +63,7 @@ class KeypadReader(object):
                             else:
                                 result = result + self.MATRIX[i][j]
                             
-                            print "result = " + result
+                            #print "result = " + result
                     GPIO.output(self.COL[j], 1)        
                     time.sleep(0.05)
             
