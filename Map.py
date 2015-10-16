@@ -492,7 +492,8 @@ class MapNavigator(object):
                 distance = math.sqrt(math.pow((currentX-nextX),2)+ math.pow((currentY-nextY),2))
                 if distance <30:
                     # reset x and y
-                    path.pop(0)
+                    currentNode = path.pop(0)
+                    print 'You have reached node' ,currentNode
                     if len(path)==0:
                         print "You have reached your destination"
                         break
@@ -514,10 +515,10 @@ class MapNavigator(object):
                     
                 if angleToTravel == None:
                     angle = math.degrees(atan2((nextY-currentY),(nextX - currentX)))
-                if angle > 90:
-                    angleToTravel = 360 - angle + 90 + NorthToVert
-                else:
-                    angleToTravel = 90 - angle + NorthToVert
+                    if angle > 90:
+                        angleToTravel = 360 - angle + 90 + NorthToVert
+                    else:
+                        angleToTravel = 90 - angle + NorthToVert
                         
                 while angleToTravel >= 360:
                     angleToTravel = angleToTravel -360
