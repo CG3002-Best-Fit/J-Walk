@@ -197,6 +197,6 @@ if __name__ == '__main__':
     if isEverythingReady:
         print "Starting threads..."
         startThreads()
-    else:
-        print "Oops! Something went wrong. The program will be terminated..."
-        AudioManager.closeAudio()
+    
+    print "Oops! Something went wrong. The program will be terminated..."
+    AudioManager.closeAudio()
