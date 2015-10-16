@@ -54,6 +54,7 @@ class MegaCommunicator(object):
             if (rcv == "A") :
                 print "Mega is ready!"
                 break
+        
             
     def pollData(self):
         self.timeout_flag = False
