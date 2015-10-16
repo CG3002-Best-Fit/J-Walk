@@ -10,10 +10,8 @@ import heapq
 import math
 #from distutils.tests.test_register import RawInput
 from math import atan2
+import AudioManager
 #from pip._vendor.distlib.util import DIRECT_REF
-from AudioManager import AudioManager
-
-audioManager = AudioManager()
 
 class Vertex:
     def __init__(self, node, name,x,y):
@@ -318,7 +316,7 @@ class MapNavigator(object):
             if totalInfo['info'] != None:
                 break
             else:
-                audioManager.playStartingBlockLevelInvalid()
+                AudioManager.playStartingBlockLevelInvalid()
                 return False
                 #print("Block/ Level is invalid")
                 
@@ -347,7 +345,7 @@ class MapNavigator(object):
             if exist == True:
                 break
             else:
-                audioManager.playStartingNodeInvalid()
+                AudioManager.playStartingNodeInvalid()
                 return False
                 #print("Starting Node invalid.")        
         
@@ -401,7 +399,7 @@ class MapNavigator(object):
                         break
             
             if len(buildingInfo)== counter:
-                audioManager.playEndingBlockLevelInvalid()
+                AudioManager.playEndingBlockLevelInvalid()
                 #print("Invalid end block/level")
                 return False
             else:
@@ -432,7 +430,7 @@ class MapNavigator(object):
             if exist == True:
                 break
             else:
-                audioManager.playEndingNodeInvalid()
+                AudioManager.playEndingNodeInvalid()
                 return False
                 #print("Ending Node invalid.")
         return (startId, endId,buildingInfo,totalInfoMatrix)     
