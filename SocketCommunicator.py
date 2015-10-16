@@ -11,7 +11,7 @@ class SocketCommunicator(object):
     server_socket = None
     client_connection = None
     server_connection = None
-    
+    isConnectionSuccessful = False
     #RPI_IP = "192.168.1.212"   #Sevin
     RPI_IP = "192.168.0.109"   #YuShuen
     #RPI_IP = "172.25.104.193"   #COM1
@@ -32,24 +32,29 @@ class SocketCommunicator(object):
         self.client_connection.flush()
 
     def __init__(self):
-        # sender
-        print "setup client to " + str(self.COM_IP)
-        self.client_socket = socket.socket() 
-        self.client_socket.connect((self.COM_IP, 8000))
-        self.client_connection = self.client_socket.makefile('wb')
-        print "finish setup client"
-        
-        print "sending 1"
-        self.sendInt(1)
-        self.flush()
-        # receiver
-        print "setup server from " + str(self.RPI_IP)
-        self.server_socket = socket.socket()
-        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.server_socket.bind((self.RPI_IP, 8029))
-        self.server_socket.listen(0)
-        self.server_connection = self.server_socket.accept()[0].makefile('rb')
-        print "finish setup server"
+        try:
+            # sender
+            print "setup client to " + str(self.COM_IP)
+            self.client_socket = socket.socket() 
+            self.client_socket.connect((self.COM_IP, 8000))
+            self.client_connection = self.client_socket.makefile('wb')
+            print "finish setup client"
+            
+            print "sending 1"
+            self.sendInt(1)
+            self.flush()
+            # receiver
+            print "setup server from " + str(self.RPI_IP)
+            self.server_socket = socket.socket()
+            self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            self.server_socket.bind((self.RPI_IP, 8029))
+            self.server_socket.listen(0)
+            self.server_connection = self.server_socket.accept()[0].makefile('rb')
+            print "finish setup server"
+            self.isConnectionSuccessful = True
+        except:
+            self.isConnectionSuccessful = False
+            
         
     def closeConnection(self):
         if self.client_connection != None:

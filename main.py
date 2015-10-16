@@ -179,9 +179,13 @@ def init():
         
         print "setting up socket"
         socketCommunicator = SocketCommunicator()
-        print "finish setting up socket"
-        
-        return True
+        if (socketCommunicator.isConnectionSuccessful == False):
+            socketCommunicator.closeConnection()
+            print "Connection Failed!"
+            return False
+        else :
+            print "finish setting up socket"
+            return True
     except:
         if (socketCommunicator != None):
             socketCommunicator.closeConnection()
