@@ -50,8 +50,8 @@ def navigate():
     except:
         print "Oops! Something went wrong in navigate()!"
         isProgramAlive = False
-    finally:
-        print "Navigation is stopping..."
+    
+    print "Navigation is stopping..."
 
 def pollData():
     global isProgramAlive, mapNavigator
@@ -75,8 +75,8 @@ def pollData():
     except :
         print "Oops! Something went wrong in pollData()!"
         isProgramAlive = False
-    finally:
-        print "Exiting pollData()..."
+    
+    print "Exiting pollData()..."
 
 def sendDataToComp():
     global isProgramAlive, mapNavigator, socketCommunicator, cameraReader
@@ -116,13 +116,13 @@ def sendDataToComp():
     except:
         print "Oops! Socket or Camera went wrong..."
         isProgramAlive = False
-    finally:
-        socketCommunicator.closeConnection()
-        print "Closed connection"
-        if (cameraReader != None):
-            cameraReader.close()
-            print "Closed the camera"
-        print "Exiting sendDataToComp()"
+    
+    socketCommunicator.closeConnection()
+    print "Closed connection"
+    if (cameraReader != None):
+        cameraReader.close()
+        print "Closed the camera"
+    print "Exiting sendDataToComp()"
         
 def getUserInput():
     print "Enter Start Block:"

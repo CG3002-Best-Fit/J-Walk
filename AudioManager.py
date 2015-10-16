@@ -23,6 +23,7 @@ def playInQueueAudio():
             audioFile = audioQueue[0]
             audioQueue.pop(0)
             mainChan.play(audioFile)
+    print "Audio is closing..."
             
 def closeAudio():
     global isClosed
