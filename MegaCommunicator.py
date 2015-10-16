@@ -16,6 +16,7 @@ class MegaCommunicator(object):
     sensorValues = []
     status = []
     pollCount = 0
+    stackSpace = 0
     
     port = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=2.0)
     sc = Scanner("")
@@ -92,11 +93,13 @@ class MegaCommunicator(object):
             print "sonar 3  \t" + str(self.sensorValues[2])  + " " + self.status[2]
             print "Step     \t" + str(self.sensorValues[3])  + " " + self.status[3]
             print "Heading  \t" + str(self.sensorValues[4])  + " " + self.status[4]
+	    print "Stack space \t" + str(self.sensorValues[5]) + " " + self.status[5] 
             self.sonar1Value    = self.sensorValues[0]
             self.sonar2Value    = self.sensorValues[1]
             self.sonar3Value    = self.sensorValues[2]
             self.stepsValue     = self.sensorValues[3]
             self.headingValue   = self.sensorValues[4]
+	    self.stackSpace 	= self.sensorValues[5]
         return True
 
     def getSonar1(self):

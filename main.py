@@ -51,7 +51,7 @@ for i in range(4):
 
 
 def obstacleDetected(value):
-    return (10 <= value and value < 80)
+    return (10 <= value and value < 50)
 
 def startThreads():
     # start polling sensor data from Mega
@@ -160,6 +160,8 @@ def getNumberFromKeypad():
                 
                 for i in range(4):
                     if GPIO.input(ROW[i]) == 0:
+                        audioManager.playNumber(MATRIX[i][j])
+                        
                         if (MATRIX[i][j] == '#'):
                             GPIO.output(COL[j],1)
                             time.sleep(0.05)
@@ -169,7 +171,6 @@ def getNumberFromKeypad():
                         else:
                             result = result + MATRIX[i][j]
                         print MATRIX[i][j] + " pressed"
-                        audioManager.playNumber(MATRIX[i][j])
 
                         print "result = " + result
                         
@@ -203,17 +204,17 @@ def downloadMaps():
         mapHeading = int(mapInfo['info']['northAt'])
 
 if __name__ == '__main__':
-    #megaCommunicator.waitForMegaToStartUp()
-    getUserInput()
-    #downloadMaps()
+    megaCommunicator.waitForMegaToStartUp()
+    #getUserInput()
+    downloadMaps()
     
-    info = Map.startup()
-    startNode = info[0]
-    endNode = info[1]
-    buildingInfo = info[2]
-    totalInfoMatrix = info[3]
+    #info = Map.startup()
+    #startNode = info[0]
+    #endNode = info[1]
+    #buildingInfo = info[2]
+    #totalInfoMatrix = info[3]
     
-    graphList = Map.parseInfo(buildingInfo, totalInfoMatrix)
-    shortestPath = Map.shortestPath(graphList, startNode, endNode)
+    #graphList = Map.parseInfo(buildingInfo, totalInfoMatrix)
+    #shortestPath = Map.shortestPath(graphList, startNode, endNode)
     
     startThreads()
