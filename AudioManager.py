@@ -63,7 +63,7 @@ playInQueueAudioThread = Thread(target = playInQueueAudio)
 playInQueueAudioThread.start()
 
 def play(audioName):
-    print "play " + audioName 
+    #print "play " + audioName 
     if (audioDict[audioName] != None) :
         audioQueue.append(audioDict[audioName])
     else:

@@ -47,6 +47,7 @@ def navigate():
             if hasNextNode == False:
                 print "You reached destination!!!"
                 break;
+            time.sleep(1)
     except:
         print "Oops! Something went wrong in navigate()!"
         isProgramAlive = False
@@ -128,27 +129,28 @@ def sendDataToComp():
 def getUserInput():
     print "Enter Start Block:"
     startingBlock = keypadReader.getNumber()
-    print startingBlock
+    print "Start Block: " + str(startingBlock)
     
     print "Enter Start Level:"
     startingLevel = keypadReader.getNumber()
-    print startingLevel
+    print "Start Level: " + str(startingLevel)
     
     print "Enter Start Id:"
     startingId = keypadReader.getNumber()
-    print startingId
+    print "Start Id: " + str(startingId)
     
     print "Enter End Block:"
     endingBlock = keypadReader.getNumber()
-    print endingBlock
+    print "End Block: " + str(endingBlock)
     
     print "Enter End Level:"
     endingLevel = keypadReader.getNumber()
-    print endingLevel
+    print "End Level: " + str(endingLevel)
     
     print "Enter End Id:"
     endingId = keypadReader.getNumber()
-    print endingId
+    print "End Id: " + str(endingId)
+    
     return [startingBlock, startingLevel, startingId, endingBlock, endingLevel, endingId]
 
 def waitForMegaToStartUp():

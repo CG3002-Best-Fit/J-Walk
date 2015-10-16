@@ -47,7 +47,7 @@ class SocketCommunicator(object):
             print "setup server from " + str(self.RPI_IP)
             self.server_socket = socket.socket()
             self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            self.server_socket.bind((self.RPI_IP, 8029))
+            self.server_socket.bind((self.RPI_IP, 8003))
             self.server_socket.listen(0)
             self.server_connection = self.server_socket.accept()[0].makefile('rb')
             print "finish setup server"
