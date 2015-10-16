@@ -183,11 +183,15 @@ def init():
         
         return True
     except:
+        if (socketCommunicator != None):
+            socketCommunicator.closeConnection()
+            print "Closing connections"
         return False
 
 if __name__ == '__main__':
     isEverythingReady = init()
     if isEverythingReady:
+        print "Starting threads..."
         startThreads()
     else:
         print "Oops! Something went wrong. The program will be terminated..."

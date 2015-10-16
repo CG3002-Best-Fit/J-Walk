@@ -52,7 +52,11 @@ class SocketCommunicator(object):
         print "finish setup server"
         
     def closeConnection(self):
-        self.client_connection.close()
-        self.client_socket.close()
-        self.server_connection.close()
-        self.server_socket.close()
+        if self.client_connection != None:
+            self.client_connection.close()
+        if self.client_socket != None:
+            self.client_socket.close()
+        if self.server_connection != None:
+            self.server_connection.close()
+        if self.server_socket != None:
+            self.server_socket.close()
