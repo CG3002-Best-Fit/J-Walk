@@ -27,9 +27,10 @@ class KeypadReader(object):
                     GPIO.output(self.COL[j],0)
                     for i in range(4):
                         if GPIO.input(self.ROW[i]) == 0:
-                            GPIO.output(self.COL[j],1)
                             AudioManager.play(self.MATRIX[i][j])
                             print self.MATRIX[i][j] + " pressed"
+                            GPIO.output(self.COL[j],1)
+                            time.sleep(0.05)
                             return self.MATRIX[i][j]
                     
             
@@ -46,7 +47,6 @@ class KeypadReader(object):
                     
                     for i in range(4):
                         if GPIO.input(self.ROW[i]) == 0:
-                            GPIO.output(self.COL[j],1)
                             AudioManager.play(self.MATRIX[i][j])
                             print self.MATRIX[i][j] + " pressed"
                             
@@ -54,16 +54,18 @@ class KeypadReader(object):
                                 
                                 if (result == "") :
                                     result = "0"
-                                return result
+                                GPIO.output(self.COL[j], 1)
+                                time.sleep(0.05)  
+                                return int(result)   
                             elif (self.MATRIX[i][j] == '*'):
                                 result = ""
                             else:
                                 result = result + self.MATRIX[i][j]
                             
                             print "result = " + result
-                            
+                    GPIO.output(self.COL[j], 1)        
                     time.sleep(0.05)
             
         except KeyboardInterrupt:
                 GPIO.cleanup();
-        return result
+        return int(result)
