@@ -117,11 +117,12 @@ def sendDataToComp():
         print "Oops! Socket or Camera went wrong..."
         isProgramAlive = False
     
-    socketCommunicator.closeConnection()
-    print "Closed connection"
     if (cameraReader != None):
         cameraReader.close()
         print "Closed the camera"
+    
+    socketCommunicator.closeConnection()
+    print "Closed connection"
     print "Exiting sendDataToComp()"
         
 def getUserInput():

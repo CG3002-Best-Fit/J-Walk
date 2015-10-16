@@ -57,10 +57,10 @@ class SocketCommunicator(object):
             
         
     def closeConnection(self):
-        if self.client_connection != None:
-            self.client_connection.close()
-        if self.client_socket != None:
-            self.client_socket.close()
+        #if self.client_connection != None:
+        #    self.client_connection.close()
+        #if self.client_socket != None:
+        #    self.client_socket.close()
         if self.server_connection != None:
             self.server_connection.close()
         if self.server_socket != None:
