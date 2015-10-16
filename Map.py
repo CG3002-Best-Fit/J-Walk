@@ -525,8 +525,10 @@ class MapNavigator(object):
                 while angleToTravel >= 360:
                     angleToTravel = angleToTravel -360
                 
-                angleRangeMax = angleToTravel + 45
-                angleRangeMin = angleToTravel - 45
+                ANGLE_LIMIT = 20
+                
+                angleRangeMax = angleToTravel + ANGLE_LIMIT
+                angleRangeMin = angleToTravel - ANGLE_LIMIT
                 while angleRangeMax >= 360:
                     angleRangeMax -= 360
                 
@@ -538,7 +540,7 @@ class MapNavigator(object):
                     leftDirection= leftDirection+360
                 
                 #if (angleRangeMin<= currentDirection and currentDirection<360) or (angleRangeMax>= currentDirection and currentDirection>=0) or (angleRangeMin<= currentDirection and currentDirection<=angleRangeMax):
-                if (min(abs(angleToTravel - currentDirection), 360 - abs(angleToTravel - currentDirection)) < 20):
+                if (min(abs(angleToTravel - currentDirection), 360 - abs(angleToTravel - currentDirection)) < ANGLE_LIMIT):
                     print "Travel straight %.2f"%distance,"cm to node",path[0]
                 elif (angleToTravel <currentDirection and angleToTravel > leftDirection and leftDirection <180) or (((angleToTravel<currentDirection) or (angleToTravel > leftDirection)) and leftDirection >=180):
                     directionCorrection = currentDirection - angleToTravel
