@@ -199,3 +199,4 @@ if __name__ == '__main__':
         startThreads()
     else:
         print "Oops! Something went wrong. The program will be terminated..."
+        AudioManager.closeAudio()

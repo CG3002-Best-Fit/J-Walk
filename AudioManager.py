@@ -11,16 +11,22 @@ mainChan = None
 
 audioQueue = []
 audioDict = {}
+isClosed = False
 
 def isBusy():
     return pygame.mixer.get_busy()
 
 def playInQueueAudio():
-    while True:
+    global isClosed
+    while isClosed == False:
         if (len(audioQueue) > 0) and (isBusy() == False):
             audioFile = audioQueue[0]
             audioQueue.pop(0)
             mainChan.play(audioFile)
+            
+def closeAudio():
+    global isClosed
+    isClosed = True
 
 pygame.init()
 pygame.mixer.init()
