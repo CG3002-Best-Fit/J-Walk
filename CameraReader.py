@@ -11,6 +11,7 @@ class CameraReader(object):
     imageQueue = []
     readImageThread = None
     camera = None
+    isCameraStopped = False
     
     def startReadingImage(self):
         try:
@@ -30,7 +31,13 @@ class CameraReader(object):
                     #print "length of Image Queue: " + str(len(self.imageQueue)) + " " + str(len(buf))
                     stream.seek(0)
                     stream.truncate()
+                    
+                    if self.isCameraStopped:
+                        break
+                self.camera.close()
         except:
+            if self.camera != None:
+                self.camera.close()
             print "Camera is not working..."
       
     def __init__(self):
@@ -47,5 +54,5 @@ class CameraReader(object):
         return []
     
     def close(self):
-        if self.camera != None:
-            self.camera.close()
+        self.isCameraStopped = True
+        
