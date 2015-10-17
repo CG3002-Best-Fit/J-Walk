@@ -94,7 +94,7 @@ def loadBGM():
     pygame.mixer.music.load('Audio/' + musicList[0])
     pygame.mixer.music.set_volume(0.5)
     playBGM()
-    for i in range(1, len(musicList)-1):
+    for i in range(1, len(musicList)):
         print str(i) + " " + 'Audio/' + musicList[i]
         pygame.mixer.music.queue('Audio/' + musicList[i])
     
@@ -168,6 +168,7 @@ def playEndingNodeInvalid():
 if __name__ == '__main__':
     #play('enter_building')
     Thread(target = loadBGM).start()
+    sleep(10)
     while (pygame.mixer.music.get_busy()):
         pass
     
