@@ -114,6 +114,12 @@ def play(audioName):
     else:
         print audioName + " audio file doesn't exist!"
 
+def playNumber(number):
+    for c in str(number):
+        if (c == '.'): 
+            break
+        play(c)
+
 def playString(s):
     engine.say(s)
     engine.runAndWait()
