@@ -89,7 +89,7 @@ def loadBGM():
         musicList[i] = temp
         
     for i in range(0, len(musicList)):
-        print i + " " + musicList[i]
+        print str(i) + " " + musicList[i]
         
     pygame.mixer.music.load('Audio/' + musicList[0])
     pygame.mixer.music.set_volume(0.5)
