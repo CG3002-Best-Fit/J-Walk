@@ -83,7 +83,7 @@ def init():
 
 def loadBGM():
     for i in range(0, len(musicList)):
-        a = random.randint(i, len(musicList)-1)
+        a = random.randint(0, len(musicList)-1)
         temp = musicList[a]
         musicList[a] = musicList[i]
         musicList[i] = temp
@@ -92,10 +92,10 @@ def loadBGM():
     #    print str(i) + " " + musicList[i]
         
     pygame.mixer.music.load('Audio/' + musicList[0])
+    pygame.mixer.music.set_volume(0.5)
     for i in range(1, len(musicList)):
         print str(i) + " " + 'Audio/' + musicList[i]
         pygame.mixer.music.queue('Audio/' + musicList[i])
-    pygame.mixer.music.set_volume(0.5)
     playBGM()
     
     
