@@ -6,6 +6,7 @@ Created on Oct 4, 2015
 import pygame
 import pyttsx
 from threading import Thread
+from time import sleep
 
 mainChan = None
 
@@ -40,9 +41,6 @@ engine.setProperty('rate', rate-50)
 volume = engine.getProperty('volume')
 engine.setProperty('volume', volume+1.0)
 
-pygame.mixer.music.load('Audio/crossing field.mp3')
-pygame.mixer.music.play(-1)
-
 audioDict['warning'] = pygame.mixer.Sound("Audio/beep.wav")
 audioDict['left'] = pygame.mixer.Sound("Audio/left.wav")
 audioDict['right'] = pygame.mixer.Sound("Audio/right.wav")
@@ -73,6 +71,15 @@ mainChan.set_volume(1.0)
 
 playInQueueAudioThread = Thread(target = playInQueueAudio)
 playInQueueAudioThread.start()
+
+def loadBGM():
+    pygame.mixer.music.load('Audio/crossing field.mp3')
+
+def playBGM():
+    pygame.mixer.music.play(-1)
+    
+def stopBGM():
+    pygame.mixer.music.fadeout(2000)
 
 def play(audioName):
     #print "play " + audioName 
@@ -134,4 +141,8 @@ def playEndingNodeInvalid():
     engine.runAndWait()
     
 if __name__ == '__main__':
-    play('enter_building')
+    #play('enter_building')
+    loadBGM()
+    playBGM()
+    sleep(10)
+    stopBGM()
