@@ -29,8 +29,8 @@ def startThreads():
     pollDataThread.start()
     
     # start sending data to Comp via Socket
-    #sendDataToCompThread = Thread(target = sendDataToComp)
-    #sendDataToCompThread.start()
+    sendDataToCompThread = Thread(target = sendDataToComp)
+    sendDataToCompThread.start()
     
     navigateThread = Thread(target = navigate)
     navigateThread.start()
@@ -58,7 +58,7 @@ def pollData():
     global isProgramAlive, mapNavigator
     try:
         while isProgramAlive:
-            isSuccessful = megaCommunicator.pollData()
+            isSuccessful = True#megaCommunicator.pollData()
             if isSuccessful:
                 mapNavigator.setHeading(megaCommunicator.getHeading())
                 if (megaCommunicator.getStep() > 0):
@@ -164,31 +164,35 @@ def waitForMegaToStartUp():
 def init():
     global socketCommunicator
     try:
-        waitForMegaToStartUp()
+        #waitForMegaToStartUp()
         
         while True:
             userInput = getUserInput()
             isValid = mapNavigator.setStartAndEndPoint(userInput)
             if isValid == False :
+                print "(" + str(userInput[0]) + ", " + userInput[1] + ", " + userInput[2] 
                 print "Invalid path!! Please re-enter!!"
             else :
                 break
         
-        #print "setting up socket"
-        #socketCommunicator = SocketCommunicator()
-        #if (socketCommunicator.isConnectionSuccessful == False):
-        #    socketCommunicator.closeConnection()
-        #    print "Connection Failed!"
-        #    return False
-        #else :
-        #    print "finish setting up socket"
-        #    return True
+        print "setting up socket"
+        socketCommunicator = SocketCommunicator()
+        if (socketCommunicator.isConnectionSuccessful == False):
+            socketCommunicator.closeConnection()
+            print "Connection Failed!"
+            return False
+        else :
+            print "finish setting up socket"
         return True
     except:
+        
         return False
 
 if __name__ == '__main__':
-    isEverythingReady = init()
+    Thread(target = AudioManager.loadBGM).start()   # play background music
+    AudioManager.init()                             # create thread to play audio
+    isEverythingReady = init()                      # check everything is ready
+    AudioManager.stopBGM()                          # stop background music
     if isEverythingReady:
         print "Starting threads..."
         startThreads()
@@ -203,3 +207,4 @@ if __name__ == '__main__':
     if (socketCommunicator != None):
         socketCommunicator.closeConnection()
         print "Closed connections"
+        
