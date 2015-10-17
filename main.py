@@ -35,7 +35,7 @@ def startThreads():
     navigateThread = Thread(target = navigate)
     navigateThread.start()
     
-    #sendDataToCompThread.join()
+    sendDataToCompThread.join()
     pollDataThread.join()
     navigateThread.join()
 
