@@ -161,4 +161,7 @@ def playEndingNodeInvalid():
     
 if __name__ == '__main__':
     #play('enter_building')
-    Thread(target = loadBGM).start()
+    playBGMThread = Thread(target = loadBGM)
+    playBGMThread.start()
+    playBGMThread.join()
+    
