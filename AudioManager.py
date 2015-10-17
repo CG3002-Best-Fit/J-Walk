@@ -69,11 +69,14 @@ audioDict['#'] = pygame.mixer.Sound("Audio/enter.wav")
 mainChan = pygame.mixer.Channel(1)
 mainChan.set_volume(1.0)
 
-playInQueueAudioThread = Thread(target = playInQueueAudio)
-playInQueueAudioThread.start()
+def initPlaySoundThread():
+    playInQueueAudioThread = Thread(target = playInQueueAudio)
+    playInQueueAudioThread.start()
 
 def loadBGM():
     pygame.mixer.music.load('Audio/crossing field.mp3')
+    pygame.mixer.music.set_volume(0.5)
+    playBGM()
 
 def playBGM():
     pygame.mixer.music.play(-1)
@@ -142,7 +145,7 @@ def playEndingNodeInvalid():
     
 if __name__ == '__main__':
     #play('enter_building')
-    loadBGM()
-    playBGM()
-    sleep(10)
+    testThread = Thread(target = loadBGM) 
+    testThread.start()
+    sleep(20)
     stopBGM()
