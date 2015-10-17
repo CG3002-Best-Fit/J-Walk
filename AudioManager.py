@@ -161,7 +161,7 @@ def playEndingNodeInvalid():
     
 if __name__ == '__main__':
     #play('enter_building')
-    playBGMThread = Thread(target = loadBGM)
-    playBGMThread.start()
-    playBGMThread.join()
+    Thread(target = loadBGM).start()
+    while (pygame.mixer.music.get_busy()):
+        pass
     
