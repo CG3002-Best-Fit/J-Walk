@@ -40,7 +40,7 @@ engine.setProperty('rate', rate-50)
 volume = engine.getProperty('volume')
 engine.setProperty('volume', volume+1.0)
 
-pygame.mixer.music.load('crossing field')
+pygame.mixer.music.load('crossing field.mp3')
 pygame.mixer.music.play(-1)
 
 audioDict['warning'] = pygame.mixer.Sound("Audio/beep.wav")
