@@ -7,6 +7,7 @@ import pygame
 import pyttsx
 from threading import Thread
 from time import sleep
+import random
 
 mainChan = None
 
@@ -69,17 +70,32 @@ audioDict['#'] = pygame.mixer.Sound("Audio/enter.wav")
 mainChan = pygame.mixer.Channel(1)
 mainChan.set_volume(1.0)
 
-def initPlaySoundThread():
+musicList = ['crossing field.mp3', 
+             'Bravely You.mp3', 
+             'EXTRA MAGIC HOUR.mp3', 
+             'Fubuki.mp3', 
+             'Hatsunetsu Days.mp3', 
+             'Miiro.mp3']
+
+def init():
     playInQueueAudioThread = Thread(target = playInQueueAudio)
     playInQueueAudioThread.start()
 
 def loadBGM():
-    pygame.mixer.music.load('Audio/crossing field.mp3')
+    for i in range(0, len(musicList)):
+        a = random.randint(i, len(musicList)-1)
+        temp = musicList[a]
+        musicList[i] = musicList[a]
+        musicList[a] = temp
+    pygame.mixer.music.load('Audio/' + musicList[0])
+    for i in range(1, len(musicList)-1):
+        pygame.mixer.music.queue(musicList[i])
     pygame.mixer.music.set_volume(0.5)
     playBGM()
 
 def playBGM():
-    pygame.mixer.music.play(-1)
+    pygame.mixer.music.play()
+    
     
 def stopBGM():
     pygame.mixer.music.fadeout(2000)
