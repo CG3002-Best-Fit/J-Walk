@@ -69,6 +69,10 @@ def play(audioName):
     else:
         print audioName + " audio file doesn't exist!"
 
+def playString(s):
+    engine.say(s)
+    engine.runAndWait()
+
 def playRequestStartingBlock():
     engine.say('Please enter Starting block.')
     engine.runAndWait()

@@ -541,16 +541,19 @@ class MapNavigator(object):
                 
                 #if (angleRangeMin<= currentDirection and currentDirection<360) or (angleRangeMax>= currentDirection and currentDirection>=0) or (angleRangeMin<= currentDirection and currentDirection<=angleRangeMax):
                 if (min(abs(angleToTravel - currentDirection), 360 - abs(angleToTravel - currentDirection)) < ANGLE_LIMIT):
+                    AudioManager.playString("Travel straight %.2f"%distance,"cm to node",path[0]);
                     print "Travel straight %.2f"%distance,"cm to node",path[0]
                 elif (angleToTravel <currentDirection and angleToTravel > leftDirection and leftDirection <180) or (((angleToTravel<currentDirection) or (angleToTravel > leftDirection)) and leftDirection >=180):
                     directionCorrection = currentDirection - angleToTravel
                     while directionCorrection<0:
                         directionCorrection = directionCorrection+360
+                    AudioManager.playString("Turn left by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0])
                     print "Turn left by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0]
                 else:
                     directionCorrection = angleToTravel- currentDirection
                     while directionCorrection<0:
                         directionCorrection = directionCorrection+360
+                    AudioManager.playString("Turn right by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0])
                     print "Turn right by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0]
                 break
         return path    

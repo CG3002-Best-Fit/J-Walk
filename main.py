@@ -29,13 +29,13 @@ def startThreads():
     pollDataThread.start()
     
     # start sending data to Comp via Socket
-    sendDataToCompThread = Thread(target = sendDataToComp)
-    sendDataToCompThread.start()
+    #sendDataToCompThread = Thread(target = sendDataToComp)
+    #sendDataToCompThread.start()
     
     navigateThread = Thread(target = navigate)
     navigateThread.start()
     
-    sendDataToCompThread.join()
+    #sendDataToCompThread.join()
     pollDataThread.join()
     navigateThread.join()
 
@@ -174,15 +174,16 @@ def init():
             else :
                 break
         
-        print "setting up socket"
-        socketCommunicator = SocketCommunicator()
-        if (socketCommunicator.isConnectionSuccessful == False):
-            socketCommunicator.closeConnection()
-            print "Connection Failed!"
-            return False
-        else :
-            print "finish setting up socket"
-            return True
+        #print "setting up socket"
+        #socketCommunicator = SocketCommunicator()
+        #if (socketCommunicator.isConnectionSuccessful == False):
+        #    socketCommunicator.closeConnection()
+        #    print "Connection Failed!"
+        #    return False
+        #else :
+        #    print "finish setting up socket"
+        #    return True
+        return True
     except:
         return False
 
