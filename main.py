@@ -122,26 +122,32 @@ def sendDataToComp():
         
 def getUserInput():
     print "Enter Start Block:"
+    AudioManager.play('enter_building')
     startingBlock = keypadReader.getNumber()
     print "Start Block: " + str(startingBlock)
     
     print "Enter Start Level:"
+    AudioManager.play('enter_level')
     startingLevel = keypadReader.getNumber()
     print "Start Level: " + str(startingLevel)
     
     print "Enter Start Id:"
+    AudioManager.play('enter')
     startingId = keypadReader.getNumber()
     print "Start Id: " + str(startingId)
     
     print "Enter End Block:"
+    AudioManager.play('enter_building')
     endingBlock = keypadReader.getNumber()
     print "End Block: " + str(endingBlock)
     
     print "Enter End Level:"
+    AudioManager.play('enter_level')
     endingLevel = keypadReader.getNumber()
     print "End Level: " + str(endingLevel)
     
     print "Enter End Id:"
+    AudioManager.play('enter')
     endingId = keypadReader.getNumber()
     print "End Id: " + str(endingId)
     
