@@ -43,6 +43,16 @@ engine.setProperty('volume', volume+1.0)
 audioDict['warning'] = pygame.mixer.Sound("Audio/beep.wav")
 audioDict['left'] = pygame.mixer.Sound("Audio/left.wav")
 audioDict['right'] = pygame.mixer.Sound("Audio/right.wav")
+audioDict['straight_ahead'] = pygame.mixer.Sound("Audio/straight_ahead.wav")
+audioDict['obstacle_ahead'] = pygame.mixer.Sound("Audio/obstacle_ahead.wav")
+audioDict['obstacle_left'] = pygame.mixer.Sound("Audio/obstacle_left.wav")
+audioDict['obstacle_right'] = pygame.mixer.Sound("Audio/obstacle_right.wav")
+audioDict['node_reached'] = pygame.mixer.Sound("Audio/node_reached.wav")
+audioDict['enter_building'] = pygame.mixer.Sound("Audio/enter_building.wav")
+audioDict['enter_level'] = pygame.mixer.Sound("Audio/enter_level.wav")
+audioDict['enter'] = pygame.mixer.Sound("Audio/enter.wav")
+
+
 audioDict['0'] = pygame.mixer.Sound("Audio/0.wav")
 audioDict['1'] = pygame.mixer.Sound("Audio/1.wav")
 audioDict['2'] = pygame.mixer.Sound("Audio/2.wav")
@@ -120,3 +130,6 @@ def playEndingNodeIntegerError():
 def playEndingNodeInvalid():
     engine.say('Ending Node Invalid, please try again.')
     engine.runAndWait()
+    
+if __name__ == '__main__':
+    play('enter_building')
