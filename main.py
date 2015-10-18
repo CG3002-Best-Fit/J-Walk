@@ -139,9 +139,10 @@ def sendDataToComp():
                     socketCommunicator.sendInt(mapNavigator.curY)
                     socketCommunicator.sendInt(mapNavigator.curHeading)
                     #print "Length: " + str(length)
+                    length = 0
                     socketCommunicator.sendInt(length)
-                    if (len(img) > 0):
-                        socketCommunicator.sendArray(img)
+                    #if (length > 0):
+                    #    socketCommunicator.sendArray(img)
                     
                     socketCommunicator.flush()
                 elif packet == 222 :
