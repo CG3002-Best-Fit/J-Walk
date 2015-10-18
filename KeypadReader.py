@@ -30,19 +30,19 @@ class KeypadReader(object):
                     GPIO.output(self.COL[j],0)
                     for i in range(4):
                         if GPIO.input(self.ROW[i]) == 0:
-                            print "Play " + self.MATRIX[i][j]
+                            #print "Play " + self.MATRIX[i][j]
                             AudioManager.play(self.MATRIX[i][j])
                             print self.MATRIX[i][j] + " pressed"
                             self.preKeyPressed = self.preKeyPressed[1:] + self.MATRIX[i][j]
-                            print "history = " + self.preKeyPressed
+                            #print "history = " + self.preKeyPressed
                             GPIO.output(self.COL[j],1)
-                            print "GPIO.output(self.COL[j],1)"
+                            #print "GPIO.output(self.COL[j],1)"
                             if self.preKeyPressed == "**#" :
-                                print "Throw Exception"
+                                #print "Throw Exception"
                                 raise ValueError("Re-enter Input")
-                            print "sleep"
+                            #print "sleep"
                             time.sleep(0.05)
-                            print "return " + self.MATRIX[i][j]
+                            #print "return " + self.MATRIX[i][j]
                             return self.MATRIX[i][j]
                     GPIO.output(self.COL[j],1)
                     time.sleep(0.05)

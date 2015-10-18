@@ -190,7 +190,7 @@ def getUserInput():
     return [startingBlock, startingLevel, startingId, endingBlock, endingLevel, endingId]
 
 def waitForMegaToStartUp():
-    #megaCommunicator.waitForMegaToStartUp()
+    megaCommunicator.waitForMegaToStartUp()
     while True:
         print "Press 1 to stop Calibration!" 
         keyPressed = keypadReader.getKeyPressed()
@@ -198,7 +198,7 @@ def waitForMegaToStartUp():
         if (keyPressed == '1'):
             while True:
                 print "Sending 1 to stop Calibration"
-                rcv = "A" #megaCommunicator.send("1");
+                rcv = megaCommunicator.send("1");
                 print "Received " + rcv
                 if (rcv == "A") :
                     print "Calibration is finished!"
