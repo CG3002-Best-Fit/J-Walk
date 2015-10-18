@@ -39,6 +39,7 @@ class SocketCommunicator(object):
             # sender
             print "setup client to " + str(self.COM_IP)
             self.client_socket = socket.socket() 
+            self.client_socket.settimeout(3)
             self.client_socket.connect((self.COM_IP, 8001))
             self.client_connection = self.client_socket.makefile('wb')
             print "finish setup client"

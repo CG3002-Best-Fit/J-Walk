@@ -114,42 +114,43 @@ def pollData():
 
 def sendDataToComp():
     global isProgramAlive, mapNavigator, socketCommunicator, cameraReader
-    try:
-        while isProgramAlive:            
-            packet = socketCommunicator.readInt()
-            #print "packet = " + str(packet) 
-            if (packet == 2) :
-                print "Hello received"
-                print "sending ACK"
-                socketCommunicator.sendInt(3)
-                socketCommunicator.flush()
-            elif (packet == 123):
-                if cameraReader == None:
-                    cameraReader = CameraReader()
-                img = cameraReader.getImage()
-                length = len(img)
-                #print "length of Image = " + str(length)
-                
-                #print "Cur Pos: " + str(curX) + ", " + str(curY)
-                #print "Heading: " + str(heading)
-                socketCommunicator.sendInt(mapNavigator.getCurrentBuilding())
-                socketCommunicator.sendInt(mapNavigator.getCurrentLevel())
-                socketCommunicator.sendInt(mapNavigator.curX)
-                socketCommunicator.sendInt(mapNavigator.curY)
-                socketCommunicator.sendInt(mapNavigator.curHeading)
-                #print "Length: " + str(length)
-                socketCommunicator.sendInt(length)
-                if (len(img) > 0):
-                    socketCommunicator.sendArray(img)
-                
-                socketCommunicator.flush()
-            elif packet == 222 :
-                break
-        # Write a length of zero to the stream to signal we're done
-        socketCommunicator.sendInt(0)
-    except:
-        print "Oops! Socket or Camera went wrong... but the program still continues..."
-        #isProgramAlive = False
+    if socketCommunicator.isConnectionSuccessful:
+        try:
+            while isProgramAlive:
+                packet = socketCommunicator.readInt()
+                #print "packet = " + str(packet) 
+                if (packet == 2) :
+                    print "Hello received"
+                    print "sending ACK"
+                    socketCommunicator.sendInt(3)
+                    socketCommunicator.flush()
+                elif (packet == 123):
+                    if cameraReader == None:
+                        cameraReader = CameraReader()
+                    img = cameraReader.getImage()
+                    length = len(img)
+                    #print "length of Image = " + str(length)
+                    
+                    #print "Cur Pos: " + str(curX) + ", " + str(curY)
+                    #print "Heading: " + str(heading)
+                    socketCommunicator.sendInt(mapNavigator.getCurrentBuilding())
+                    socketCommunicator.sendInt(mapNavigator.getCurrentLevel())
+                    socketCommunicator.sendInt(mapNavigator.curX)
+                    socketCommunicator.sendInt(mapNavigator.curY)
+                    socketCommunicator.sendInt(mapNavigator.curHeading)
+                    #print "Length: " + str(length)
+                    socketCommunicator.sendInt(length)
+                    if (len(img) > 0):
+                        socketCommunicator.sendArray(img)
+                    
+                    socketCommunicator.flush()
+                elif packet == 222 :
+                    break
+            # Write a length of zero to the stream to signal we're done
+            socketCommunicator.sendInt(0)
+        except:
+            print "Oops! Socket or Camera went wrong... but the program still continues..."
+            #isProgramAlive = False
     
     print "Exiting sendDataToComp()"
         
@@ -219,7 +220,6 @@ def init():
         if (socketCommunicator.isConnectionSuccessful == False):
             socketCommunicator.closeConnection()
             print "Connection Failed!"
-            return False
         else :
             print "finish setting up socket"
         return True
@@ -243,7 +243,7 @@ if __name__ == '__main__':
         cameraReader.close()
         print "Closed the camera"
     
-    if (socketCommunicator != None):
+    if (socketCommunicator != None and socketCommunicator.isConnectionSuccessful):
         socketCommunicator.closeConnection()
         print "Closed connections"
         
