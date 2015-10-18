@@ -85,6 +85,7 @@ def loadBGM():
     global isClosed
     song = random.choice(musicList)
     pygame.mixer.music.set_volume(0.1)
+    print song
     pygame.mixer.music.load('Audio/' + song)
     playBGM()
     
