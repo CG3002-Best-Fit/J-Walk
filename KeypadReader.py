@@ -29,6 +29,7 @@ class KeypadReader(object):
                     GPIO.output(self.COL[j],0)
                     for i in range(4):
                         if GPIO.input(self.ROW[i]) == 0:
+                            print "Play " + self.MATRIX[i][j]
                             AudioManager.play(self.MATRIX[i][j])
                             print self.MATRIX[i][j] + " pressed"
                             self.history = self.history[1:] + self.MATRIX[i][j]
