@@ -93,7 +93,7 @@ def loadBGM():
     #    print str(i) + " " + musicList[i]
         
     #pygame.mixer.music.load('Audio/' + musicList[0])
-    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.set_volume(0.2)
     #playBGM()
     for i in range(0, len(musicList)):
         while pygame.mixer.music.get_busy():
