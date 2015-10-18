@@ -13,6 +13,7 @@ from Map import MapNavigator
 import time
 
 isProgramAlive = True
+willProgramBeReseted = True
 
 megaCommunicator = MegaCommunicator()
 cameraReader = None #CameraReader()
@@ -66,6 +67,11 @@ def terminateSystemByKeypad():
             keyPressed = keypadReader.getKeyPressed()
             if keyPressed == '*':
                 print "System is shutting down!!!"
+                isProgramAlive = False
+                break;
+            elif keyPressed == '#':
+                print "System is being reseted!!!"
+                willProgramBeReseted = True
                 isProgramAlive = False
                 break;
     except:
@@ -235,22 +241,26 @@ def init():
         return False
 
 if __name__ == '__main__':
-    Thread(target = AudioManager.loadBGM).start()   # play background music
-    AudioManager.init()                             # create thread to play audio
-    isEverythingReady = init()                      # check everything is ready
-    AudioManager.stopBGM()                          # stop background music
-    if isEverythingReady:
-        print "Starting threads..."
-        startThreads()
+    while willProgramBeReseted:
+        isProgramAlive = True
+        willProgramBeReseted = False
     
-    print "Oops! Something went wrong. The program will be terminated..."
-    AudioManager.closeAudio()
-    
-    if (cameraReader != None):
-        cameraReader.close()
-        print "Closed the camera"
-    
-    if (socketCommunicator != None and socketCommunicator.isConnectionSuccessful):
-        socketCommunicator.closeConnection()
-        print "Closed connections"
+        Thread(target = AudioManager.loadBGM).start()   # play background music
+        AudioManager.init()                             # create thread to play audio
+        isEverythingReady = init()                      # check everything is ready
+        AudioManager.stopBGM()                          # stop background music
+        if isEverythingReady:
+            print "Starting threads..."
+            startThreads()
+        
+        print "Oops! Something went wrong. The program will be terminated..."
+        AudioManager.closeAudio()
+        
+        if (cameraReader != None):
+            cameraReader.close()
+            print "Closed the camera"
+        
+        if (socketCommunicator != None and socketCommunicator.isConnectionSuccessful):
+            socketCommunicator.closeConnection()
+            print "Closed connections"
         
