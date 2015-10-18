@@ -196,7 +196,7 @@ def waitForMegaToStartUp():
         if (keyPressed == '1'):
             while True:
                 print "Sending 1 to stop Calibration"
-                rcv = megaCommunicator.send("1");
+                rcv = "A" #megaCommunicator.send("1");
                 print "Received " + rcv
                 if (rcv == "A") :
                     print "Calibration is finished!"
