@@ -41,11 +41,11 @@ class KeypadReader(object):
                                 #print "Throw Exception"
                                 raise ValueError("Re-enter Input")
                             #print "sleep"
-                            time.sleep(0.5)
+                            time.sleep(0.2)
                             #print "return " + self.MATRIX[i][j]
                             return self.MATRIX[i][j]
                     GPIO.output(self.COL[j],1)
-                    time.sleep(0.5)
+                    time.sleep(0.2)
             
         except KeyboardInterrupt:
             print "Keyboard has problem!!!"
