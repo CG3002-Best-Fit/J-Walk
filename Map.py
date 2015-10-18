@@ -318,7 +318,7 @@ class MapNavigator(object):
             if totalInfo['info'] != None:
                 break
             else:
-                AudioManager.playStartingBlockLevelInvalid()
+                #AudioManager.playStartingBlockLevelInvalid()
                 return []
                 #print("Block/ Level is invalid")
                 
@@ -347,7 +347,7 @@ class MapNavigator(object):
             if exist == True:
                 break
             else:
-                AudioManager.playStartingNodeInvalid()
+                #AudioManager.playStartingNodeInvalid()
                 return []
                 #print("Starting Node invalid.")        
         
@@ -401,7 +401,7 @@ class MapNavigator(object):
                         break
             
             if len(buildingInfo)== counter:
-                AudioManager.playEndingBlockLevelInvalid()
+                #AudioManager.playEndingBlockLevelInvalid()
                 #print("Invalid end block/level")
                 return []
             else:
@@ -432,7 +432,7 @@ class MapNavigator(object):
             if exist == True:
                 break
             else:
-                AudioManager.playEndingNodeInvalid()
+                #AudioManager.playEndingNodeInvalid()
                 return []
                 #print("Ending Node invalid.")
         return (startId, endId,buildingInfo,totalInfoMatrix)     
