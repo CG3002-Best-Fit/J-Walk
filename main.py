@@ -193,6 +193,7 @@ def waitForMegaToStartUp():
     while True:
         print "Press 1 to stop Calibration!" 
         keyPressed = keypadReader.getKeyPressed()
+        print "keyPressed = " + keyPressed
         if (keyPressed == '1'):
             while True:
                 print "Sending 1 to stop Calibration"

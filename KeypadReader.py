@@ -40,6 +40,7 @@ class KeypadReader(object):
                                 print "Throw Exception"
                                 raise ValueError("Re-enter Input")
                             time.sleep(0.05)
+                            print "return " + self.MATRIX[i][j]
                             return self.MATRIX[i][j]
                     GPIO.output(self.COL[j],1)
                     time.sleep(0.05)
