@@ -41,7 +41,8 @@ class KeypadReader(object):
                     time.sleep(0.05)
             
         except KeyboardInterrupt:
-                GPIO.cleanup();
+            print "Keyboard has problem!!!"
+            GPIO.cleanup();
         return '0'
 
     def getNumber(self):

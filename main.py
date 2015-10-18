@@ -229,7 +229,7 @@ def init():
             print "finish setting up socket"
         return True
     except:
-        
+        print "Init has problem!!!"
         return False
 
 if __name__ == '__main__':
