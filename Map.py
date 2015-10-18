@@ -120,7 +120,7 @@ class MapNavigator(object):
     shortestPath = []
     graphList = []
     
-    STEP_LENGTH = 38 #cm
+    STEP_LENGTH = 49 #cm
 
     curBuilding = 1 #COM1
     curLevel = 2

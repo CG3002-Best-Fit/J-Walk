@@ -83,26 +83,10 @@ def init():
 
 def loadBGM():
     global isClosed
-    for i in range(0, len(musicList)):
-        a = random.randint(0, len(musicList)-1)
-        temp = musicList[a]
-        musicList[a] = musicList[i]
-        musicList[i] = temp
-        
-    #for i in range(0, len(musicList)):
-    #    print str(i) + " " + musicList[i]
-        
-    #pygame.mixer.music.load('Audio/' + musicList[0])
-    pygame.mixer.music.set_volume(0.2)
-    #playBGM()
-    for i in range(0, len(musicList)):
-        while pygame.mixer.music.get_busy():
-            if isClosed:
-                return
-        print "Next: " + str(i) + " " + 'Audio/' + musicList[i]
-        pygame.mixer.music.load('Audio/' + musicList[i])
-        playBGM()
-        
+    song = random.choice(musicList)
+    pygame.mixer.music.set_volume(0.1)
+    pygame.mixer.music.load('Audio/' + song)
+    playBGM()
     
 
 def playBGM():

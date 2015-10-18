@@ -208,7 +208,11 @@ def init():
         waitForMegaToStartUp()
         
         while True:
-            userInput = getUserInput()
+            try :
+                userInput = getUserInput()
+            except ValueError:
+                print "Reset input!! Please re-enter!!"
+                continue
             isValid = mapNavigator.setStartAndEndPoint(userInput)
             if isValid == False :
                 print "(" + str(userInput[0]) + ", " + userInput[1] + ", " + userInput[2] 
@@ -229,10 +233,10 @@ def init():
         return False
 
 if __name__ == '__main__':
-    #Thread(target = AudioManager.loadBGM).start()   # play background music
+    Thread(target = AudioManager.loadBGM).start()   # play background music
     AudioManager.init()                             # create thread to play audio
     isEverythingReady = init()                      # check everything is ready
-    #AudioManager.stopBGM()                          # stop background music
+    AudioManager.stopBGM()                          # stop background music
     if isEverythingReady:
         print "Starting threads..."
         startThreads()
