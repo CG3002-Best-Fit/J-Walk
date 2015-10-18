@@ -11,9 +11,10 @@ class KeypadReader(object):
     COL = [8,4,2] ##connect the pins in reverse: 2,4,8
     ROW = [11,9,7,3] ## 3,7,9,11
     
-    history = "###"
+    preKeyPressed = "###"
     
     def __init__(self):
+        self.preKeyPressed = "###"
         GPIO.setmode(GPIO.BCM)
         for j in range(3):
             GPIO.setup(self.COL[j],GPIO.OUT)
@@ -32,7 +33,8 @@ class KeypadReader(object):
                             print "Play " + self.MATRIX[i][j]
                             AudioManager.play(self.MATRIX[i][j])
                             print self.MATRIX[i][j] + " pressed"
-                            self.history = self.history[1:] + self.MATRIX[i][j]
+                            self.preKeyPressed = self.preKeyPressed[1:] + self.MATRIX[i][j]
+                            print "history = " + self.preKeyPressed
                             GPIO.output(self.COL[j],1)
                             if self.history == "**#" :
                                 raise ValueError("Re-enter Input")
