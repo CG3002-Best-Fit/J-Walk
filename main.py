@@ -218,15 +218,16 @@ def init():
         while True:
             try :
                 userInput = getUserInput()
+                isValid = mapNavigator.setStartAndEndPoint(userInput)
+                if isValid == False :
+                    print "(" + str(userInput[0]) + ", " + userInput[1] + ", " + userInput[2] 
+                    print "Invalid path!! Please re-enter!!"
+                else :
+                    break
             except ValueError:
                 print "Reset input!! Please re-enter!!"
                 continue
-            isValid = mapNavigator.setStartAndEndPoint(userInput)
-            if isValid == False :
-                print "(" + str(userInput[0]) + ", " + userInput[1] + ", " + userInput[2] 
-                print "Invalid path!! Please re-enter!!"
-            else :
-                break
+            
         
         print "setting up socket"
         socketCommunicator = SocketCommunicator()
