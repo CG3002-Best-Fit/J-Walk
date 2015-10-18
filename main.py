@@ -98,13 +98,13 @@ def pollData():
                     mapNavigator.stepAhead()
                 
                 if (obstacleDetected(megaCommunicator.getSonar1())):
-                    AudioManager.play('left')
+                    AudioManager.play('obstacle_left')
         
                 if (obstacleDetected(megaCommunicator.getSonar2())):
-                    AudioManager.play('right')
+                    AudioManager.play('obstacle_right')
         
                 if (obstacleDetected(megaCommunicator.getSonar3())):
-                    AudioManager.play('warning')
+                    AudioManager.play('obstacle_ahead')
                 time.sleep(0.5)
     except :
         print "Oops! Something went wrong in pollData()!"
