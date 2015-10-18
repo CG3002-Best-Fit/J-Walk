@@ -525,7 +525,7 @@ class MapNavigator(object):
                 while angleToTravel >= 360:
                     angleToTravel = angleToTravel -360
                 
-                ANGLE_LIMIT = 20
+                ANGLE_LIMIT = 15
                 
                 angleRangeMax = angleToTravel + ANGLE_LIMIT
                 angleRangeMin = angleToTravel - ANGLE_LIMIT
