@@ -91,7 +91,7 @@ def pollData():
     global isProgramAlive, mapNavigator
     try:
         while isProgramAlive:
-            isSuccessful = True#megaCommunicator.pollData()
+            isSuccessful = megaCommunicator.pollData()
             if isSuccessful:
                 mapNavigator.setHeading(megaCommunicator.getHeading())
                 if (megaCommunicator.getStep() > 0):
@@ -204,7 +204,7 @@ def waitForMegaToStartUp():
 def init():
     global socketCommunicator
     try:
-        #waitForMegaToStartUp()
+        waitForMegaToStartUp()
         
         while True:
             userInput = getUserInput()

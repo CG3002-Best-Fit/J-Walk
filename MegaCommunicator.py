@@ -18,7 +18,7 @@ class MegaCommunicator(object):
     pollCount = 0
     stackSpace = 0
     
-    #port = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=2.0)
+    port = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=2.0)
     sc = Scanner("")
     
     timeout_flag = False
