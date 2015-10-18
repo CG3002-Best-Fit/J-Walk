@@ -158,6 +158,7 @@ def sendDataToComp():
 def getUserInput():
     print "Enter Start Block:"
     AudioManager.play('enter_building')
+    print "Try getting a number"
     startingBlock = keypadReader.getNumber()
     print "Start Block: " + str(startingBlock)
     

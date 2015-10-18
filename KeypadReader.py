@@ -55,7 +55,7 @@ class KeypadReader(object):
     def getNumber(self):
         result = ""
         while True:
-            c = self.getKeyPress()
+            c = self.getKeyPressed()
             if c == '#':
                 if result == "" :
                     result = "0"
