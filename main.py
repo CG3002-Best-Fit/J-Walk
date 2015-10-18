@@ -96,7 +96,7 @@ def pollData():
                 mapNavigator.setHeading(megaCommunicator.getHeading())
                 if (megaCommunicator.getStep() > 0):
                     mapNavigator.stepAhead()
-                
+                print "acc = " + str(megaCommunicator.getAcc())
                 #if (obstacleDetected(megaCommunicator.getSonar1())):
                 #    AudioManager.play('obstacle_left')
         
@@ -125,10 +125,10 @@ def sendDataToComp():
                     socketCommunicator.sendInt(3)
                     socketCommunicator.flush()
                 elif (packet == 123):
-                    if cameraReader == None:
-                        cameraReader = CameraReader()
-                    img = cameraReader.getImage()
-                    length = len(img)
+                    #if cameraReader == None:
+                    #    cameraReader = CameraReader()
+                    #img = cameraReader.getImage()
+                    #length = len(img)
                     #print "length of Image = " + str(length)
                     
                     #print "Cur Pos: " + str(curX) + ", " + str(curY)

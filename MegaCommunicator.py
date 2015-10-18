@@ -13,6 +13,7 @@ class MegaCommunicator(object):
     sonar3Value = 0
     headingValue = 0
     stepsValue = 0
+    accValue = 0
     sensorValues = []
     status = []
     pollCount = 0
@@ -100,7 +101,8 @@ class MegaCommunicator(object):
             self.sonar3Value    = self.sensorValues[2]
             self.stepsValue     = self.sensorValues[3]
             self.headingValue   = self.sensorValues[4]
-            self.stackSpace 	= self.sensorValues[5]
+            self.stackSpace     = self.sensorValues[5]
+            self.accValue       = self.sensorValues[6]
         return True
 
     def getSonar1(self):
@@ -117,3 +119,6 @@ class MegaCommunicator(object):
     
     def getHeading(self):
         return self.headingValue
+    
+    def getAcc(self):
+        return self.accValue
