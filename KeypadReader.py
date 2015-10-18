@@ -37,6 +37,7 @@ class KeypadReader(object):
                             print "history = " + self.preKeyPressed
                             GPIO.output(self.COL[j],1)
                             if self.history == "**#" :
+                                print "Throw Exception"
                                 raise ValueError("Re-enter Input")
                             time.sleep(0.05)
                             return self.MATRIX[i][j]
