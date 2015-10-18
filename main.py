@@ -24,6 +24,10 @@ def obstacleDetected(value):
     return (10 <= value and value < 50)
 
 def startThreads():
+    
+    terminateSystemByKeypadThread = Thread(target = terminateSystemByKeypad)
+    terminateSystemByKeypadThread.start()
+    
     # start polling sensor data from Mega
     pollDataThread = Thread(target = pollData)
     pollDataThread.start()
@@ -36,9 +40,14 @@ def startThreads():
     navigateThread.start()
     
     try:
-        sendDataToCompThread.join()
+        terminateSystemByKeypadThread.join()
     except:
         isProgramAlive = False
+    
+    try:
+        sendDataToCompThread.join()
+    except:
+        pass
     
     try:
         pollDataThread.join()
@@ -48,6 +57,19 @@ def startThreads():
     try:
         navigateThread.join()
     except:
+        isProgramAlive = False
+
+def terminateSystemByKeypad():
+    global isProgramAlive
+    try:
+        while isProgramAlive:
+            keyPressed = keypadReader.getKeyPressed()
+            if keyPressed == '*':
+                print "System is shutting down!!!"
+                isProgramAlive = False
+                break;
+    except:
+        print "Oops! Something went wrong in terminateSystemByKeypad()!"
         isProgramAlive = False
 
 def navigate():
@@ -126,8 +148,8 @@ def sendDataToComp():
         # Write a length of zero to the stream to signal we're done
         socketCommunicator.sendInt(0)
     except:
-        print "Oops! Socket or Camera went wrong..."
-        isProgramAlive = False
+        print "Oops! Socket or Camera went wrong... but the program still continues..."
+        #isProgramAlive = False
     
     print "Exiting sendDataToComp()"
         
