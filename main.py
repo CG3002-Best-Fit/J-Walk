@@ -35,9 +35,20 @@ def startThreads():
     navigateThread = Thread(target = navigate)
     navigateThread.start()
     
-    sendDataToCompThread.join()
-    pollDataThread.join()
-    navigateThread.join()
+    try:
+        sendDataToCompThread.join()
+    except:
+        isProgramAlive = False
+    
+    try:
+        pollDataThread.join()
+    except:
+        isProgramAlive = False
+    
+    try:
+        navigateThread.join()
+    except:
+        isProgramAlive = False
 
 def navigate():
     global isProgramAlive
