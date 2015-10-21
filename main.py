@@ -101,7 +101,7 @@ def pollData():
             if isSuccessful:
                 mapNavigator.setHeading(megaCommunicator.getHeading())
                 if (megaCommunicator.getStep() > 0):
-                    mapNavigator.stepAhead()
+                    mapNavigator.stepAhead(megaCommunicator.getStep())
                 print "acc = " + str(megaCommunicator.getAcc())
                 #if (obstacleDetected(megaCommunicator.getSonar1())):
                 #    AudioManager.play('obstacle_left')

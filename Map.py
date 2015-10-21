@@ -162,10 +162,10 @@ class MapNavigator(object):
     def setHeading(self, newHeading):
         self.curHeading = newHeading
     
-    def stepAhead(self):
+    def stepAhead(self, numSteps):
         totalHeading = 90 - (self.curHeading + self.mapHeading)
-        self.curX = max(0, self.curX + self.STEP_LENGTH * math.cos(math.radians(totalHeading)));
-        self.curY = max(0, self.curY + self.STEP_LENGTH * math.sin(math.radians(totalHeading)));
+        self.curX = max(0, self.curX + numSteps * self.STEP_LENGTH * math.cos(math.radians(totalHeading)));
+        self.curY = max(0, self.curY + numSteps * self.STEP_LENGTH * math.sin(math.radians(totalHeading)));
     
     def getCurrentBuilding(self):
         return self.curBuilding
