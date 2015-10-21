@@ -75,7 +75,8 @@ musicList = ['crossing field.mp3',
              'EXTRA MAGIC HOUR.mp3', 
              'Fubuki.mp3', 
              'Hatsunetsu Days.mp3', 
-             'Miiro.mp3']
+             'Miiro.mp3',
+             'Kibou no Uta.mp3']
 
 def init():
     playInQueueAudioThread = Thread(target = playInQueueAudio)
