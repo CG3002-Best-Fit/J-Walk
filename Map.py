@@ -496,6 +496,8 @@ class MapNavigator(object):
                     # reset x and y
                     currentNode = path.pop(0)
                     print 'You have reached node' ,currentNode
+                    AudioManager.play('node')
+                    AudioManager.playNumber(currentNode)
                     if len(path)==0:
                         print "You have reached your destination"
                         break

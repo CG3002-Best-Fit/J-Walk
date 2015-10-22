@@ -50,9 +50,11 @@ audioDict['obstacle_ahead'] = pygame.mixer.Sound("Audio/obstacle_ahead.wav")
 audioDict['obstacle_left'] = pygame.mixer.Sound("Audio/obstacle_left.wav")
 audioDict['obstacle_right'] = pygame.mixer.Sound("Audio/obstacle_right.wav")
 audioDict['node_reached'] = pygame.mixer.Sound("Audio/node_reached.wav")
+audioDict['node'] = pygame.mixer.Sound("Audio/node.wav")
 audioDict['enter_building'] = pygame.mixer.Sound("Audio/enter_building.wav")
 audioDict['enter_level'] = pygame.mixer.Sound("Audio/enter_level.wav")
 audioDict['enter'] = pygame.mixer.Sound("Audio/enter.wav")
+
 
 audioDict['0'] = pygame.mixer.Sound("Audio/0.wav")
 audioDict['1'] = pygame.mixer.Sound("Audio/1.wav")
@@ -97,6 +99,12 @@ def playBGM():
     
 def stopBGM():
     pygame.mixer.music.fadeout(2000)
+
+def playImmediately(audioName):
+    if (audioDict[audioName] != None) :
+        mainChan.play(audioDict[audioName])
+    else :
+        print audioName + " audio file doesn't exist!"
 
 def play(audioName):
     #print "play " + audioName 
