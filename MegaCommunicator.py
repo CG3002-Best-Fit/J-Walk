@@ -63,7 +63,7 @@ class MegaCommunicator(object):
         self.timeout_flag = False
         print "Sending P..."
         rcv = self.send("P")
-        print "rcv = " + rcv
+        print "rcv from P = " + rcv
         
         if self.timeout_flag :
             print "resending P"
