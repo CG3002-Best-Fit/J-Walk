@@ -201,17 +201,25 @@ def getUserInput():
 def waitForMegaToStartUp():
     megaCommunicator.waitForMegaToStartUp()
     while True:
+        print "Sending C to start Calibration"
+        rcv = megaCommunicator.send("C");
+        print "Received " + rcv
+        if (rcv == "A") :
+            break
+    
+    while True:
         print "Press 1 to stop Calibration!" 
         keyPressed = keypadReader.getKeyPressed()
         print "keyPressed = " + keyPressed
         if (keyPressed == '1'):
             while True:
-                print "Sending 1 to stop Calibration"
-                rcv = megaCommunicator.send("1");
+                print "Sending S to stop Calibration"
+                rcv = megaCommunicator.send("S");
                 print "Received " + rcv
                 if (rcv == "A") :
                     print "Calibration is finished!"
-                    return
+                    break
+            break
 
 def init():
     global socketCommunicator
