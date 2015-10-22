@@ -31,6 +31,7 @@ class KeypadReader(object):
                     for i in range(4):
                         if GPIO.input(self.ROW[i]) == 0:
                             GPIO.output(self.COL[j],1)
+                            time.sleep(0.5)
                             return self.MATRIX[i][j]
                     GPIO.output(self.COL[j],1)
                     #time.sleep(0.2)
@@ -57,7 +58,7 @@ class KeypadReader(object):
                                 #print "Throw Exception"
                                 raise ValueError("Re-enter Input")
                             #print "sleep"
-                            time.sleep(0.2)
+                            time.sleep(0.5)
                             #print "return " + self.MATRIX[i][j]
                             return self.MATRIX[i][j]
                     GPIO.output(self.COL[j],1)
