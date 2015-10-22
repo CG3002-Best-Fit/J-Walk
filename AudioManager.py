@@ -4,7 +4,7 @@ Created on Oct 4, 2015
 @author: bamboo3250
 '''
 import pygame
-import pyttsx
+#import pyttsx
 from threading import Thread
 from time import sleep
 import random
@@ -34,13 +34,13 @@ def closeAudio():
 pygame.init()
 pygame.mixer.init()
 
-engine = pyttsx.init()
+#engine = pyttsx.init()
 
-rate = engine.getProperty('rate')
-engine.setProperty('rate', rate-50)
+#rate = engine.getProperty('rate')
+#engine.setProperty('rate', rate-50)
 
-volume = engine.getProperty('volume')
-engine.setProperty('volume', volume+1.0)
+#volume = engine.getProperty('volume')
+#engine.setProperty('volume', volume+1.0)
 
 audioDict['warning'] = pygame.mixer.Sound("Audio/beep.wav")
 audioDict['left'] = pygame.mixer.Sound("Audio/left.wav")
@@ -111,57 +111,57 @@ def playNumber(number):
             break
         play(c)
 
-def playString(s):
-    engine.say(s)
-    engine.runAndWait()
+#def playString(s):
+#    engine.say(s)
+#    engine.runAndWait()
 
-def playRequestStartingBlock():
-    engine.say('Please enter Starting block.')
-    engine.runAndWait()
+#def playRequestStartingBlock():
+#    engine.say('Please enter Starting block.')
+#    engine.runAndWait()
 
-def playRequestStartingLevel():
-    engine.say('Please enter the Starting level.')
-    engine.runAndWait()
+#def playRequestStartingLevel():
+#    engine.say('Please enter the Starting level.')
+#    engine.runAndWait()
 
-def playStartingBlockLevelInvalid():
-    engine.say('Starting block and Level are incorrect, please try again.')
-    engine.runAndWait()
+#def playStartingBlockLevelInvalid():
+#    engine.say('Starting block and Level are incorrect, please try again.')
+#    engine.runAndWait()
     
-def playRequestStartingNode():
-    engine.say('Please enter Starting Node.')
-    engine.runAndWait()
+#def playRequestStartingNode():
+#    engine.say('Please enter Starting Node.')
+#    engine.runAndWait()
     
-def playStartingNodeIntegerError():
-    engine.say('Please enter integers for Starting Node.')
-    engine.runAndWait()
+#def playStartingNodeIntegerError():
+#    engine.say('Please enter integers for Starting Node.')
+#    engine.runAndWait()
     
-def playStartingNodeInvalid():
-    engine.say('Starting Node Invalid, please try again.')
-    engine.runAndWait()
+#def playStartingNodeInvalid():
+#    engine.say('Starting Node Invalid, please try again.')
+#    engine.runAndWait()
 
-def playRequestEndingBlock():
-    engine.say('Please enter Ending block.')
-    engine.runAndWait()
+#def playRequestEndingBlock():
+#    engine.say('Please enter Ending block.')
+#    engine.runAndWait()
     
-def playRequestEndingLevel():
-    engine.say('Please enter Ending level.')
-    engine.runAndWait()
+#def playRequestEndingLevel():
+#    engine.say('Please enter Ending level.')
+#    engine.runAndWait()
     
-def playEndingBlockLevelInvalid():
-    engine.say('Ending block and Level are incorrect, please try again.')
-    engine.runAndWait()
+#def playEndingBlockLevelInvalid():
+#    engine.say('Ending block and Level are incorrect, please try again.')
+#    engine.runAndWait()
     
-def playRequestEndingNode():
-    engine.say('Please enter Ending Node.')
-    engine.runAndWait()
+#def playRequestEndingNode():
+#    engine.say('Please enter Ending Node.')
+#    engine.runAndWait()
     
-def playEndingNodeIntegerError():
-    engine.say('Please enter integers for Ending Node.')
-    engine.runAndWait()
+#def playEndingNodeIntegerError():
+#    engine.say('Please enter integers for Ending Node.')
+#    engine.runAndWait()
     
-def playEndingNodeInvalid():
-    engine.say('Ending Node Invalid, please try again.')
-    engine.runAndWait()
+#def playEndingNodeInvalid():
+#    engine.say('Ending Node Invalid, please try again.')
+#    engine.runAndWait()
     
 if __name__ == '__main__':
     #play('enter_building')

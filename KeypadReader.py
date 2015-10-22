@@ -23,6 +23,22 @@ class KeypadReader(object):
         for i in range(4):
             GPIO.setup(self.ROW[i],GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
+    def getKeyPressedFromGPIO(self):
+        try:
+            while(True):
+                for j in range(3):
+                    GPIO.output(self.COL[j],0)
+                    for i in range(4):
+                        if GPIO.input(self.ROW[i]) == 0:
+                            GPIO.output(self.COL[j],1)
+                            return self.MATRIX[i][j]
+                    GPIO.output(self.COL[j],1)
+                    #time.sleep(0.2)
+            
+        except KeyboardInterrupt:
+            print "Keyboard has problem!!!"
+            GPIO.cleanup();
+
     def getKeyPressed(self):
         try:
             while(True):
@@ -45,7 +61,7 @@ class KeypadReader(object):
                             #print "return " + self.MATRIX[i][j]
                             return self.MATRIX[i][j]
                     GPIO.output(self.COL[j],1)
-                    time.sleep(0.2)
+                    #time.sleep(0.2)
             
         except KeyboardInterrupt:
             print "Keyboard has problem!!!"
