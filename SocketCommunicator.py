@@ -12,18 +12,18 @@ class SocketCommunicator(object):
     client_connection = None
     server_connection = None
     isConnectionSuccessful = False
-    RPI_IP = "192.168.1.212"   #Sevin
+    #RPI_IP = "192.168.1.212"   #Sevin
     #RPI_IP = "192.168.0.109"   #YuShuen
     #RPI_IP = "172.25.103.50"   #COM1
     #RPI_IP = "192.168.2.3"      #Macbook
-    #RPI_IP = "192.168.43.212"      #Mobile
+    RPI_IP = "192.168.43.212"      #Mobile
     
     
-    COM_IP = "192.168.1.107"   #Sevin
+    #COM_IP = "192.168.1.107"   #Sevin
     #COM_IP = "192.168.0.104"   #Yu Shuen
     #COM_IP = "172.25.100.199"  #COM1
     #COM_IP = "192.168.0.105"    #Macbook
-    #COM_IP = "192.168.43.107"    #Mobile
+    COM_IP = "192.168.43.107"    #Mobile
     
     def sendInt(self, num):
         self.client_connection.write(struct.pack('>L', num))
