@@ -145,6 +145,8 @@ def sendDataToComp():
                     socketCommunicator.sendInt(mapNavigator.curX)
                     socketCommunicator.sendInt(mapNavigator.curY)
                     socketCommunicator.sendInt(mapNavigator.curHeading)
+                    socketCommunicator.sendInt(megaCommunicator.getSumStep())
+                    
                     #print "Length: " + str(length)
                     length = 0
                     socketCommunicator.sendInt(length)
