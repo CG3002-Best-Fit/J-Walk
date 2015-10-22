@@ -61,9 +61,9 @@ class MegaCommunicator(object):
             
     def pollData(self):
         self.timeout_flag = False
-        print "Sending P..."
+        #print "Sending P..."
         rcv = self.send("P")
-        print "rcv from P = " + rcv
+        #print "rcv from P = " + rcv
         
         if self.timeout_flag :
             print "resending P"
@@ -72,7 +72,7 @@ class MegaCommunicator(object):
         self.sc = Scanner(rcv)
         N = self.sc.nextInt()
         temp = N
-        print "N = " + str(N)
+        #print "N = " + str(N)
         for i in range (0, N):
             newValue = self.sc.nextInt()
             #print "i = " + str(i) + "  N = " + str(N) + " " + str(len(sensorValues))
