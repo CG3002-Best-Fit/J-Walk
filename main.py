@@ -22,7 +22,7 @@ mapNavigator = MapNavigator()
 socketCommunicator = None
 
 def obstacleDetected(value):
-    return (10 <= value and value < 50)
+    return (10 <= value and value < 100)
 
 def startThreads():
     
@@ -146,6 +146,7 @@ def sendDataToComp():
                     socketCommunicator.sendInt(mapNavigator.curY)
                     socketCommunicator.sendInt(mapNavigator.curHeading)
                     socketCommunicator.sendInt(megaCommunicator.getSumStep())
+                    socketCommunicator.sendInt(megaCommunicator.getAds())
                     
                     #print "Length: " + str(length)
                     length = 0
