@@ -235,7 +235,7 @@ def init():
                     print "Invalid path!! Please re-enter!!"
                 else :
                     break
-            except ValueError:
+            except:
                 print "Reset input!! Please re-enter!!"
                 continue
             
