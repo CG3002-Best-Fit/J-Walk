@@ -227,8 +227,8 @@ def init():
         waitForMegaToStartUp()
         
         while True:
+            userInput = getUserInput()
             try :
-                userInput = getUserInput()
                 isValid = mapNavigator.setStartAndEndPoint(userInput)
                 if isValid == False :
                     print "(" + str(userInput[0]) + ", " + userInput[1] + ", " + userInput[2] 
