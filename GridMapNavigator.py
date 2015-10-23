@@ -81,8 +81,8 @@ class GridMapNavigator(object):
         return math.sqrt(math.pow(v['x'] - u['x'],2) + math.pow(v['y'] - u['y'],2))
     
     def mark(self, u, value):
-        for i in range(-1,3):
-            for j in range(-1,3):
+        for i in range(-2,5):
+            for j in range(-2,5):
                 x = int(u['x']/100) + i
                 y = int(u['y']/100) + j
                 if (0 <= x) and (x < 200) and (0 <= y) and (y < 200):
@@ -239,6 +239,8 @@ class GridMapNavigator(object):
                         return 
         else :
             print "Invalid current point"
+            if (AudioManager.isBusy() == False):
+                AudioManager.play("straight_ahead")
             
     def putObstacle(self, heading):
         realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
