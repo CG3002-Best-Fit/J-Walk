@@ -81,6 +81,8 @@ musicList = ['crossing field.mp3',
              'Kibou no Uta.mp3']
 
 def init():
+    global isClosed
+    isClosed = False
     playInQueueAudioThread = Thread(target = playInQueueAudio)
     playInQueueAudioThread.start()
 
