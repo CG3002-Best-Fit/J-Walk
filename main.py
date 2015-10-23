@@ -81,6 +81,7 @@ def terminateSystemByKeypad():
         isProgramAlive = False
 
 def navigate():
+    print "Start Navigating"
     global isProgramAlive, mapNavigator, gridMapNavigator
     try:
         while isProgramAlive:

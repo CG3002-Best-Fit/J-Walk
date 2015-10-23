@@ -90,19 +90,19 @@ class MegaCommunicator(object):
             print "check sum wrong!"
             return False
         else :
-            os.system('clear')
+            #os.system('clear')
             self.pollCount += 1
             #print self.pollCount
-            print "Numbers of Data: " + str(N)
+            #print "Numbers of Data: " + str(N)
             
-            print "sonar 1  \t" + str(self.sensorValues[0])  + " " + self.status[0]
-            print "sonar 2  \t" + str(self.sensorValues[1])  + " " + self.status[1]
-            print "sonar 3  \t" + str(self.sensorValues[2])  + " " + self.status[2]
-            print "Step     \t" + str(self.sensorValues[3])  + " " + self.status[3]
-            print "Heading  \t" + str(self.sensorValues[4])  + " " + self.status[4]
-            print "Stack space \t" + str(self.sensorValues[5]) + " " + self.status[5]
-            print "ACC      \t" + str(self.sensorValues[6]) + " " + self.status[6]
-            print "ADS      \t" + str(self.sensorValues[7]) + " " + self.status[7]
+            #print "sonar 1  \t" + str(self.sensorValues[0])  + " " + self.status[0]
+            #print "sonar 2  \t" + str(self.sensorValues[1])  + " " + self.status[1]
+            #print "sonar 3  \t" + str(self.sensorValues[2])  + " " + self.status[2]
+            #print "Step     \t" + str(self.sensorValues[3])  + " " + self.status[3]
+            #print "Heading  \t" + str(self.sensorValues[4])  + " " + self.status[4]
+            #print "Stack space \t" + str(self.sensorValues[5]) + " " + self.status[5]
+            #print "ACC      \t" + str(self.sensorValues[6]) + " " + self.status[6]
+            #print "ADS      \t" + str(self.sensorValues[7]) + " " + self.status[7]
             self.sonar1Value    = self.sensorValues[0]
             self.sonar2Value    = self.sensorValues[1]
             self.sonar3Value    = self.sensorValues[2]

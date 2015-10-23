@@ -147,7 +147,7 @@ class GridMapNavigator(object):
         
         while len(queue) > 0:
             u = queue.pop(0)
-            print str(u[0]) + " " + str(u[1])
+            #print str(u[0]) + " " + str(u[1])
             for i in range(0, 8):
                 v = (u[0] + nextDir[i][0], u[1] + nextDir[i][1])
                 #print v
