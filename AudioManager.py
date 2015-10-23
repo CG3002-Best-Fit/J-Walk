@@ -42,7 +42,7 @@ pygame.mixer.init()
 #volume = engine.getProperty('volume')
 #engine.setProperty('volume', volume+1.0)
 
-audioDict['warning'] = pygame.mixer.Sound("Audio/beep.wav")
+audioDict['beep'] = pygame.mixer.Sound("Audio/beep.wav")
 audioDict['left'] = pygame.mixer.Sound("Audio/left.wav")
 audioDict['right'] = pygame.mixer.Sound("Audio/right.wav")
 audioDict['straight_ahead'] = pygame.mixer.Sound("Audio/straight_ahead.wav")

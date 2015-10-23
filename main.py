@@ -111,6 +111,10 @@ def pollData():
         
                 if (obstacleDetected(megaCommunicator.getSonar3())):
                     AudioManager.playImmediately('obstacle_ahead')
+                
+                if megaCommunicator.getAds() == 1:
+                    AudioManager.playImmediately('beep')
+                
                     
                 time.sleep(0.5)
     except :
