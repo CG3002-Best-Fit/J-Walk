@@ -137,7 +137,11 @@ class MapNavigator(object):
         self.curBuilding = userInput[0]
         self.curLevel = userInput[1]
         
-        info = self.startup(userInput[0], userInput[1], userInput[2], userInput[3], userInput[4], userInput[5])
+        try :
+            info = self.startup(userInput[0], userInput[1], userInput[2], userInput[3], userInput[4], userInput[5])
+        except:
+            return False;
+        
         if (len(info) != 4) :
             return False
 
