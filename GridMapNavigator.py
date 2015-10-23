@@ -215,7 +215,7 @@ class GridMapNavigator(object):
                 v = (curX + nextDir[i][0], curY + nextDir[i][1])
                 #print v
                 #print str(self.minDist[v[0]][v[1]]) + " " + str(self.minDist[curX][curY])
-                if (0 <= v[0]) and (v[0] < 2000) and (0 <= v[1]) and (v[1] < 2000) and (self.map[v[0]][v[1]] != 0):
+                if (0 <= v[0]) and (v[0] < 200) and (0 <= v[1]) and (v[1] < 200) and (self.map[v[0]][v[1]] != 0):
                     if self.minDist[v[0]][v[1]] + 1 == self.minDist[curX][curY]:
                         destHeading = nextDir[i][2]
                         
