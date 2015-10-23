@@ -119,16 +119,21 @@ class GridMapNavigator(object):
     
     def initGridMap(self, adjList):
         self.map = [[0 for i in range(2000)] for j in range(2000)]
+        print "finish map"
         self.minDist = [[0 for i in range(2000)] for j in range(2000)]
+        print "finish minDist"
         self.obstacleMap = [[True for i in range(2000)] for j in range(2000)]
+        print "finish obstacleMap"
         
         for u in adjList:
             for i in u['linkTo']:
                 v = adjList[i]
                 self.drawRoute(u, v)
+        print "finish draw route"
         
         for node in adjList:
             self.mark(node, int(node['nodeId']))
+        print "finish mark"
     
     def BFS(self, s):
         for i in range(0, 2000):
