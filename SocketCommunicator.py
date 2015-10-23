@@ -24,6 +24,7 @@ class SocketCommunicator(object):
     #COM_IP = "172.25.100.199"  #COM1
     #COM_IP = "192.168.0.105"    #Macbook
     COM_IP = "192.168.43.107"    #Mobile
+    #COM_IP = "192.168.43.80"    #lenovo
     
     def sendInt(self, num):
         self.client_connection.write(struct.pack('>L', num))
