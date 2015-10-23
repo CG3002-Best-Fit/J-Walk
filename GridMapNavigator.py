@@ -70,44 +70,40 @@ class GridMapNavigator(object):
     
     def extractMap(self, nodeList):
         for node in nodeList:
-            node['x'] = int(node['x'])/10
-            node['y'] = int(node['y'])/10
+            node['x'] = int(node['x'])
+            node['y'] = int(node['y'])
             node['linkTo'] = node['linkTo'].replace(' ','').split(",")
             for i in range(0, len(node['linkTo'])):
                 node['linkTo'][i] = int(node['linkTo'][i]) - 1
         return nodeList
     
     def dist(self, u, v):
-        dir = [v['x'] - u['x'], v['y'] - u['y']]
-        return math.sqrt(math.pow(dir[0],2) + math.pow(dir[1],2))
+        return math.sqrt(math.pow(v['x'] - u['x'],2) + math.pow(v['y'] - u['y'],2))
     
     def mark(self, u, value):
-        for i in range(-5, 11):
-            for j in range(-5, 11):
-                x = u['x'] + i
-                y = u['y'] + j
-                if (0 <= x) and (x < 2000) and (0 <= y) and (y < 2000):
+        for i in range(-1,3):
+            for j in range(-1,3):
+                x = int(u['x']/100) + i
+                y = int(u['y']/100) + j
+                if (0 <= x) and (x < 200) and (0 <= y) and (y < 200):
                     self.map[x][y] = value
                     if (value != 0) :
                         self.obstacleMap[x][y] = False
     
     def markObstacle(self, u, value):
-        count = 0
-        for i in range(-3, 7):
-            for j in range(-3, 7):
-                x = u['x'] + i
-                y = u['y'] + j
-                if (0 <= x) and (x < 2000) and (0 <= y) and (y < 2000) and (self.obstacleMap[x][y] != value):
-                    count = count + 1
-                    self.obstacleMap[x][y] = value
-        return count
+        x = int(u['x']/100.0)
+        y = int(u['y']/100.0)
+        if (0 <= x) and (x < 200) and (0 <= y) and (y < 200) and (self.obstacleMap[x][y] != value):
+            self.obstacleMap[x][y] = value
+            return 1
+        return 0
     
     def drawRoute(self, s, t):
         length = self.dist(s,t)
-        direction = [(t['x'] - s['x']) / length, (t['y'] - s['y']) / length]
+        direction = [(t['x'] - s['x']) / length*100, (t['y'] - s['y']) / length*100]    # 1 meter
         u = dict(s)
         count = 0
-        while self.dist(u, t) > 2:
+        while self.dist(u, t) >= 100:
             #print str(u['x']) + " " + str(u['y']) + " " + str(count)
             self.mark(u, -1)
             #self.markObstacle(u, False)
@@ -118,11 +114,11 @@ class GridMapNavigator(object):
             
     
     def initGridMap(self, adjList):
-        self.map = [[0 for i in range(2000)] for j in range(2000)]
+        self.map = [[0 for i in range(200)] for j in range(200)]
         print "finish map"
-        self.minDist = [[0 for i in range(2000)] for j in range(2000)]
+        self.minDist = [[0 for i in range(200)] for j in range(200)]
         print "finish minDist"
-        self.obstacleMap = [[True for i in range(2000)] for j in range(2000)]
+        self.obstacleMap = [[True for i in range(200)] for j in range(200)]
         print "finish obstacleMap"
         
         for u in adjList:
@@ -136,25 +132,27 @@ class GridMapNavigator(object):
         print "finish mark"
     
     def BFS(self, s):
-        for i in range(0, 2000):
-            for j in range(0, 2000):
+        for i in range(0, 200):
+            for j in range(0, 200):
                 self.minDist[i][j] = 1000000000
                   
         
         queue = []
-        self.minDist[s['x']][s['y']] = 0
-        queue.append((s['x'], s['y']))
+        sx = int(s['x']/100.0)
+        sy = int(s['y']/100.0)
+        self.minDist[sx][sy] = 0
+        queue.append((sx, sy))
         
         nextDir = [[0,1],[1,0],[-1,0],[0,-1],[-1,1],[1,-1],[1,1],[-1,-1]]
         
         while len(queue) > 0:
             u = queue.pop(0)
-            #print str(u[0]) + " " + str(u[1])
+            print str(u[0]) + " " + str(u[1])
             for i in range(0, 8):
                 v = (u[0] + nextDir[i][0], u[1] + nextDir[i][1])
                 #print v
                 #print self.minDist[v[0]][v[1]]
-                if (0 <= v[0]) and (v[0] < 2000) and (0 <= v[1]) and (v[1] < 2000) and (self.map[v[0]][v[1]] != 0) and (self.obstacleMap[v[0]][v[1]] == False):
+                if (0 <= v[0]) and (v[0] < 200) and (0 <= v[1]) and (v[1] < 200) and (self.map[v[0]][v[1]] != 0) and (self.obstacleMap[v[0]][v[1]] == False):
                     if self.minDist[v[0]][v[1]] == 1000000000:
                         self.minDist[v[0]][v[1]] = self.minDist[u[0]][u[1]] + 1
                         queue.append(v)
@@ -198,12 +196,15 @@ class GridMapNavigator(object):
         realHeading = (self.mapHeading + self.curHeading) % 360
         print realHeading
         
-        print self.minDist[self.curX][self.curY]
-        if (0 <= self.curX) and (self.curX < 2000) and (0 <= self.curY) and (self.curY < 2000) and (self.map[self.curX][self.curY] != 0) and (self.minDist[self.curX][self.curY] < 1000000000):
+        curX = int(self.curX / 100.0)
+        curY = int(self.curY / 100.0)
+        
+        print self.minDist[curX][curY]
+        if (0 <= curX) and (curX < 200) and (0 <= curY) and (curY < 200) and (self.map[curX][curY] != 0) and (self.minDist[curX][curY] < 1000000000):
             nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
-            if (self.map[self.curX][self.curY] != -1): 
+            if (self.map[curX][curY] != -1): 
                 if (self.notifiedReachNode == False):
-                    print 'You have reached node' ,self.map[self.curX][self.curY]
+                    print 'You have reached node' ,self.map[curX][curY]
                     AudioManager.play('node')
                     AudioManager.playNumber(self.map[self.curX][self.curY])
                     self.notifiedReachNode = True
@@ -211,11 +212,11 @@ class GridMapNavigator(object):
                 self.notifiedReachNode = False
             
             for i in range(0, 8):
-                v = (self.curX + nextDir[i][0], self.curY + nextDir[i][1])
+                v = (curX + nextDir[i][0], curY + nextDir[i][1])
                 print v
-                print str(self.minDist[v[0]][v[1]]) + " " + str(self.minDist[self.curX][self.curY])
+                print str(self.minDist[v[0]][v[1]]) + " " + str(self.minDist[curX][curY])
                 if (0 <= v[0]) and (v[0] < 2000) and (0 <= v[1]) and (v[1] < 2000) and (self.map[v[0]][v[1]] != 0):
-                    if self.minDist[v[0]][v[1]] + 1 == self.minDist[self.curX][self.curY]:
+                    if self.minDist[v[0]][v[1]] + 1 == self.minDist[curX][curY]:
                         destHeading = nextDir[i][2]
                         
                         diffAngle = min(abs(destHeading - realHeading + 360)%360, abs(realHeading - destHeading + 360)%360)
@@ -243,8 +244,8 @@ class GridMapNavigator(object):
         realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
         headingInRad = math.radians(realHeading)
         v = {}
-        v['x'] = int(self.curX + 5*math.sin(headingInRad))
-        v['y'] = int(self.curY + 5*math.cos(headingInRad))
+        v['x'] = int(self.curX + 100*math.sin(headingInRad))
+        v['y'] = int(self.curY + 100*math.cos(headingInRad))
         
         temp = self.markObstacle(v, True)
         if (temp > 0):
@@ -258,15 +259,15 @@ class GridMapNavigator(object):
         s['y'] = self.curY
         
         v = {}
-        v['x'] = int(self.curX + 5*math.sin(headingInRad))
-        v['y'] = int(self.curY + 5*math.cos(headingInRad))
+        v['x'] = int(self.curX + 100*math.sin(headingInRad))
+        v['y'] = int(self.curY + 100*math.cos(headingInRad))
         
         length = self.dist(s,v)
-        direction = [(v['x'] - s['x']) / length, (v['y'] - s['y']) / length]
+        direction = [(v['x'] - s['x']) / length*100, (v['y'] - s['y']) / length*100]
         u = dict(s)
         count = 0
         temp = 0
-        while self.dist(u, v) > 2:
+        while self.dist(u, v) >= 100:
             #print str(u['x']) + " " + str(u['y']) + " " + str(count)
             temp = temp + self.markObstacle(v, False)
             count = count + 1
@@ -280,9 +281,9 @@ if __name__ == '__main__':
     gridMapNavigator = GridMapNavigator()
     if gridMapNavigator.setStartAndEndPoint([1,2,13,1,2,16]):
         #gridMapNavigator.putObstacle(556, 90, 45)
-        gridMapNavigator.curX = 556
-        gridMapNavigator.curY = 90
-        gridMapNavigator.curHeading = 90
+        gridMapNavigator.curX = 5560
+        gridMapNavigator.curY = 900
+        gridMapNavigator.curHeading = 45
         gridMapNavigator.getInstruction()
     else :
         print "setStartAndEndPoint failed"
