@@ -61,7 +61,7 @@ def startThreads():
         isProgramAlive = False
 
 def terminateSystemByKeypad():
-    global isProgramAlive
+    global isProgramAlive, willProgramBeReseted
     try:
         while isProgramAlive:
             keyPressed = keypadReader.getKeyPressed()
