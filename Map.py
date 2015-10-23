@@ -499,7 +499,7 @@ class MapNavigator(object):
                 nextY = eachGraph[-2].get_vertex(int(path[0])).get_y()
                  
                 distance = math.sqrt(math.pow((currentX-nextX),2)+ math.pow((currentY-nextY),2))
-                if distance <30:
+                if distance <60:
                     # reset x and y
                     currentNode = path.pop(0)
                     print 'You have reached node' ,currentNode
