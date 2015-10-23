@@ -239,6 +239,7 @@ class GridMapNavigator(object):
                         return 
         else :
             print "Invalid current point"
+            self.removeObstacle(0)
             if (AudioManager.isBusy() == False):
                 AudioManager.play("straight_ahead")
             
@@ -271,7 +272,7 @@ class GridMapNavigator(object):
         temp = 0
         while self.dist(u, v) >= 100:
             #print str(u['x']) + " " + str(u['y']) + " " + str(count)
-            temp = temp + self.markObstacle(v, False)
+            temp = temp + self.markObstacle(u, False)
             count = count + 1
             u['x'] = int(s['x'] + direction[0] * count)
             u['y'] = int(s['y'] + direction[1] * count)
