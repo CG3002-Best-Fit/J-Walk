@@ -23,7 +23,7 @@ class GridMapNavigator(object):
     notifiedReachNode = False;
     
     
-    STEP_LENGTH = 5
+    STEP_LENGTH = 42
     
     def getCurrentBuilding(self):
         return self.curBuilding
