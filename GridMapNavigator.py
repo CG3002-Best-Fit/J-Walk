@@ -194,12 +194,12 @@ class GridMapNavigator(object):
         ANGLE_LIMIT = 15
         
         realHeading = (self.mapHeading + self.curHeading) % 360
-        print realHeading
+        #print realHeading
         
         curX = int(self.curX / 100.0)
         curY = int(self.curY / 100.0)
         
-        print self.minDist[curX][curY]
+        #print self.minDist[curX][curY]
         if (0 <= curX) and (curX < 200) and (0 <= curY) and (curY < 200) and (self.map[curX][curY] != 0) and (self.minDist[curX][curY] < 1000000000):
             nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
             if (self.map[curX][curY] != -1): 
@@ -213,8 +213,8 @@ class GridMapNavigator(object):
             
             for i in range(0, 8):
                 v = (curX + nextDir[i][0], curY + nextDir[i][1])
-                print v
-                print str(self.minDist[v[0]][v[1]]) + " " + str(self.minDist[curX][curY])
+                #print v
+                #print str(self.minDist[v[0]][v[1]]) + " " + str(self.minDist[curX][curY])
                 if (0 <= v[0]) and (v[0] < 2000) and (0 <= v[1]) and (v[1] < 2000) and (self.map[v[0]][v[1]] != 0):
                     if self.minDist[v[0]][v[1]] + 1 == self.minDist[curX][curY]:
                         destHeading = nextDir[i][2]
