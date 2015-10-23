@@ -130,6 +130,10 @@ class MapNavigator(object):
     curY = 500
     curHeading = 0
     
+    INF = 1000000000
+    
+    lastDistanceNotified = INF
+    
     def __init__(self):
         pass
     
@@ -160,8 +164,7 @@ class MapNavigator(object):
                 self.curX = int(node['x'])
                 self.curY = int(node['y'])
                 break
-        return True            
-
+        return True
     
     def setHeading(self, newHeading):
         self.curHeading = newHeading
@@ -548,9 +551,11 @@ class MapNavigator(object):
                 #if (angleRangeMin<= currentDirection and currentDirection<360) or (angleRangeMax>= currentDirection and currentDirection>=0) or (angleRangeMin<= currentDirection and currentDirection<=angleRangeMax):
                 if (min(abs(angleToTravel - currentDirection), 360 - abs(angleToTravel - currentDirection)) < ANGLE_LIMIT):
                     #AudioManager.playString("Travel straight %.2f"%distance,"cm to node",path[0]);
-                    if (AudioManager.isBusy() == False) :
+                    if (AudioManager.isBusy() == False) and (abs(self.lastDistanceNotified -  distance) > 200):
                         AudioManager.play("straight_ahead")
                         AudioManager.playNumber(distance)
+                        self.lastDistanceNotified = distance
+                        
                     print "Travel straight %.2f"%distance,"cm to node",path[0]
                 elif (angleToTravel <currentDirection and angleToTravel > leftDirection and leftDirection <180) or (((angleToTravel<currentDirection) or (angleToTravel > leftDirection)) and leftDirection >=180):
                     directionCorrection = currentDirection - angleToTravel
@@ -559,6 +564,8 @@ class MapNavigator(object):
                     if (AudioManager.isBusy() == False) :
                         AudioManager.play("left")
                         AudioManager.playNumber(directionCorrection)
+                    self.lastDistanceNotified = self.INF
+                    
                     print "Turn left by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0]
                 else:
                     directionCorrection = angleToTravel- currentDirection
@@ -567,6 +574,8 @@ class MapNavigator(object):
                     if (AudioManager.isBusy() == False) :
                         AudioManager.play("right")
                         AudioManager.playNumber(directionCorrection)
+                    self.lastDistanceNotified = self.INF
+                    
                     print "Turn right by %.2f" %directionCorrection,"degree and travel %.2f" %distance,"cm to node",path[0]
                 break
         return path    
