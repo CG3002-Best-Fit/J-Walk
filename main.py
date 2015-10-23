@@ -110,19 +110,22 @@ def pollData():
                     gridMapNavigator.stepAhead(megaCommunicator.getStep())
                 #print "acc = " + str(megaCommunicator.getAcc())
                 if (obstacleDetected(megaCommunicator.getSonar1())):
-                    AudioManager.playImmediately('obstacle_left')
+                    if AudioManager.isBusy() == False:
+                        AudioManager.play('obstacle_left')
                     gridMapNavigator.putObstacle(-45)
                 else :
                     gridMapNavigator.removeObstacle(-45)
                     
                 if (obstacleDetected(megaCommunicator.getSonar2())):
-                    AudioManager.playImmediately('obstacle_right')
+                    if AudioManager.isBusy() == False:
+                        AudioManager.play('obstacle_right')
                     gridMapNavigator.putObstacle(45)
                 else:
                     gridMapNavigator.removeObstacle(45)
                     
                 if (obstacleDetected(megaCommunicator.getSonar3())):
-                    AudioManager.playImmediately('obstacle_ahead')
+                    if AudioManager.isBusy() == False:
+                        AudioManager.play('obstacle_ahead')
                     gridMapNavigator.putObstacle(0)
                 else :
                     gridMapNavigator.removeObstacle(0)
