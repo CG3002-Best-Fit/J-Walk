@@ -10,6 +10,7 @@ from SocketCommunicator import SocketCommunicator
 from CameraReader import CameraReader
 from KeypadReader import KeypadReader
 from Map import MapNavigator
+from GridMapNavigator import GridMapNavigator
 import time
 
 isProgramAlive = True
@@ -18,7 +19,8 @@ willProgramBeReseted = True
 megaCommunicator = MegaCommunicator()
 cameraReader = None #CameraReader()
 keypadReader = KeypadReader()
-mapNavigator = MapNavigator()
+#mapNavigator = MapNavigator()
+gridMapNavigator = GridMapNavigator()
 socketCommunicator = None
 
 def obstacleDetected(value):
@@ -79,10 +81,11 @@ def terminateSystemByKeypad():
         isProgramAlive = False
 
 def navigate():
-    global isProgramAlive
+    global isProgramAlive, mapNavigator, gridMapNavigator
     try:
         while isProgramAlive:
-            hasNextNode = mapNavigator.getInstruction()
+            #hasNextNode = mapNavigator.getInstruction()
+            hasNextNode = gridMapNavigator.getInstruction()
             if hasNextNode == False:
                 print "You reached destination!!!"
                 break;
@@ -99,19 +102,30 @@ def pollData():
         while isProgramAlive:
             isSuccessful = megaCommunicator.pollData()
             if isSuccessful:
-                mapNavigator.setHeading(megaCommunicator.getHeading())
+                #mapNavigator.setHeading(megaCommunicator.getHeading())
+                gridMapNavigator.setHeading(megaCommunicator.getHeading())
                 if (megaCommunicator.getStep() > 0):
-                    mapNavigator.stepAhead(megaCommunicator.getStep())
+                    #mapNavigator.stepAhead(megaCommunicator.getStep())
+                    gridMapNavigator.stepAhead(megaCommunicator.getStep())
                 #print "acc = " + str(megaCommunicator.getAcc())
                 if (obstacleDetected(megaCommunicator.getSonar1())):
                     AudioManager.playImmediately('obstacle_left')
-        
+                    gridMapNavigator.putObstacle(-45)
+                else :
+                    gridMapNavigator.removeObstacle(-45)
+                    
                 if (obstacleDetected(megaCommunicator.getSonar2())):
                     AudioManager.playImmediately('obstacle_right')
-        
+                    gridMapNavigator.putObstacle(45)
+                else:
+                    gridMapNavigator.removeObstacle(45)
+                    
                 if (obstacleDetected(megaCommunicator.getSonar3())):
                     AudioManager.playImmediately('obstacle_ahead')
-                
+                    gridMapNavigator.putObstacle(0)
+                else :
+                    gridMapNavigator.removeObstacle(0)
+                    
                 if megaCommunicator.getAds() == 1:
                     AudioManager.playImmediately('beep')
                 
@@ -124,7 +138,7 @@ def pollData():
     print "Exiting pollData()..."
 
 def sendDataToComp():
-    global isProgramAlive, mapNavigator, socketCommunicator, cameraReader
+    global isProgramAlive, mapNavigator, socketCommunicator, cameraReader, gridMapNavigator
     if socketCommunicator.isConnectionSuccessful:
         try:
             while isProgramAlive:
@@ -144,11 +158,16 @@ def sendDataToComp():
                     
                     #print "Cur Pos: " + str(curX) + ", " + str(curY)
                     #print "Heading: " + str(heading)
-                    socketCommunicator.sendInt(mapNavigator.getCurrentBuilding())
-                    socketCommunicator.sendInt(mapNavigator.getCurrentLevel())
-                    socketCommunicator.sendInt(mapNavigator.curX)
-                    socketCommunicator.sendInt(mapNavigator.curY)
-                    socketCommunicator.sendInt(mapNavigator.curHeading)
+                    #socketCommunicator.sendInt(mapNavigator.getCurrentBuilding())
+                    #socketCommunicator.sendInt(mapNavigator.getCurrentLevel())
+                    #socketCommunicator.sendInt(mapNavigator.curX)
+                    #socketCommunicator.sendInt(mapNavigator.curY)
+                    #socketCommunicator.sendInt(mapNavigator.curHeading)
+                    socketCommunicator.sendInt(gridMapNavigator.getCurrentBuilding())
+                    socketCommunicator.sendInt(gridMapNavigator.getCurrentLevel())
+                    socketCommunicator.sendInt(gridMapNavigator.curX*10)
+                    socketCommunicator.sendInt(gridMapNavigator.curY*10)
+                    socketCommunicator.sendInt(gridMapNavigator.curHeading)
                     socketCommunicator.sendInt(megaCommunicator.getSumStep())
                     socketCommunicator.sendInt(megaCommunicator.getAds())
                     
@@ -227,14 +246,15 @@ def waitForMegaToStartUp():
             break
 
 def init():
-    global socketCommunicator
+    global socketCommunicator, mapNavigator, gridMapNavigator
     try:
         waitForMegaToStartUp()
         
         while True:
             userInput = getUserInput()
             try :
-                isValid = mapNavigator.setStartAndEndPoint(userInput)
+                #isValid = mapNavigator.setStartAndEndPoint(userInput)
+                isValid = gridMapNavigator.setStartAndEndPoint(userInput)
                 if isValid == False :
                     print "(" + str(userInput[0]) + ", " + userInput[1] + ", " + userInput[2] 
                     print "Invalid path!! Please re-enter!!"
