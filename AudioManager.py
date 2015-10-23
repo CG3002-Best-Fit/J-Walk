@@ -19,6 +19,7 @@ def isBusy():
     return pygame.mixer.get_busy()
 
 def playInQueueAudio():
+    print "playInQueueAudio() is starting..."
     global isClosed
     while isClosed == False:
         if (len(audioQueue) > 0) and (isBusy() == False):
@@ -81,8 +82,9 @@ musicList = ['crossing field.mp3',
              'Kibou no Uta.mp3']
 
 def init():
-    global isClosed
+    global isClosed, audioQueue
     isClosed = False
+    audioQueue = []
     playInQueueAudioThread = Thread(target = playInQueueAudio)
     playInQueueAudioThread.start()
 
