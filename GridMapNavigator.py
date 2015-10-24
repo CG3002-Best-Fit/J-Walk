@@ -7,6 +7,7 @@ import urllib
 import json
 import math 
 import AudioManager
+import os
 
 class GridMapNavigator(object):
     map = []
@@ -189,7 +190,27 @@ class GridMapNavigator(object):
             print "BFS"
             self.BFS(self.endNode)
             return True
-            
+    
+    def printMap(self):
+        os.system('clear')
+        
+        curX = int(self.curX / 100.0)
+        curY = int(self.curY / 100.0)
+        
+        for i in range(-5,11):
+            s = ""
+            for j in range(-5,11):
+                x = curX + i
+                y = curY + j
+                if (0 <= x) and (x < 200) and (0 <= y) and (y < 200) and (self.map[x][y] != 0) and (self.obstacleMap[x][y] == False):
+                    if (i==0) and (j==0):
+                        s = s + 'Y'
+                    else:
+                        s = s + '.'
+                else :
+                    s = s + 'X'
+            print s
+    
     def getInstruction(self):
         ANGLE_LIMIT = 15
         
