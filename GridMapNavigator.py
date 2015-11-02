@@ -312,7 +312,7 @@ class GridMapNavigator(object):
         
         temp = self.markObstacle(v, True)
         if (temp > 0):
-            self.BFS(self.endNode)
+            self.calculateDistanceToDestination(self.endNode)
     
     def removeObstacle(self, heading):
         realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
@@ -333,16 +333,16 @@ class GridMapNavigator(object):
             u['y'] = int(s['y'] + direction[1] * count)
         
         if (temp > 0):
-            self.BFS(self.endNode)
+            self.calculateDistanceToDestination(self.endNode)
     
 if __name__ == '__main__':
     AudioManager.init()
     gridMapNavigator = GridMapNavigator()
-    if gridMapNavigator.setStartAndEndPoint([1,2,13,1,2,16]):
-        #gridMapNavigator.putObstacle(556, 90, 45)
-        gridMapNavigator.curX = 5560
-        gridMapNavigator.curY = 900
+    if gridMapNavigator.setStartAndEndPoint([1,2,1,1,2,11]):
+        gridMapNavigator.curX = 0
+        gridMapNavigator.curY = 2436
         gridMapNavigator.curHeading = 50
+        gridMapNavigator.putObstacle(50)
         gridMapNavigator.getInstruction()
     else :
         print "setStartAndEndPoint failed"
