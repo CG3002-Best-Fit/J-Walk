@@ -88,8 +88,8 @@ def navigate():
     global isProgramAlive, mapNavigator, gridMapNavigator
     try:
         while isProgramAlive:
-            hasNextNode = mapNavigator.getInstruction()
-            #hasNextNode = gridMapNavigator.getInstruction()
+            #hasNextNode = mapNavigator.getInstruction()
+            hasNextNode = gridMapNavigator.getInstruction()
             if hasNextNode == False:
                 print "You reached destination!!!"
                 break;
@@ -106,11 +106,11 @@ def pollData():
         while isProgramAlive:
             isSuccessful = megaCommunicator.pollData()
             if isSuccessful:
-                mapNavigator.setHeading(megaCommunicator.getHeading())
-                #gridMapNavigator.setHeading(megaCommunicator.getHeading())
+                #mapNavigator.setHeading(megaCommunicator.getHeading())
+                gridMapNavigator.setHeading(megaCommunicator.getHeading())
                 if (megaCommunicator.getStep() > 0):
-                    mapNavigator.stepAhead(megaCommunicator.getStep())
-                    #gridMapNavigator.stepAhead(megaCommunicator.getStep())
+                    #mapNavigator.stepAhead(megaCommunicator.getStep())
+                    gridMapNavigator.stepAhead(megaCommunicator.getStep())
                 #print "acc = " + str(megaCommunicator.getAcc())
                 
                 if (megaCommunicator.getSonar1() == 1): # straight ahead sonar
@@ -160,16 +160,16 @@ def sendDataToComp():
                     
                     #print "Cur Pos: " + str(curX) + ", " + str(curY)
                     #print "Heading: " + str(heading)
-                    socketCommunicator.sendInt(mapNavigator.getCurrentBuilding())
-                    socketCommunicator.sendInt(mapNavigator.getCurrentLevel())
-                    socketCommunicator.sendInt(mapNavigator.curX)
-                    socketCommunicator.sendInt(mapNavigator.curY)
-                    socketCommunicator.sendInt(mapNavigator.curHeading)
-                    #socketCommunicator.sendInt(gridMapNavigator.getCurrentBuilding())
-                    #socketCommunicator.sendInt(gridMapNavigator.getCurrentLevel())
-                    #socketCommunicator.sendInt(gridMapNavigator.curX)
-                    #socketCommunicator.sendInt(gridMapNavigator.curY)
-                    #socketCommunicator.sendInt(gridMapNavigator.curHeading)
+                    #socketCommunicator.sendInt(mapNavigator.getCurrentBuilding())
+                    #socketCommunicator.sendInt(mapNavigator.getCurrentLevel())
+                    #socketCommunicator.sendInt(mapNavigator.curX)
+                    #socketCommunicator.sendInt(mapNavigator.curY)
+                    #socketCommunicator.sendInt(mapNavigator.curHeading)
+                    socketCommunicator.sendInt(gridMapNavigator.getCurrentBuilding())
+                    socketCommunicator.sendInt(gridMapNavigator.getCurrentLevel())
+                    socketCommunicator.sendInt(gridMapNavigator.curX)
+                    socketCommunicator.sendInt(gridMapNavigator.curY)
+                    socketCommunicator.sendInt(gridMapNavigator.curHeading)
                     socketCommunicator.sendInt(megaCommunicator.getSumStep())
                     socketCommunicator.sendInt(megaCommunicator.getAds())
                     
@@ -259,8 +259,8 @@ def init():
         while True:
             userInput = getUserInput()
             try :
-                isValid = mapNavigator.setStartAndEndPoint(userInput)
-                #isValid = gridMapNavigator.setStartAndEndPoint(userInput)
+                #isValid = mapNavigator.setStartAndEndPoint(userInput)
+                isValid = gridMapNavigator.setStartAndEndPoint(userInput)
                 if isValid == False :
                     print "(" + str(userInput[0]) + ", " + userInput[1] + ", " + userInput[2] 
                     print "Invalid path!! Please re-enter!!"
