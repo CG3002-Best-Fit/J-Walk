@@ -21,7 +21,7 @@ class GridMapNavigator(object):
     curX = 0 
     curY = 0
     curHeading = 0
-    notifiedReachNode = False;
+    notifiedReachNode = False
     
     ANGLE_LIMIT = 15
     INF = 1000000000
@@ -29,6 +29,8 @@ class GridMapNavigator(object):
     GRID_LENGTH = 50
     maxXGrid = 0
     maxYGrid = 0
+    
+    hasUpdate = False
     
     def getCurrentBuilding(self):
         return self.curBuilding
@@ -245,6 +247,10 @@ class GridMapNavigator(object):
     def getInstruction(self):
         self.printMap()
         
+        if self.hasUpdate:
+            self.calculateDistanceToDestination(self.endNode)
+            self.hasUpdate = False
+        
         realHeading = (self.mapHeading + self.curHeading) % 360
         #print realHeading
         
@@ -332,7 +338,7 @@ class GridMapNavigator(object):
         
         temp = self.markObstacle(v, True)
         if (temp > 0):
-            self.calculateDistanceToDestination(self.endNode)
+            self.hasUpdate = True
     
     def removeObstacle(self, heading):
         realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
@@ -353,7 +359,7 @@ class GridMapNavigator(object):
             u['y'] = int(s['y'] + direction[1] * count)
         
         if (temp > 0):
-            self.calculateDistanceToDestination(self.endNode)
+            self.hasUpdate = True
     
 if __name__ == '__main__':
     AudioManager.init()
