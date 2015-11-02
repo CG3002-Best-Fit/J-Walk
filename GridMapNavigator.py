@@ -293,8 +293,11 @@ class GridMapNavigator(object):
             possibleHeading = []
             for i in range(8):
                 v = (x + nextDir[i][0]*count, y + nextDir[i][1]*count)
+                print v
+                print str(self.map[v[0]][v[1]]) + " " + str(self.minDist[v[0]][v[1]]) + " " + str(self.obstacleMap[v[0]][v[1]])
                 if self.isInsideMapGrid(v[0], v[1]) and (self.map[v[0]][v[1]] != 0) and (self.minDist[v[0]][v[1]] < self.INF) and (self.obstacleMap[v[0]][v[1]] == False):
                     possibleHeading.append(nextDir[i][2])
+                    print "append " + str(nextDir[i][2])
             print "finish check 8 directions"
             if len(possibleHeading) > 0:
                 chosenHeading = possibleHeading[0]
