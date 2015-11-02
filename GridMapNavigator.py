@@ -274,7 +274,7 @@ class GridMapNavigator(object):
                         
             if len(possibleHeading) > 0:
                 chosenHeading = possibleHeading[0]
-                for i in len(possibleHeading):
+                for i in range(0, len(possibleHeading)):
                     angleDiff1 = self.getAngleDifference(chosenHeading, realHeading)
                     angleDiff2 = self.getAngleDifference(possibleHeading[i], realHeading)
                     if angleDiff2 < angleDiff1:
@@ -315,7 +315,7 @@ class GridMapNavigator(object):
             print "finish check 8 directions"
             if len(possibleHeading) > 0:
                 chosenHeading = possibleHeading[0]
-                for i in len(possibleHeading):
+                for i in range(0, len(possibleHeading)):
                     angleDiff1 = self.getAngleDifference(chosenHeading, curHeading)
                     angleDiff2 = self.getAngleDifference(possibleHeading[i], curHeading)
                     if angleDiff2 < angleDiff1:
