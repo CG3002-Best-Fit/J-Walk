@@ -92,8 +92,8 @@ class GridMapNavigator(object):
         return (0 <= x) and (x < self.maxXGrid) and (0 <= y) and (y < self.maxYGrid)
     
     def mark(self, u, value):
-        for i in range(-2,5):
-            for j in range(-2,5):
+        for i in range(-2,3):
+            for j in range(-2,3):
                 x = int(u['x']/self.GRID_LENGTH) + i
                 y = int(u['y']/self.GRID_LENGTH) + j
                 if self.isInsideMapGrid(x, y):
@@ -136,7 +136,7 @@ class GridMapNavigator(object):
         self.obstacleMap = self.create2DArray(self.maxYGrid, self.maxXGrid, True)
         print "finish obstacleMap"
         
-        print nodeDict
+        #print nodeDict
         for u in nodeDict.keys():
             u = nodeDict[u]
             for i in u['linkTo']:
