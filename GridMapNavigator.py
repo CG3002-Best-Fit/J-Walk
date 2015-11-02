@@ -150,10 +150,11 @@ class GridMapNavigator(object):
         print "finish mark"
     
     def calculateDistanceToDestination(self, s):
+        print "Recalculate distance"
+        print s
         for i in range(0, self.maxXGrid):
             for j in range(0, self.maxYGrid):
                 self.minDist[i][j] = self.INF
-                  
         
         queue = []
         sx = int(s['x']/self.GRID_LENGTH)
@@ -264,13 +265,24 @@ class GridMapNavigator(object):
             else :
                 self.notifiedReachNode = False
             
+            possibleHeading = []
             for i in range(0, 8):
                 v = (curX + nextDir[i][0], curY + nextDir[i][1])
                 if self.isInsideMapGrid(v[0], v[1]) and (self.map[v[0]][v[1]] != 0):
                     if self.minDist[v[0]][v[1]] + 1 == self.minDist[curX][curY]:
-                        destHeading = nextDir[i][2]
-                        self.findDirectionToGo(realHeading, destHeading)
-                        return True
+                        possibleHeading.append(nextDir[i][2])
+                        
+            if len(possibleHeading) > 0:
+                chosenHeading = possibleHeading[0]
+                for i in len(possibleHeading):
+                    angleDiff1 = self.getAngleDifference(chosenHeading, realHeading)
+                    angleDiff2 = self.getAngleDifference(possibleHeading[i], realHeading)
+                    if angleDiff2 < angleDiff1:
+                        chosenHeading = possibleHeading[i]
+                
+                self.findDirectionToGo(realHeading, chosenHeading)
+                return True
+            
         else :
             print "Invalid current point! Go to the nearest valid point"
             #self.removeObstacle(0)
@@ -288,7 +300,7 @@ class GridMapNavigator(object):
         count = 0
         nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
         print "find nearest valid point"
-        while True:
+        while count < 10:
             print "count = " + str(count)
             possibleHeading = []
             for i in range(8):
