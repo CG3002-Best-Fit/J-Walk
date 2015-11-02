@@ -242,7 +242,7 @@ class GridMapNavigator(object):
                     AudioManager.play("left")
     
     def getInstruction(self):
-        
+        self.printMap()
         
         realHeading = (self.mapHeading + self.curHeading) % 360
         #print realHeading
