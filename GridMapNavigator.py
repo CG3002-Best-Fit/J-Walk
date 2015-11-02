@@ -31,6 +31,7 @@ class GridMapNavigator(object):
     maxYGrid = 0
     
     hasUpdate = False
+    nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
     
     def getCurrentBuilding(self):
         return self.curBuilding
@@ -102,14 +103,6 @@ class GridMapNavigator(object):
                     self.map[x][y] = value
                     if (value != 0) :
                         self.obstacleMap[x][y] = False
-    
-    def markObstacle(self, u, value):
-        x = int(u['x']/self.GRID_LENGTH)
-        y = int(u['y']/self.GRID_LENGTH)
-        if self.isInsideMapGrid(x, y) and (self.obstacleMap[x][y] != value):
-            self.obstacleMap[x][y] = value
-            return 1
-        return 0
     
     def drawRoute(self, s, t):
         length = self.dist(s,t)
@@ -259,7 +252,7 @@ class GridMapNavigator(object):
         
         #print self.minDist[curX][curY]
         if self.isInsideMapGrid(curX, curY) and (self.map[curX][curY] != 0) and (self.minDist[curX][curY] < self.INF):
-            nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
+            #nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
             if (self.map[curX][curY] != -1): 
                 if (self.notifiedReachNode == False):
                     print 'You have reached node' ,self.map[curX][curY]
@@ -273,10 +266,10 @@ class GridMapNavigator(object):
             
             possibleHeading = []
             for i in range(0, 8):
-                v = (curX + nextDir[i][0], curY + nextDir[i][1])
+                v = (curX + self.nextDir[i][0], curY + self.nextDir[i][1])
                 if self.isInsideMapGrid(v[0], v[1]) and (self.map[v[0]][v[1]] != 0):
                     if self.minDist[v[0]][v[1]] + 1 == self.minDist[curX][curY]:
-                        possibleHeading.append(nextDir[i][2])
+                        possibleHeading.append(self.nextDir[i][2])
                         
             if len(possibleHeading) > 0:
                 chosenHeading = possibleHeading[0]
@@ -306,18 +299,18 @@ class GridMapNavigator(object):
             
     def findDirectionToNearestValidPoint(self, x, y, curHeading):
         count = 0
-        nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
+        #nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
         print "find nearest valid point"
         while count < 10:
             print "count = " + str(count)
             possibleHeading = []
             for i in range(8):
-                v = (x + nextDir[i][0]*count, y + nextDir[i][1]*count)
+                v = (x + self.nextDir[i][0]*count, y + self.nextDir[i][1]*count)
                 print v
                 print str(self.map[v[0]][v[1]]) + " " + str(self.minDist[v[0]][v[1]]) + " " + str(self.obstacleMap[v[0]][v[1]])
                 if self.isInsideMapGrid(v[0], v[1]) and (self.map[v[0]][v[1]] != 0) and (self.minDist[v[0]][v[1]] < self.INF) and (self.obstacleMap[v[0]][v[1]] == False):
-                    possibleHeading.append(nextDir[i][2])
-                    print "append " + str(nextDir[i][2])
+                    possibleHeading.append(self.nextDir[i][2])
+                    print "append " + str(self.nextDir[i][2])
             print "finish check 8 directions"
             if len(possibleHeading) > 0:
                 chosenHeading = possibleHeading[0]
@@ -329,35 +322,31 @@ class GridMapNavigator(object):
                 return chosenHeading
             count = count + 1
     
+    def markObstacle(self, x, y, value):
+        if self.isInsideMapGrid(x, y) and (self.obstacleMap[x][y] != value):
+            self.obstacleMap[x][y] = value
+            return 1
+        return 0
+    
+    def getNeighbor(self, x, y, heading):
+        chosenAngle = 0
+        for i in range(0, 8):
+            if self.getAngleDifference(self.nextDir[chosenAngle][2], heading) > self.getAngleDifference(self.nextDir[i][2], heading):
+                chosenAngle = i
+        return (x + self.nextDir[chosenAngle][0], y + self.nextDir[chosenAngle][1])
+        
+    
     def putObstacle(self, heading):
         realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
-        headingInRad = math.radians(realHeading)
-        v = {}
-        v['x'] = int(self.curX + self.GRID_LENGTH*math.sqrt(2)*math.sin(headingInRad))
-        v['y'] = int(self.curY + self.GRID_LENGTH*math.sqrt(2)*math.cos(headingInRad))
-        
-        temp = self.markObstacle(v, True)
+        x, y = self.getNeighbor(int(self.curX/self.GRID_LENGTH), int(self.curY/self.GRID_LENGTH), realHeading)
+        temp = self.markObstacle(x, y, True)
         if (temp > 0):
             self.hasUpdate = True
     
     def removeObstacle(self, heading):
         realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
-        headingInRad = math.radians(realHeading)
-        s = {'x':self.curX, 'y':self.curY}
-        v = {'x': int(self.curX + self.GRID_LENGTH*math.sqrt(2)*math.sin(headingInRad)), 'y':int(self.curY + self.GRID_LENGTH*math.sqrt(2)*math.cos(headingInRad))}
-        
-        length = self.dist(s,v)
-        direction = [(v['x'] - s['x']) / length*self.GRID_LENGTH, (v['y'] - s['y']) / length*self.GRID_LENGTH]
-        u = dict(s)
-        count = 0
-        temp = 0
-        while self.dist(u, v) >= self.GRID_LENGTH:
-            #print str(u['x']) + " " + str(u['y']) + " " + str(count)
-            temp = temp + self.markObstacle(u, False)
-            count = count + 1
-            u['x'] = int(s['x'] + direction[0] * count)
-            u['y'] = int(s['y'] + direction[1] * count)
-        
+        x, y = self.getNeighbor(int(self.curX/self.GRID_LENGTH), int(self.curY/self.GRID_LENGTH), realHeading)
+        temp = self.markObstacle(x, y, False)
         if (temp > 0):
             self.hasUpdate = True
     
