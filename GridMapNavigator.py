@@ -225,7 +225,7 @@ class GridMapNavigator(object):
             print s
     
     def findDirectionToGo(self, realHeading, destHeading):
-        
+        print "find direction to go..."
         diffAngle = min(abs(destHeading - realHeading + 360)%360, abs(realHeading - destHeading + 360)%360)
         if (diffAngle < self.ANGLE_LIMIT) :
             print "Go straight"
@@ -287,12 +287,15 @@ class GridMapNavigator(object):
     def findDirectionToNearestValidPoint(self, x, y, curHeading):
         count = 0
         nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
+        print "find nearest valid point"
         while True:
+            print "count = " + str(count)
             possibleHeading = []
             for i in range(8):
                 v = (x + nextDir[i][0]*count, y + nextDir[i][1]*count)
                 if self.isInsideMapGrid(v[0], v[1]) and (self.map[v[0]][v[1]] != 0) and (self.minDist[v[0]][v[1]] < self.INF) and (self.obstacleMap[v[0]][v[1]] == False):
                     possibleHeading.append(nextDir[i][2])
+            print "finish check 8 directions"
             if len(possibleHeading) > 0:
                 chosenHeading = possibleHeading[0]
                 for i in len(possibleHeading):
