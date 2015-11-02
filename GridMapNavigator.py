@@ -259,6 +259,8 @@ class GridMapNavigator(object):
                     AudioManager.play('node')
                     AudioManager.playNumber(self.map[curX][curY])
                     self.notifiedReachNode = True
+                    if self.map[curX][curY] == self.endNode['nodeId']:
+                        return False
             else :
                 self.notifiedReachNode = False
             
@@ -268,12 +270,13 @@ class GridMapNavigator(object):
                     if self.minDist[v[0]][v[1]] + 1 == self.minDist[curX][curY]:
                         destHeading = nextDir[i][2]
                         self.findDirectionToGo(realHeading, destHeading)
-                        return 
+                        return True
         else :
             print "Invalid current point! Go to the nearest valid point"
             #self.removeObstacle(0)
             angleToGo = self.findDirectionToNearestValidPoint(curX, curY, realHeading)
             self.findDirectionToGo(realHeading, angleToGo)
+            return True
             
     def getAngleDifference(self, theta1, theta2):
         angleDiff = abs(theta1 - theta2)
