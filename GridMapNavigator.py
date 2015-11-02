@@ -23,7 +23,7 @@ class GridMapNavigator(object):
     curHeading = 0
     notifiedReachNode = False
     
-    ANGLE_LIMIT = 15
+    ANGLE_LIMIT = 20
     INF = 1000000000
     STEP_LENGTH = 42
     GRID_LENGTH = 50
@@ -221,8 +221,8 @@ class GridMapNavigator(object):
             print s
     
     def findDirectionToGo(self, realHeading, destHeading):
-        print "find direction to go..."
         diffAngle = min(abs(destHeading - realHeading + 360)%360, abs(realHeading - destHeading + 360)%360)
+        print "find direction to go...", realHeading, destHeading, diffAngle
         if (diffAngle < self.ANGLE_LIMIT) :
             print "Go straight"
             if (AudioManager.isBusy() == False):
