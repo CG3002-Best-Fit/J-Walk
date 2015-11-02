@@ -110,7 +110,7 @@ class MegaCommunicator(object):
             self.headingValue   = self.sensorValues[4]
             self.stackSpace     = self.sensorValues[5]
             self.accValue       = self.sensorValues[6]
-            self.adsValue       = self.sensorValues[7]
+            #self.adsValue       = self.sensorValues[7]
             
             self.sumSteps = self.sumSteps + self.stepsValue
         return True

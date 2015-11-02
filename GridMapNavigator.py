@@ -23,8 +23,12 @@ class GridMapNavigator(object):
     curHeading = 0
     notifiedReachNode = False;
     
-    
+    ANGLE_LIMIT = 15
+    INF = 1000000000
     STEP_LENGTH = 42
+    GRID_LENGTH = 50
+    maxXGrid = 0
+    maxYGrid = 0
     
     def getCurrentBuilding(self):
         return self.curBuilding
@@ -56,7 +60,7 @@ class GridMapNavigator(object):
             mapName = mapName.replace("YY",str(level))
             mapDownload.retrieve(url, mapName)
         
-        #Load the downloaded json file into the program
+            #Load the downloaded json file into the program
             with open(mapName) as json_file:    
                 mapInfo = json.load(json_file)
             return mapInfo
@@ -65,82 +69,95 @@ class GridMapNavigator(object):
                 mapInfo = json.load(json_file)
             return mapInfo
     
-    
     def __init__(self):
         pass
     
     def extractMap(self, nodeList):
+        nodeDict = {}
         for node in nodeList:
+            node['nodeId'] = int(node['nodeId'])
             node['x'] = int(node['x'])
             node['y'] = int(node['y'])
             node['linkTo'] = node['linkTo'].replace(' ','').split(",")
             for i in range(0, len(node['linkTo'])):
-                node['linkTo'][i] = int(node['linkTo'][i]) - 1
-        return nodeList
+                node['linkTo'][i] = int(node['linkTo'][i])
+            
+            nodeDict[node['nodeId']] = node
+        return nodeDict
     
     def dist(self, u, v):
         return math.sqrt(math.pow(v['x'] - u['x'],2) + math.pow(v['y'] - u['y'],2))
     
+    def isInsideMapGrid(self, x, y):
+        return (0 <= x) and (x < self.maxXGrid) and (0 <= y) and (y < self.maxYGrid)
+    
     def mark(self, u, value):
         for i in range(-2,5):
             for j in range(-2,5):
-                x = int(u['x']/100) + i
-                y = int(u['y']/100) + j
-                if (0 <= x) and (x < 200) and (0 <= y) and (y < 200):
+                x = int(u['x']/self.GRID_LENGTH) + i
+                y = int(u['y']/self.GRID_LENGTH) + j
+                if self.isInsideMapGrid(x, y):
                     self.map[x][y] = value
                     if (value != 0) :
                         self.obstacleMap[x][y] = False
     
     def markObstacle(self, u, value):
-        x = int(u['x']/100.0)
-        y = int(u['y']/100.0)
-        if (0 <= x) and (x < 200) and (0 <= y) and (y < 200) and (self.obstacleMap[x][y] != value):
+        x = int(u['x']/self.GRID_LENGTH)
+        y = int(u['y']/self.GRID_LENGTH)
+        if self.isInsideMapGrid(x, y) and (self.obstacleMap[x][y] != value):
             self.obstacleMap[x][y] = value
             return 1
         return 0
     
     def drawRoute(self, s, t):
         length = self.dist(s,t)
-        direction = [(t['x'] - s['x']) / length*100, (t['y'] - s['y']) / length*100]    # 1 meter
+        direction = [(t['x'] - s['x']) / length*self.GRID_LENGTH, (t['y'] - s['y']) / length*self.GRID_LENGTH]    # 1 meter
         u = dict(s)
         count = 0
-        while self.dist(u, t) >= 100:
+        while self.dist(u, t) >= self.GRID_LENGTH:
             #print str(u['x']) + " " + str(u['y']) + " " + str(count)
             self.mark(u, -1)
-            #self.markObstacle(u, False)
             count = count + 1
             u['x'] = int(s['x'] + direction[0] * count)
             u['y'] = int(s['y'] + direction[1] * count)
             #print str(u['x']) + "->" + str(s['x']) + " " + str(count) + " " + str(direction[0] * count)
             
     
-    def initGridMap(self, adjList):
-        self.map = [[0 for i in range(200)] for j in range(200)]
+    def create2DArray(self, n, m, initValue):
+        return [[initValue for i in range(n)] for j in range(m)]
+    
+    def initGridMap(self, nodeDict):
+        self.maxXGrid = 200*100/self.GRID_LENGTH
+        self.maxYGrid = 200*100/self.GRID_LENGTH
+        self.map = self.create2DArray(self.maxYGrid, self.maxXGrid, 0)
         print "finish map"
-        self.minDist = [[0 for i in range(200)] for j in range(200)]
+        self.minDist = self.create2DArray(self.maxYGrid, self.maxXGrid, 0)
         print "finish minDist"
-        self.obstacleMap = [[True for i in range(200)] for j in range(200)]
+        self.obstacleMap = self.create2DArray(self.maxYGrid, self.maxXGrid, True)
         print "finish obstacleMap"
         
-        for u in adjList:
+        print nodeDict
+        for u in nodeDict.keys():
+            u = nodeDict[u]
             for i in u['linkTo']:
-                v = adjList[i]
+                v = nodeDict[i]
                 self.drawRoute(u, v)
         print "finish draw route"
         
-        for node in adjList:
+        for i in nodeDict:
+            node = nodeDict[i]
             self.mark(node, int(node['nodeId']))
         print "finish mark"
     
-    def BFS(self, s):
-        for i in range(0, 200):
-            for j in range(0, 200):
-                self.minDist[i][j] = 1000000000
+    def calculateDistanceToDestination(self, s):
+        for i in range(0, self.maxXGrid):
+            for j in range(0, self.maxYGrid):
+                self.minDist[i][j] = self.INF
                   
         
         queue = []
-        sx = int(s['x']/100.0)
-        sy = int(s['y']/100.0)
+        sx = int(s['x']/self.GRID_LENGTH)
+        sy = int(s['y']/self.GRID_LENGTH)
         self.minDist[sx][sy] = 0
         queue.append((sx, sy))
         
@@ -148,17 +165,12 @@ class GridMapNavigator(object):
         
         while len(queue) > 0:
             u = queue.pop(0)
-            #print str(u[0]) + " " + str(u[1])
             for i in range(0, 8):
                 v = (u[0] + nextDir[i][0], u[1] + nextDir[i][1])
-                #print v
-                #print self.minDist[v[0]][v[1]]
-                if (0 <= v[0]) and (v[0] < 200) and (0 <= v[1]) and (v[1] < 200) and (self.map[v[0]][v[1]] != 0) and (self.obstacleMap[v[0]][v[1]] == False):
-                    if self.minDist[v[0]][v[1]] == 1000000000:
+                if self.isInsideMapGrid(v[0], v[1]) and (self.map[v[0]][v[1]] != 0) and (self.obstacleMap[v[0]][v[1]] == False):
+                    if self.minDist[v[0]][v[1]] == self.INF:
                         self.minDist[v[0]][v[1]] = self.minDist[u[0]][u[1]] + 1
                         queue.append(v)
-        
-    
     
     def setStartAndEndPoint(self, userInput):
         print "download map"
@@ -174,35 +186,36 @@ class GridMapNavigator(object):
             print "extract map"
             self.mapHeading = int(mapInfo['info']['northAt'])
             
-            adjList = self.extractMap(mapInfo['map'])
+            nodeDict = self.extractMap(mapInfo['map'])
             print "init grid"
-            self.initGridMap(adjList)
+            self.initGridMap(nodeDict)
             
-            if (userInput[2] > len(adjList)) or (userInput[5] > len(adjList)):
+            if (userInput[2] > len(nodeDict)) or (userInput[5] > len(nodeDict)):
+                print "invalid input"
                 return False
             
-            self.startNode = adjList[userInput[2]-1]
-            self.endNode = adjList[userInput[5]-1]
+            self.startNode = nodeDict[userInput[2]]
+            self.endNode = nodeDict[userInput[5]]
             
             self.curX = self.startNode['x']
             self.curY = self.startNode['y']
             
             print "BFS"
-            self.BFS(self.endNode)
+            self.calculateDistanceToDestination(self.endNode)
             return True
     
     def printMap(self):
         os.system('clear')
         
-        curX = int(self.curX / 100.0)
-        curY = int(self.curY / 100.0)
+        curX = int(self.curX / self.GRID_LENGTH)
+        curY = int(self.curY / self.GRID_LENGTH)
         
         for i in range(-5,11):
             s = ""
             for j in range(-5,11):
-                x = curX + i
-                y = curY + j
-                if (0 <= x) and (x < 200) and (0 <= y) and (y < 200) and (self.map[x][y] != 0) and (self.obstacleMap[x][y] == False):
+                x = curX + j
+                y = curY - i
+                if self.isInsideMapGrid(x, y) and (self.map[x][y] != 0) and (self.obstacleMap[x][y] == False):
                     if (i==0) and (j==0):
                         s = s + 'Y'
                     else:
@@ -211,17 +224,34 @@ class GridMapNavigator(object):
                     s = s + 'X'
             print s
     
+    def findDirectionToGo(self, realHeading, destHeading):
+        
+        diffAngle = min(abs(destHeading - realHeading + 360)%360, abs(realHeading - destHeading + 360)%360)
+        if (diffAngle < self.ANGLE_LIMIT) :
+            print "Go straight"
+            if (AudioManager.isBusy() == False):
+                AudioManager.play("straight_ahead")
+        else :
+            if (realHeading + diffAngle + 360) % 360 == destHeading:
+                print "Turn right " + str(realHeading) + " " + str((realHeading + diffAngle + 360) % 360) + " " + str(destHeading)
+                if (AudioManager.isBusy() == False) :
+                    AudioManager.play("right")
+            else :
+                print "Turn left " + str(realHeading) + " " + str((realHeading + diffAngle + 360) % 360) + " " + str(destHeading)
+                if (AudioManager.isBusy() == False) :
+                    AudioManager.play("left")
+    
     def getInstruction(self):
-        ANGLE_LIMIT = 15
+        
         
         realHeading = (self.mapHeading + self.curHeading) % 360
         #print realHeading
         
-        curX = int(self.curX / 100.0)
-        curY = int(self.curY / 100.0)
+        curX = int(self.curX / self.GRID_LENGTH)
+        curY = int(self.curY / self.GRID_LENGTH)
         
         #print self.minDist[curX][curY]
-        if (0 <= curX) and (curX < 200) and (0 <= curY) and (curY < 200) and (self.map[curX][curY] != 0) and (self.minDist[curX][curY] < 1000000000):
+        if self.isInsideMapGrid(curX, curY) and (self.map[curX][curY] != 0) and (self.minDist[curX][curY] < self.INF):
             nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
             if (self.map[curX][curY] != -1): 
                 if (self.notifiedReachNode == False):
@@ -234,42 +264,48 @@ class GridMapNavigator(object):
             
             for i in range(0, 8):
                 v = (curX + nextDir[i][0], curY + nextDir[i][1])
-                #print v
-                #print str(self.minDist[v[0]][v[1]]) + " " + str(self.minDist[curX][curY])
-                if (0 <= v[0]) and (v[0] < 200) and (0 <= v[1]) and (v[1] < 200) and (self.map[v[0]][v[1]] != 0):
+                if self.isInsideMapGrid(v[0], v[1]) and (self.map[v[0]][v[1]] != 0):
                     if self.minDist[v[0]][v[1]] + 1 == self.minDist[curX][curY]:
                         destHeading = nextDir[i][2]
-                        
-                        diffAngle = min(abs(destHeading - realHeading + 360)%360, abs(realHeading - destHeading + 360)%360)
-                        if (diffAngle < ANGLE_LIMIT) :
-                            print "Go straight"
-                            if (AudioManager.isBusy() == False):
-                                AudioManager.play("straight_ahead")
-                        else :
-                            if (realHeading + diffAngle + 360) % 360 == destHeading:
-                                print "Turn right " + str(realHeading) + " " + str((realHeading + diffAngle + 360) % 360) + " " + str(destHeading)
-                                if (AudioManager.isBusy() == False) :
-                                    AudioManager.play("right")
-                    
-                            else :
-                                print "Turn left " + str(realHeading) + " " + str((realHeading + diffAngle + 360) % 360) + " " + str(destHeading)
-                                if (AudioManager.isBusy() == False) :
-                                    AudioManager.play("left")
-                                
-                        #print "Go to " + str(nextDir[i][0]) + " " + str(nextDir[i][1])
+                        self.findDirectionToGo(realHeading, destHeading)
                         return 
         else :
-            print "Invalid current point"
-            self.removeObstacle(0)
-            if (AudioManager.isBusy() == False):
-                AudioManager.play("straight_ahead")
+            print "Invalid current point! Go to the nearest valid point"
+            #self.removeObstacle(0)
+            angleToGo = self.findDirectionToNearestValidPoint(curX, curY, realHeading)
+            self.findDirectionToGo(realHeading, angleToGo)
             
+    def getAngleDifference(self, theta1, theta2):
+        angleDiff = abs(theta1 - theta2)
+        if (angleDiff > 180) :
+            angleDiff = 360 - angleDiff
+        return angleDiff
+            
+    def findDirectionToNearestValidPoint(self, x, y, curHeading):
+        count = 0
+        nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
+        while True:
+            possibleHeading = []
+            for i in range(8):
+                v = (x + nextDir[i][0]*count, y + nextDir[i][1]*count)
+                if self.isInsideMapGrid(v[0], v[1]) and (self.map[v[0]][v[1]] != 0) and (self.minDist[v[0]][v[1]] < self.INF) and (self.obstacleMap[v[0]][v[1]] == False):
+                    possibleHeading.append(nextDir[i][2])
+            if len(possibleHeading) > 0:
+                chosenHeading = possibleHeading[0]
+                for i in len(possibleHeading):
+                    angleDiff1 = self.getAngleDifference(chosenHeading, curHeading)
+                    angleDiff2 = self.getAngleDifference(possibleHeading[i], curHeading)
+                    if angleDiff2 < angleDiff1:
+                        chosenHeading = possibleHeading[i]
+                return chosenHeading
+            count = count + 1
+    
     def putObstacle(self, heading):
         realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
         headingInRad = math.radians(realHeading)
         v = {}
-        v['x'] = int(self.curX + 100*math.sin(headingInRad))
-        v['y'] = int(self.curY + 100*math.cos(headingInRad))
+        v['x'] = int(self.curX + self.GRID_LENGTH*math.sqrt(2)*math.sin(headingInRad))
+        v['y'] = int(self.curY + self.GRID_LENGTH*math.sqrt(2)*math.cos(headingInRad))
         
         temp = self.markObstacle(v, True)
         if (temp > 0):
@@ -278,20 +314,15 @@ class GridMapNavigator(object):
     def removeObstacle(self, heading):
         realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
         headingInRad = math.radians(realHeading)
-        s = {}
-        s['x'] = self.curX
-        s['y'] = self.curY
-        
-        v = {}
-        v['x'] = int(self.curX + 100*math.sin(headingInRad))
-        v['y'] = int(self.curY + 100*math.cos(headingInRad))
+        s = {'x':self.curX, 'y':self.curY}
+        v = {'x': int(self.curX + self.GRID_LENGTH*math.sqrt(2)*math.sin(headingInRad)), 'y':int(self.curY + self.GRID_LENGTH*math.sqrt(2)*math.cos(headingInRad))}
         
         length = self.dist(s,v)
-        direction = [(v['x'] - s['x']) / length*100, (v['y'] - s['y']) / length*100]
+        direction = [(v['x'] - s['x']) / length*self.GRID_LENGTH, (v['y'] - s['y']) / length*self.GRID_LENGTH]
         u = dict(s)
         count = 0
         temp = 0
-        while self.dist(u, v) >= 100:
+        while self.dist(u, v) >= self.GRID_LENGTH:
             #print str(u['x']) + " " + str(u['y']) + " " + str(count)
             temp = temp + self.markObstacle(u, False)
             count = count + 1
@@ -302,13 +333,13 @@ class GridMapNavigator(object):
             self.BFS(self.endNode)
     
 if __name__ == '__main__':
+    AudioManager.init()
     gridMapNavigator = GridMapNavigator()
     if gridMapNavigator.setStartAndEndPoint([1,2,13,1,2,16]):
         #gridMapNavigator.putObstacle(556, 90, 45)
         gridMapNavigator.curX = 5560
         gridMapNavigator.curY = 900
-        gridMapNavigator.curHeading = 45
+        gridMapNavigator.curHeading = 50
         gridMapNavigator.getInstruction()
     else :
         print "setStartAndEndPoint failed"
-                                          
