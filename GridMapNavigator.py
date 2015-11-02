@@ -281,7 +281,9 @@ class GridMapNavigator(object):
                         chosenHeading = possibleHeading[i]
                 
                 self.findDirectionToGo(realHeading, chosenHeading)
-                return True
+            else:
+                print "cannot find any direction"
+            return True
             
         else :
             print "Invalid current point! Go to the nearest valid point"
