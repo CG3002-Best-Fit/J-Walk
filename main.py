@@ -103,6 +103,10 @@ def navigate():
 def pollData():
     global isProgramAlive, mapNavigator
     try:
+        counterToPutObstacle1 = 2
+        counterToPutObstacle2 = 2
+        counterToPutObstacle3 = 2
+        counterToRemoveObstacle1 = 2
         while isProgramAlive:
             isSuccessful = megaCommunicator.pollData()
             if isSuccessful:
@@ -114,18 +118,38 @@ def pollData():
                 #print "acc = " + str(megaCommunicator.getAcc())
                 
                 if (megaCommunicator.getSonar1() == 1): # straight ahead sonar
-                    gridMapNavigator.putObstacle(0)
+                    if counterToPutObstacle1 > 0:
+                        counterToPutObstacle1 = counterToPutObstacle1 - 1
+                    if counterToPutObstacle1 == 0:
+                        counterToPutObstacle1 = 2
+                        gridMapNavigator.putObstacle(0)
+                    counterToRemoveObstacle1 = 2
                 else :
-                    gridMapNavigator.removeObstacle(0)
-                
+                    if counterToRemoveObstacle1 > 0:
+                        counterToRemoveObstacle1 = counterToRemoveObstacle1 - 1
+                    if counterToRemoveObstacle1 == 0:
+                        counterToRemoveObstacle1 = 2
+                        gridMapNavigator.removeObstacle(0)
+                    counterToPutObstacle1 = 2
+                    
                 if (megaCommunicator.getSonar2() == 1): # left sonar
-                    gridMapNavigator.putObstacle(-45)
-                #else :
+                    if counterToPutObstacle2 > 0:
+                        counterToPutObstacle2 = counterToPutObstacle2 - 1
+                    if counterToPutObstacle2 == 0:
+                        counterToPutObstacle2 = 2
+                        gridMapNavigator.putObstacle(-45)
+                else :
+                    counterToPutObstacle2 = 2
                 #    gridMapNavigator.removeObstacle(-45)
                     
                 if (megaCommunicator.getSonar3() == 1): # right sonar
-                    gridMapNavigator.putObstacle(45)
-                #else:
+                    if counterToPutObstacle3 > 0:
+                        counterToPutObstacle3 = counterToPutObstacle3 - 1
+                    if counterToPutObstacle3 == 0:
+                        counterToPutObstacle3 = 2
+                        gridMapNavigator.putObstacle(45)
+                else:
+                    counterToPutObstacle3 = 2
                 #    gridMapNavigator.removeObstacle(45)
                     
                     
