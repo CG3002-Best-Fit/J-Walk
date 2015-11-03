@@ -341,7 +341,7 @@ class GridMapNavigator(object):
         x, y = self.getNeighbor(int(self.curX/self.GRID_LENGTH), int(self.curY/self.GRID_LENGTH), realHeading)
         temp = self.markObstacle(x, y, True)
         if (temp > 0):
-            print "Put obstacle"
+            print "Put obstacle", heading
             self.hasUpdate = True
     
     def removeObstacle(self, heading):
@@ -349,7 +349,7 @@ class GridMapNavigator(object):
         x, y = self.getNeighbor(int(self.curX/self.GRID_LENGTH), int(self.curY/self.GRID_LENGTH), realHeading)
         temp = self.markObstacle(x, y, False)
         if (temp > 0):
-            print "Removed obstacle"
+            print "Removed obstacle", heading
             self.hasUpdate = True
     
 if __name__ == '__main__':
