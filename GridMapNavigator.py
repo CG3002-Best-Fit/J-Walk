@@ -221,7 +221,7 @@ class GridMapNavigator(object):
             print s
     
     def findDirectionToGo(self, realHeading, destHeading):
-        diffAngle = min(abs(destHeading - realHeading + 360)%360, abs(realHeading - destHeading + 360)%360)
+        diffAngle = min(abs(destHeading - realHeading), abs(realHeading - destHeading))
         print "find direction to go...", realHeading, destHeading, diffAngle
         if (diffAngle < self.ANGLE_LIMIT) :
             print "Go straight"
