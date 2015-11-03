@@ -23,7 +23,7 @@ class GridMapNavigator(object):
     curHeading = 0
     notifiedReachNode = False
     
-    ANGLE_LIMIT = 20
+    ANGLE_LIMIT = 30
     INF = 1000000000
     STEP_LENGTH = 42
     GRID_LENGTH = 50
