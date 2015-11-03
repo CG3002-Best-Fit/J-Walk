@@ -120,13 +120,13 @@ def pollData():
                 
                 if (megaCommunicator.getSonar2() == 1): # left sonar
                     gridMapNavigator.putObstacle(-45)
-                else :
-                    gridMapNavigator.removeObstacle(-45)
+                #else :
+                #    gridMapNavigator.removeObstacle(-45)
                     
                 if (megaCommunicator.getSonar3() == 1): # right sonar
                     gridMapNavigator.putObstacle(45)
-                else:
-                    gridMapNavigator.removeObstacle(45)
+                #else:
+                #    gridMapNavigator.removeObstacle(45)
                     
                     
                 #if megaCommunicator.getAds() == 1:
