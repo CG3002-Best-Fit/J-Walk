@@ -208,16 +208,16 @@ class GridMapNavigator(object):
         
         for i in range(-5,11):
             s = ""
-            for j in range(-5,11):
+            for j in range(-10,21):
                 x = curX + j
                 y = curY - i
-                if self.isInsideMapGrid(x, y) and (self.map[x][y] != 0) and (self.obstacleMap[x][y] == False):
-                    if (i==0) and (j==0):
-                        s = s + 'Y'
-                    else:
+                if (i==0) and (j==0):
+                    s = s + 'Y'
+                else:
+                    if self.isInsideMapGrid(x, y) and (self.map[x][y] != 0) and (self.obstacleMap[x][y] == False):
                         s = s + '.'
-                else :
-                    s = s + 'X'
+                    else :
+                        s = s + 'X'
             print s
     
     def findDirectionToGo(self, realHeading, destHeading):
@@ -341,6 +341,7 @@ class GridMapNavigator(object):
         x, y = self.getNeighbor(int(self.curX/self.GRID_LENGTH), int(self.curY/self.GRID_LENGTH), realHeading)
         temp = self.markObstacle(x, y, True)
         if (temp > 0):
+            print "Put obstacle"
             self.hasUpdate = True
     
     def removeObstacle(self, heading):
@@ -348,6 +349,7 @@ class GridMapNavigator(object):
         x, y = self.getNeighbor(int(self.curX/self.GRID_LENGTH), int(self.curY/self.GRID_LENGTH), realHeading)
         temp = self.markObstacle(x, y, False)
         if (temp > 0):
+            print "Removed obstacle"
             self.hasUpdate = True
     
 if __name__ == '__main__':
