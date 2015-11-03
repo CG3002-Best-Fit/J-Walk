@@ -16,15 +16,16 @@ class SocketCommunicator(object):
     #RPI_IP = "192.168.0.109"   #YuShuen
     #RPI_IP = "172.25.103.50"   #COM1
     #RPI_IP = "192.168.2.3"      #Macbook
-    RPI_IP = "192.168.43.222"      #Mobile
-    
+    #RPI_IP = "192.168.43.222"      #Mobile
+    RPI_IP = "172.20.10.12"      #Eric's iPad
     
     #COM_IP = "192.168.1.107"   #Sevin
     #COM_IP = "192.168.0.104"   #Yu Shuen
     #COM_IP = "172.25.100.199"  #COM1
     #COM_IP = "192.168.0.105"    #Macbook
-    COM_IP = "192.168.43.107"    #Mobile
+    #COM_IP = "192.168.43.107"    #Mobile
     #COM_IP = "192.168.43.80"    #lenovo
+    COM_IP = "172.20.10.13"    #Eric's iPad
     
     def sendInt(self, num):
         self.client_connection.write(struct.pack('>L', num))
