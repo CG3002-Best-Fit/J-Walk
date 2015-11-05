@@ -51,6 +51,10 @@ class GridMapNavigator(object):
         if self.isValidPoint(int(nextX / self.GRID_LENGTH), int(nextY / self.GRID_LENGTH)):
             self.curX = nextX
             self.curY = nextY
+        elif self.isValidPoint(int(nextX / self.GRID_LENGTH), int(self.curY / self.GRID_LENGTH)):
+            self.curX = nextX
+        elif self.isValidPoint(int(self.curX / self.GRID_LENGTH), int(nextY / self.GRID_LENGTH)):
+            self.curY = nextY
     
     def downloadMap(self, block, level):
         try:
