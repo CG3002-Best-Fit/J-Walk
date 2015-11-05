@@ -89,8 +89,8 @@ def navigate():
     try:
         while isProgramAlive:
             #hasNextNode = mapNavigator.getInstruction()
-            hasNextNode = gridMapNavigator.getInstruction()
-            if hasNextNode == False:
+            gridMapNavigator.getInstruction()
+            if gridMapNavigator.hasReachedDestination:
                 print "You reached destination!!!"
                 break;
             time.sleep(1)
@@ -111,7 +111,7 @@ def pollData():
             isSuccessful = megaCommunicator.pollData()
             if isSuccessful:
                 #mapNavigator.setHeading(megaCommunicator.getHeading())
-                gridMapNavigator.setHeading(megaCommunicator.getHeading())
+                gridMapNavigator.curHeading = megaCommunicator.getHeading()
                 if (megaCommunicator.getStep() > 0):
                     #mapNavigator.stepAhead(megaCommunicator.getStep())
                     gridMapNavigator.stepAhead(megaCommunicator.getStep())
@@ -189,8 +189,8 @@ def sendDataToComp():
                     #socketCommunicator.sendInt(mapNavigator.curX)
                     #socketCommunicator.sendInt(mapNavigator.curY)
                     #socketCommunicator.sendInt(mapNavigator.curHeading)
-                    socketCommunicator.sendInt(gridMapNavigator.getCurrentBuilding())
-                    socketCommunicator.sendInt(gridMapNavigator.getCurrentLevel())
+                    socketCommunicator.sendInt(gridMapNavigator.curBuilding)
+                    socketCommunicator.sendInt(gridMapNavigator.curLevel)
                     socketCommunicator.sendInt(gridMapNavigator.curX)
                     socketCommunicator.sendInt(gridMapNavigator.curY)
                     socketCommunicator.sendInt(gridMapNavigator.curHeading)
@@ -284,9 +284,10 @@ def init():
             userInput = getUserInput()
             try :
                 #isValid = mapNavigator.setStartAndEndPoint(userInput)
-                isValid = gridMapNavigator.setStartAndEndPoint(userInput)
+                userInputDict = {'startBlock':userInput[0], 'startLevel':userInput[1], 'startId':userInput[2],
+                                 'endBlock':userInput[3], 'endLevel':userInput[4], 'endId':userInput[5]}
+                isValid = gridMapNavigator.setStartAndEndPoint(userInputDict)
                 if isValid == False :
-                    print "(" + str(userInput[0]) + ", " + userInput[1] + ", " + userInput[2] 
                     print "Invalid path!! Please re-enter!!"
                 else :
                     break
