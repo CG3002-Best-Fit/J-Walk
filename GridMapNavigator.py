@@ -273,9 +273,9 @@ class GridMapNavigator(object):
         curX = int(self.curX / self.GRID_LENGTH)
         curY = int(self.curY / self.GRID_LENGTH)
         
-        for i in range(-10,11):
+        for i in range(-5,6):
             s = ""
-            for j in range(-20,21):
+            for j in range(-30,31):
                 x = curX + j
                 y = curY - i
                 if (i==0) and (j==0):
