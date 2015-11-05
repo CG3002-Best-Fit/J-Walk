@@ -348,7 +348,7 @@ class GridMapNavigator(object):
         for i in range(0, 8):
             v = (curX + self.nextDir[i][0], curY + self.nextDir[i][1])
             #print v, self.minDist[v[0]][v[1]], self.minDist[curX][curY]
-            if self.isValidPoint(v[0], v[1]) and (self.minDist[v[0]][v[1]] + 1 == self.minDist[curX][curY]):
+            if self.isValidPoint(v[0], v[1]) and (self.minDist[v[0]][v[1]] < self.minDist[curX][curY]):
                 possibleHeading.append(self.nextDir[i][2])
                     
         if len(possibleHeading) > 0:
