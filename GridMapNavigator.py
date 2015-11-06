@@ -381,7 +381,6 @@ class GridMapNavigator(object):
             print "Cannot find any direction! Try to turn right..."
             if (AudioManager.isBusy() == False) :
                 AudioManager.play("right")
-        return
             
     def getAngleDifference(self, theta1, theta2):
         angleDiff = abs(theta1 - theta2)
