@@ -93,7 +93,7 @@ def navigate():
             if gridMapNavigator.hasReachedDestination:
                 print "You reached destination!!!"
                 break;
-            time.sleep(1)
+            time.sleep(2)
     except:
         print "Oops! Something went wrong in navigate()!"
         isProgramAlive = False

@@ -9,19 +9,20 @@ import math
 import AudioManager
 import os
 import heapq
+from MapManager import MapManager
 
 class GridMapNavigator(object):
+    mapManager = MapManager()
     map = []
     obstacleMap = []
     minDist = []
     mapHeading = 0
     startNode = {}
     endNode = {}
-    nodeDict = {}
-    canPass = {}
-    
     curBuilding = 1
     curLevel = 2
+    source = ()
+    destination = ()
     curX = 0 
     curY = 0
     curHeading = 0
@@ -41,6 +42,9 @@ class GridMapNavigator(object):
     def getCurrentPos(self):
         return [self.curX, self.curY, self.curHeading]
     
+    def isInsideMapGrid(self, x, y):
+        return (0 <= x) and (x < self.maxXGrid) and (0 <= y) and (y < self.maxYGrid)
+    
     def isValidPoint(self, x, y):
         return self.isInsideMapGrid(x, y) and (self.map[x][y] != 0) and (self.obstacleMap[x][y] == False)
     
@@ -56,67 +60,21 @@ class GridMapNavigator(object):
         elif self.isValidPoint(int(self.curX / self.GRID_LENGTH), int(nextY / self.GRID_LENGTH)):
             self.curY = nextY
     
-    def downloadMap(self, block, level):
-        try:
-            print "Downloading map"
-            
-            mapDownload = urllib.URLopener()
-            mapName = "XXLevelYY.json"
-            
-            url = 'http://showmyway.comp.nus.edu.sg/getMapInfo.php?Building=XX&Level=YY'
-            url = url.replace("XX", str(block))
-            url = url.replace("YY", str(level))
-            mapName = mapName.replace("XX",str(block))
-            mapName = mapName.replace("YY",str(level))
-            mapDownload.retrieve(url, mapName)
-            
-            print "Finish downloading map"
-            #Load the downloaded json file into the program
-            with open(mapName) as json_file:    
-                mapInfo = json.load(json_file)
-            return mapInfo
-        except IOError:   
-            print "Downloading map failed! Reading from cache..."
-            with open(mapName) as json_file:    
-                mapInfo = json.load(json_file)
-            return mapInfo
+    def create2DArray(self, n, m, initValue):
+        return [[initValue for i in range(n)] for j in range(m)]
     
     def __init__(self):
         self.maxXGrid = 200*100/self.GRID_LENGTH
         self.maxYGrid = 200*100/self.GRID_LENGTH
-        self.map = self.create2DArray(self.maxYGrid, self.maxXGrid, 0)
+        self.map = self.create2DArray(self.maxXGrid, self.maxYGrid, 0)
         print "finish creating map"
-        self.minDist = self.create2DArray(self.maxYGrid, self.maxXGrid, 0)
+        self.minDist = self.create2DArray(self.maxXGrid, self.maxYGrid, 0)
         print "finish creating minDist"
-        self.obstacleMap = self.create2DArray(self.maxYGrid, self.maxXGrid, True)
+        self.obstacleMap = self.create2DArray(self.maxXGrid, self.maxYGrid, True)
         print "finish creating obstacleMap"
-        
-        self.canPass = {}
-        for i in range(1, 100):
-            self.canPass[i] = {}
-            for j in range(1, 100):
-                self.canPass[i][j] = False
-    
-    def extractMap(self, nodeList):
-        print "Extracting map"
-        self.nodeDict = {}
-        for node in nodeList:
-            node['nodeId'] = int(node['nodeId'])
-            node['x'] = int(node['x'])
-            node['y'] = int(node['y'])
-            node['linkTo'] = node['linkTo'].replace(' ','').split(",")
-            for i in range(0, len(node['linkTo'])):
-                node['linkTo'][i] = int(node['linkTo'][i])
-                self.canPass[node['nodeId']][node['linkTo'][i]] = True
-                self.canPass[node['linkTo'][i]][node['nodeId']] = True
-            
-            self.nodeDict[node['nodeId']] = node
     
     def dist(self, u, v):
         return math.sqrt(math.pow(v['x'] - u['x'],2) + math.pow(v['y'] - u['y'],2))
-    
-    def isInsideMapGrid(self, x, y):
-        return (0 <= x) and (x < self.maxXGrid) and (0 <= y) and (y < self.maxYGrid)
     
     def mark(self, u, value):
         for i in range(-2,3):
@@ -140,89 +98,74 @@ class GridMapNavigator(object):
             u['x'] = int(s['x'] + direction[0] * count)
             u['y'] = int(s['y'] + direction[1] * count)
             #print str(u['x']) + "->" + str(s['x']) + " " + str(count) + " " + str(direction[0] * count)
-            
-    
-    def create2DArray(self, n, m, initValue):
-        return [[initValue for i in range(n)] for j in range(m)]
     
     def clearMinDist(self):
         print "Clearing minDist"
+        count = 0
         if len(self.pathToGo) > 1:
-            minX = min(self.nodeDict[self.pathToGo[0]]['x'], self.nodeDict[self.pathToGo[1]]['x']) - 2
-            maxX = max(self.nodeDict[self.pathToGo[0]]['x'], self.nodeDict[self.pathToGo[1]]['x']) + 2
-            minY = min(self.nodeDict[self.pathToGo[0]]['y'], self.nodeDict[self.pathToGo[1]]['y']) - 2
-            maxY = max(self.nodeDict[self.pathToGo[0]]['y'], self.nodeDict[self.pathToGo[1]]['y']) + 2
+            curNode = self.mapManager.getNode(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2])
+            nextNode = self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2])
+            minX = int(min(curNode.x, nextNode.x) / self.GRID_LENGTH) - 2
+            maxX = int(max(curNode.x, nextNode.x) / self.GRID_LENGTH) + 2
+            minY = int(min(curNode.y, nextNode.y) / self.GRID_LENGTH) - 2
+            maxY = int(max(curNode.y, nextNode.y) / self.GRID_LENGTH) + 2
             for i in range(minX, maxX + 1):
                 for j in range(minY, maxY + 1):
                     if self.isInsideMapGrid(i, j):
                         self.minDist[i][j] = self.INF
-        print "Finished clearing minDist"
+                        count = count + 1
+        print "Finished clearing minDist", count, "cells"
     
-    def calculateDistanceToDestination(self, s):
-        print "Recalculate distance"
-        self.clearMinDist()
-        
-        queue = []
-        sx = int(s['x']/self.GRID_LENGTH)
-        sy = int(s['y']/self.GRID_LENGTH)
-        self.minDist[sx][sy] = 0
-        queue.append((sx, sy))
-        
-        while len(queue) > 0:
-            u = queue.pop(0)
-            #print u, self.minDist[u[0]][u[1]]
-            for i in range(0, 8):
-                v = (u[0] + self.nextDir[i][0], u[1] + self.nextDir[i][1])
-                if self.isValidPoint(v[0], v[1]) and (self.minDist[v[0]][v[1]] == self.INF):
-                    self.minDist[v[0]][v[1]] = self.minDist[u[0]][u[1]] + 1
-                    queue.append(v)
-        print "Finished recalculating distance"
-    
-    def dijkstra(self, s, t):
+    def dijkstra(self, startNode, endNode):
+        #print "dijkstra from",startNode.code," to", endNode.code
         d = {}
         parent = {}
-        for i in self.nodeDict:
-            d[i] = self.INF
-        d[s] = 0
-        parent[s] = -1
-        priority_queue = [(d[i], i) for i in self.nodeDict]
+        
+        d[startNode.code] = 0
+        parent[startNode.code] = None
+        priority_queue = [(d[startNode.code], startNode)]
         heapq.heapify(priority_queue)
     
         while len(priority_queue) > 0:
             pair = heapq.heappop(priority_queue)
             u = pair[1]
-            if pair[0] != d[u]:
+            if pair[0] != d[u.code]:
                 continue
-            if u == t:
+            if u == endNode:
                 break
             
-            for i in range(0, len(self.nodeDict[u]['linkTo'])):
-                v = self.nodeDict[u]['linkTo'][i]
-                w = self.dist(self.nodeDict[u], self.nodeDict[v])
-                if self.canPass[u][v] and d[v] > d[u] + w:
-                    parent[v] = u
-                    d[v] = d[u] + w
-                    heapq.heappush(priority_queue, (d[v],v))
-        
+            for i in range(0, len(u.linkTo)):
+                v = self.mapManager.getNode(u.block, u.level, u.linkTo[i])
+                w = self.dist(u.getPos(), v.getPos())
+                if self.mapManager.canPass(u.block, u.level, u.nodeId, v.nodeId) and ((d.has_key(v.code) == False) or (d[v.code] > d[u.code] + w)):
+                    parent[v.code] = u
+                    #print u.code,"=>",v.code
+                    d[v.code] = d[u.code] + w
+                    heapq.heappush(priority_queue, (d[v.code],v))
+            
+            if u.specialLinkTo != None:
+                #print v.code,u.specialLinkTo
+                v = self.mapManager.getNode(u.specialLinkTo[0], u.specialLinkTo[1], u.specialLinkTo[2])
+                if (v != None) and ((d.has_key(v.code) == False) or (d[v.code] > d[u.code])):
+                    parent[v.code] = u
+                    d[v.code] = d[u.code]
+                    #print u.code,"===>",v.code
+                    heapq.heappush(priority_queue, (d[v.code],v))
+                
         result = []
-        temp = self.endNode['nodeId']
-        while temp != -1:
-            result.append(temp)
-            temp = parent[temp]
+        temp = endNode
+        while temp != None:
+            result.append((temp.block, temp.level, temp.nodeId))
+            temp = parent[temp.code]
+            
         for i in range(0, len(result)/2):
             temp = result[i]
             result[i] = result[len(result) - 1 - i]
             result[len(result) - 1 - i] = temp
         return result
                     
-    def isMapValid(self, mapInfo):
-        if (mapInfo['info'] == None) : #map doesn't exist
-            print "Map doesn't exist"
-            return False
-        return True
-        
     def isInputValid(self, userInput):
-        if (userInput['startId'] > len(self.nodeDict)) or (userInput['endId'] > len(self.nodeDict)):
+        if (userInput['startId'] > len(self.mapManager.getNodeDict(self.source[0], self.source[1]))) or (userInput['endId'] > len(self.mapManager.getNodeDict(self.destination[0], self.destination[1]))):
             print "Invalid input!"
             return False
         return True
@@ -237,31 +180,70 @@ class GridMapNavigator(object):
     def prepareRouteToNextPoint(self):
         if len(self.pathToGo) > 1:
             self.pathToGo.pop(0)
-            if len(self.pathToGo) > 1:
-                self.clearMap()
-                self.drawRoute(self.nodeDict[self.pathToGo[0]], self.nodeDict[self.pathToGo[1]], -1)
-                self.mark(self.nodeDict[self.pathToGo[0]], self.pathToGo[0])
-                self.mark(self.nodeDict[self.pathToGo[1]], self.pathToGo[1])
-    
-    def setStartAndEndPoint(self, userInput):
-        self.curBuilding = userInput['startBlock']
-        self.curLevel = userInput['startLevel']
+        if (len(self.pathToGo) > 1) and ((self.pathToGo[0][0] != self.pathToGo[1][0]) or (self.pathToGo[0][1] != self.pathToGo[1][1])):
+            self.pathToGo.pop(0)
+            self.curBuilding = self.pathToGo[0][0]
+            self.curLevel = self.pathToGo[0][1]
+            node = self.mapManager.getNode(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2])
+            self.curX = node.x
+            self.curY = node.y
+            self.mapHeading = self.mapManager.getMapHeading(self.pathToGo[0][0], self.pathToGo[0][1])
+            
+        if len(self.pathToGo) > 1:
+            self.clearMap()
+            node1 = self.mapManager.getNode(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2])
+            node2 = self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2])
+            
+            self.drawRoute({'x':node1.x, 'y':node1.y}, {'x':node2.x, 'y':node2.y}, -1)
+            self.mark({'x':node1.x, 'y':node1.y}, self.pathToGo[0][2])
+            self.mark({'x':node2.x, 'y':node2.y}, self.pathToGo[1][2])
+
+    def downloadMap(self, block, level):
+        if self.mapManager.contains(block, level):
+            return
         
-        mapInfo = self.downloadMap(self.curBuilding, self.curLevel)
-        if self.isMapValid(mapInfo) == False:
+        try:
+            print "Downloading map", block, level
+            mapDownload = urllib.URLopener()
+            mapFileName = "XXLevelYY.json".replace("XX",str(block)).replace("YY",str(level))
+            url = 'http://showmyway.comp.nus.edu.sg/getMapInfo.php?Building=XX&Level=YY'.replace("XX", str(block)).replace("YY", str(level))
+            mapDownload.retrieve(url, mapFileName)
+            print "Finish downloading map", block, level
+            #Load the downloaded json file into the program
+            with open(mapFileName) as json_file:
+                mapInfo = json.load(json_file)
+                self.mapManager.addMap(block, level, mapInfo)
+        except IOError:   
+            print "Downloading map failed! Reading from cache..."
+            with open(mapFileName) as json_file:    
+                mapInfo = json.load(json_file)
+                self.mapManager.addMap(block, level, mapInfo)
+            
+        nextMapList = self.mapManager.getNeighborMaps(block, level)
+        for i in range(0, len(nextMapList)):
+            self.downloadMap(nextMapList[i][0], nextMapList[i][1])
+            
+    def setStartAndEndPoint(self, userInput):
+        self.curBuilding    = userInput['startBlock']
+        self.curLevel       = userInput['startLevel']
+        self.source         = (userInput['startBlock'], userInput['startLevel'], userInput['startId'])
+        self.destination    = (userInput['endBlock'], userInput['endLevel'], userInput['endId'])
+        
+        self.downloadMap(self.curBuilding, self.curLevel)
+        if self.mapManager.isMapValid(userInput['startBlock'], userInput['startLevel']) == False or self.mapManager.isMapValid(userInput['endBlock'], userInput['endLevel']) == False:
             return False
         
-        self.extractMap(mapInfo['map'])
         if self.isInputValid(userInput) == False:
             return False
         
-        self.mapHeading = int(mapInfo['info']['northAt'])
-        self.startNode = self.nodeDict[userInput['startId']]
-        self.endNode = self.nodeDict[userInput['endId']]
-        self.curX = self.startNode['x']
-        self.curY = self.startNode['y']
-        self.pathToGo = self.dijkstra(userInput['startId'], userInput['endId'])
+        self.mapHeading = self.mapManager.getMapHeading(userInput['startBlock'], userInput['startLevel'])
+        self.startNode = self.mapManager.getNode(userInput['startBlock'], userInput['startLevel'], userInput['startId'])
+        self.endNode = self.mapManager.getNode(userInput['endBlock'], userInput['endLevel'], userInput['endId'])
+        self.curX = self.startNode.x
+        self.curY = self.startNode.y
+        self.pathToGo = self.dijkstra(self.startNode, self.endNode)
         print self.pathToGo
+        
         self.pathToGo.insert(0, -1)
         self.prepareRouteToNextPoint()
         self.hasUpdate = True
@@ -272,47 +254,81 @@ class GridMapNavigator(object):
         
         curX = int(self.curX / self.GRID_LENGTH)
         curY = int(self.curY / self.GRID_LENGTH)
+        print "You are at", curX, curY,self.minDist[curX][curY]
         
         for i in range(-5,6):
             s = ""
-            for j in range(-30,31):
+            for j in range(-20,21):
                 x = curX + j
                 y = curY - i
                 if (i==0) and (j==0):
                     s = s + 'Y'
                 else:
-                    if self.isInsideMapGrid(x, y) and (self.map[x][y] != 0) and (self.obstacleMap[x][y] == False):
+                    if self.isValidPoint(x, y):
                         s = s + '.'
                     else :
                         s = s + 'X'
             print s
+        #print "--------------------"
+        #for i in range(-5,6):
+        #    s = ""
+        #    for j in range(-20,21):
+        #        x = curX + j
+        #        y = curY - i
+        #        if (i==0) and (j==0):
+        #            s = s + 'Y '
+        #        else:
+        #            if self.isValidPoint(x, y):
+        #                if self.minDist[x][y] < self.INF:
+        #                    s = s + str(self.minDist[x][y]) + " ";
+        #                else :
+        #                    s = s + "* "
+        #            else :
+        #                s = s + "X "
+        #    print s
     
     def findDirectionToGo(self, realHeading, destHeading):
         diffAngle = min(abs(destHeading - realHeading), abs(realHeading - destHeading))
-        print "find direction to go...", realHeading, destHeading, diffAngle
+        print "find direction to go... real:", realHeading, "expect:", destHeading, "diff:", diffAngle
         if (diffAngle < self.ANGLE_LIMIT) :
             print "Go straight"
             if (AudioManager.isBusy() == False):
                 AudioManager.play("straight_ahead")
+        elif (realHeading + diffAngle + 360) % 360 == destHeading:
+            print "Turn right " + str(realHeading) + " " + str((realHeading + diffAngle + 360) % 360) + " " + str(destHeading)
+            if (AudioManager.isBusy() == False) :
+                AudioManager.play("right")
         else :
-            if (realHeading + diffAngle + 360) % 360 == destHeading:
-                print "Turn right " + str(realHeading) + " " + str((realHeading + diffAngle + 360) % 360) + " " + str(destHeading)
-                if (AudioManager.isBusy() == False) :
-                    AudioManager.play("right")
-            else :
-                print "Turn left " + str(realHeading) + " " + str((realHeading + diffAngle + 360) % 360) + " " + str(destHeading)
-                if (AudioManager.isBusy() == False) :
-                    AudioManager.play("left")
+            print "Turn left " + str(realHeading) + " " + str((realHeading - diffAngle + 360) % 360) + " " + str(destHeading)
+            if (AudioManager.isBusy() == False) :
+                AudioManager.play("left")
+    
+    def calculateDistanceToDestination(self, s):
+        print "Recalculate distance"
+        self.clearMinDist()
+        
+        queue = []
+        sx = int(s.x/self.GRID_LENGTH)
+        sy = int(s.y/self.GRID_LENGTH)
+        self.minDist[sx][sy] = 0
+        queue.append((sx, sy))
+        
+        while len(queue) > 0:
+            u = queue.pop(0)
+            for i in range(0, 8):
+                v = (u[0] + self.nextDir[i][0], u[1] + self.nextDir[i][1])
+                if self.isValidPoint(v[0], v[1]) and (self.minDist[v[0]][v[1]] == self.INF):
+                    self.minDist[v[0]][v[1]] = self.minDist[u[0]][u[1]] + 1
+                    queue.append(v)
+        print "Finished recalculating distance"
     
     def getInstruction(self):
-        self.printMap()
-        
         if len(self.pathToGo) <= 1:
             print "No more node!"
             return
         
         if self.hasUpdate:
-            self.calculateDistanceToDestination(self.nodeDict[self.pathToGo[1]])
+            self.calculateDistanceToDestination(self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2]))
             self.hasUpdate = False
         
         realHeading = (self.mapHeading + self.curHeading) % 360
@@ -323,16 +339,16 @@ class GridMapNavigator(object):
         # if cannot reach destination,
         if self.minDist[curX][curY] == self.INF:
             print "Path is blocked! Finding another path..."
-            self.canPass[self.pathToGo[0]][self.pathToGo[1]] = False
-            self.canPass[self.pathToGo[1]][self.pathToGo[0]] = False
-            self.pathToGo = self.dijkstra(self.pathToGo[0], self.endNode['nodeId'])
-            if (len(self.pathToGo) <= 1) or (self.pathToGo[-1] != self.endNode['nodeId']):
+            self.mapManager.blockPath(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2], self.pathToGo[1][2])
+            
+            self.pathToGo = self.dijkstra(self.mapManager.getNode(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2]), self.endNode)
+            if (len(self.pathToGo) <= 1) or (self.pathToGo[-1] != self.endNode):
                 print "You will never reach the destination!!!"
                 return
-            self.calculateDistanceToDestination(self.nodeDict[self.pathToGo[0]])
+            self.calculateDistanceToDestination(self.mapManager.getNode(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2]))
         
         #print self.minDist[curX][curY]
-        if (self.map[curX][curY] == self.pathToGo[1]): 
+        if (self.map[curX][curY] == self.pathToGo[1][2]): 
             print 'You have reached node' ,self.map[curX][curY]
             AudioManager.play('node')
             AudioManager.playNumber(self.map[curX][curY])
@@ -341,8 +357,9 @@ class GridMapNavigator(object):
                 print "You reached the destination!"
                 self.hasReachedDestination = True
                 return
-            self.calculateDistanceToDestination(self.nodeDict[self.pathToGo[1]])
-            
+            self.calculateDistanceToDestination(self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2]))
+        
+        self.printMap()
         
         possibleHeading = []
         for i in range(0, 8):
@@ -361,7 +378,9 @@ class GridMapNavigator(object):
             
             self.findDirectionToGo(realHeading, chosenHeading)
         else:
-            print "cannot find any direction"
+            print "Cannot find any direction! Try to turn right..."
+            if (AudioManager.isBusy() == False) :
+                AudioManager.play("right")
         return
             
     def getAngleDifference(self, theta1, theta2):
@@ -404,12 +423,13 @@ if __name__ == '__main__':
     AudioManager.init()
     gridMapNavigator = GridMapNavigator()
     if gridMapNavigator.setStartAndEndPoint({'startBlock' : 1, 'startLevel' : 2, 'startId' : 1,
-                                             'endBlock' : 1, 'endLevel' : 2, 'endId' : 11}):
+                                             'endBlock' : 2, 'endLevel' : 3, 'endId' : 6}):
         gridMapNavigator.curX = 0
         gridMapNavigator.curY = 2436
         gridMapNavigator.curHeading = 135
         gridMapNavigator.putObstacle(0)
         gridMapNavigator.putObstacle(-45)
+        gridMapNavigator.putObstacle(45)
         gridMapNavigator.getInstruction()
     else :
         print "setStartAndEndPoint failed"
