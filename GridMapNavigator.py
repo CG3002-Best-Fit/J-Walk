@@ -228,7 +228,7 @@ class GridMapNavigator(object):
         self.curLevel       = userInput['startLevel']
         self.source         = (userInput['startBlock'], userInput['startLevel'], userInput['startId'])
         self.destination    = (userInput['endBlock'], userInput['endLevel'], userInput['endId'])
-        
+        self.mapManager.clear()
         self.downloadMap(self.curBuilding, self.curLevel)
         if self.mapManager.isMapValid(userInput['startBlock'], userInput['startLevel']) == False or self.mapManager.isMapValid(userInput['endBlock'], userInput['endLevel']) == False:
             return False
@@ -359,7 +359,7 @@ class GridMapNavigator(object):
                 return
             self.calculateDistanceToDestination(self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2]))
         
-        #self.printMap()
+        self.printMap()
         
         possibleHeading = []
         for i in range(0, 8):

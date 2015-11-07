@@ -112,6 +112,9 @@ class MapManager(object):
     
     def blockPath(self, block, level, id1, id2):
         self.getMap(block, level).blockPath(id1, id2)
-        
+    
+    def clear(self):
+        self.mapDict = {}
+    
     def __init__(self):
         self.mapDict = {}
