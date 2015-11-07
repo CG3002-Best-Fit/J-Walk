@@ -31,7 +31,7 @@ def closeAudio():
     global isClosed
     isClosed = True
 
-pygame.mixer.pre_init(8000, -16, 2, 4096)
+#pygame.mixer.pre_init(8000, -16, 2, 4096)
 pygame.init()
 pygame.mixer.init()
 
