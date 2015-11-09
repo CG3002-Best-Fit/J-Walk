@@ -237,6 +237,9 @@ class GridMapNavigator(object):
         
         self.pathToGo.insert(0, -1)
         self.prepareRouteToNextPoint()
+        curNode = self.mapManager.getNode(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2])
+        self.offsetDirection = curNode.offset
+            
         self.hasUpdate = True
         return True
     
