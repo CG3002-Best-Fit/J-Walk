@@ -71,7 +71,8 @@ musicList = ['crossing field.mp3',
              'Fubuki.mp3', 
              'Hatsunetsu Days.mp3', 
              'Miiro.mp3',
-             'Kibou no Uta.mp3']
+             'Kibou no Uta.mp3',
+             'THE HERO !!.mp3']
 
 def init():
     global isClosed, audioQueue
