@@ -193,7 +193,7 @@ def sendDataToComp():
                     socketCommunicator.sendInt(gridMapNavigator.curLevel)
                     socketCommunicator.sendInt(gridMapNavigator.curX)
                     socketCommunicator.sendInt(gridMapNavigator.curY)
-                    socketCommunicator.sendInt(gridMapNavigator.curHeading)
+                    socketCommunicator.sendInt(gridMapNavigator.curHeading + gridMapNavigator.offsetDirection)
                     socketCommunicator.sendInt(megaCommunicator.getSumStep())
                     socketCommunicator.sendInt(megaCommunicator.getAds())
                     
