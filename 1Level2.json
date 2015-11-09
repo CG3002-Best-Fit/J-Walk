@@ -16,7 +16,7 @@
       "x": "2152",
       "y": "2436",
       "nodeName": "P2",
-      "offset" : "-18",
+      "offset" : "-15",
       "linkTo": "1, 3, 4  "
     },
     {
@@ -88,7 +88,7 @@
       "x": "5603",
       "y": "1787",
       "nodeName": "Student Area",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "10, 12, 13, 14"
     },
     {
@@ -96,7 +96,7 @@
       "x": "5603",
       "y": "2924",
       "nodeName": "Seminar Room 1",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "11"
     },
     {
