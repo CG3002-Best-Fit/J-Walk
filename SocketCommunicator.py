@@ -8,7 +8,7 @@ import socket
 
 class SocketCommunicator(object):
     client_socket = None
-    server_socket = None
+    #server_socket = None
     client_connection = None
     server_connection = None
     isConnectionSuccessful = False
@@ -47,18 +47,7 @@ class SocketCommunicator(object):
             self.client_socket.settimeout(3)
             self.client_socket.connect((self.COM_IP, 8001))
             self.client_connection = self.client_socket.makefile('wb')
-            print "finish setup client"
-            
-            print "sending 1"
-            self.sendInt(1)
-            self.flush()
-            # receiver
-            print "setup server from " + str(self.RPI_IP)
-            self.server_socket = socket.socket()
-            self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            self.server_socket.bind((self.RPI_IP, 8003))
-            self.server_socket.listen(0)
-            self.server_connection = self.server_socket.accept()[0].makefile('rb')
+            self.server_connection = self.client_socket.makefile('rb')
             print "finish setup server"
             self.isConnectionSuccessful = True
         except:
@@ -72,5 +61,5 @@ class SocketCommunicator(object):
         #    self.client_socket.close()
         if self.server_connection != None:
             self.server_connection.close()
-        if self.server_socket != None:
-            self.server_socket.close()
+        #if self.server_socket != None:
+        #    self.server_socket.close()
