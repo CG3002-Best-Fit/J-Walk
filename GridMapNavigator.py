@@ -32,7 +32,7 @@ class GridMapNavigator(object):
     preStepCount = 0
     stepCount = 0
     
-    ANGLE_LIMIT = 10
+    ANGLE_LIMIT = 20
     INF = 1000000000
     STEP_LENGTH = 42
     GRID_LENGTH = 50
