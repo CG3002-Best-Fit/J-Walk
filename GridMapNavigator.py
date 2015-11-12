@@ -376,7 +376,7 @@ class GridMapNavigator(object):
             v = (curX + self.nextDir[i][0], curY + self.nextDir[i][1])
             #print v, self.minDist[v[0]][v[1]], self.minDist[curX][curY]
             if (self.isWall(v[0], v[1]) == False) and (self.minDist[v[0]][v[1]] < self.minDist[curX][curY]):
-                possibleHeading.append(i)
+                possibleHeading.append(self.nextDir[i][2])
                     
         if len(possibleHeading) > 0:
             chosenHeading = self.chooseHeading(possibleHeading, curX, curY, realHeading)
