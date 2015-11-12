@@ -366,7 +366,7 @@ class GridMapNavigator(object):
                 return
             self.calculateDistanceToDestination(self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2]))
         
-        self.printMap()
+        #self.printMap()
         
         possibleHeading = []
         for i in range(0, 8):
