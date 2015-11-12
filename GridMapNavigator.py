@@ -29,6 +29,8 @@ class GridMapNavigator(object):
     offsetDirection = 0
     pathToGo = []
     hasReachedDestination = False
+    preStepCount = 0
+    stepCount = 0
     
     ANGLE_LIMIT = 20
     INF = 1000000000
@@ -50,6 +52,8 @@ class GridMapNavigator(object):
         return self.isInsideMapGrid(x, y) and (self.map[x][y] != 0) and (self.obstacleMap[x][y] == False)
     
     def stepAhead(self, numSteps):
+        self.stepCount = self.stepCount + numSteps
+        
         totalHeading = 90 - (self.curHeading + self.offsetDirection + self.mapHeading)
         nextX = self.curX + numSteps * self.STEP_LENGTH * math.cos(math.radians(totalHeading))
         nextY = self.curY + numSteps * self.STEP_LENGTH * math.sin(math.radians(totalHeading))
@@ -249,8 +253,8 @@ class GridMapNavigator(object):
         curX = int(self.curX / self.GRID_LENGTH)
         curY = int(self.curY / self.GRID_LENGTH)
         print "You are at", curX, curY,self.minDist[curX][curY]
-        
-        for i in range(-5,6):
+        print "Previous Step Count:", self.stepCount,"Previous:", self.preStepCount
+        for i in range(-8,9):
             s = ""
             for j in range(-20,21):
                 x = curX + j
@@ -343,6 +347,8 @@ class GridMapNavigator(object):
         
         #print self.minDist[curX][curY]
         if (self.map[curX][curY] == self.pathToGo[1][2]): 
+            self.preStepCount = self.stepCount
+            self.stepCount = 0
             print 'You have reached node' ,self.map[curX][curY]
             AudioManager.play('node')
             AudioManager.playNumber(self.map[curX][curY])
@@ -419,14 +425,12 @@ class GridMapNavigator(object):
 if __name__ == '__main__':
     AudioManager.init()
     gridMapNavigator = GridMapNavigator()
-    if gridMapNavigator.setStartAndEndPoint({'startBlock' : 1, 'startLevel' : 2, 'startId' : 1,
-                                             'endBlock' : 2, 'endLevel' : 3, 'endId' : 6}):
-        gridMapNavigator.curX = 0
-        gridMapNavigator.curY = 2436
+    if gridMapNavigator.setStartAndEndPoint({'startBlock' : 2, 'startLevel' : 2, 'startId' : 1,
+                                             'endBlock' : 2, 'endLevel' : 2, 'endId' : 3}):
+        gridMapNavigator.curX = 61
+        gridMapNavigator.curY = 4024
         gridMapNavigator.curHeading = 135
         gridMapNavigator.putObstacle(0)
-        gridMapNavigator.putObstacle(-45)
-        gridMapNavigator.putObstacle(45)
         gridMapNavigator.getInstruction()
     else :
         print "setStartAndEndPoint failed"
