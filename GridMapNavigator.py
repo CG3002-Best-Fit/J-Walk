@@ -256,9 +256,9 @@ class GridMapNavigator(object):
         curY = int(self.curY / self.GRID_LENGTH)
         print "You are at", curX, curY,self.minDist[curX][curY]
         print "Previous Step Count:", self.stepCount,"Previous:", self.preStepCount
-        for i in range(-8,9):
+        for i in range(-5,6):
             s = ""
-            for j in range(-20,21):
+            for j in range(-15,16):
                 x = curX + j
                 y = curY - i
                 if (i==0) and (j==0):
@@ -366,7 +366,7 @@ class GridMapNavigator(object):
                 return
             self.calculateDistanceToDestination(self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2]))
         
-        #self.printMap()
+        self.printMap()
         
         possibleHeading = []
         for i in range(0, 8):
