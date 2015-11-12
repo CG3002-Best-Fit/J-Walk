@@ -52,6 +52,9 @@ class GridMapNavigator(object):
     def isValidPoint(self, x, y):
         return self.isInsideMapGrid(x, y) and (self.map[x][y] != 0) and (self.obstacleMap[x][y] == False)
     
+    def isWall(self, x, y):
+        return (self.isInsideMapGrid(x, y) == False) or (self.map[x][y] == 0)
+    
     def stepAhead(self, numSteps):
         self.stepCount = self.stepCount + numSteps
         
@@ -372,7 +375,7 @@ class GridMapNavigator(object):
         for i in range(0, 8):
             v = (curX + self.nextDir[i][0], curY + self.nextDir[i][1])
             #print v, self.minDist[v[0]][v[1]], self.minDist[curX][curY]
-            if self.isValidPoint(v[0], v[1]) and (self.minDist[v[0]][v[1]] < self.minDist[curX][curY]):
+            if (self.isWall(v[0], v[1]) == False) and (self.minDist[v[0]][v[1]] < self.minDist[curX][curY]):
                 possibleHeading.append(i)
                     
         if len(possibleHeading) > 0:
