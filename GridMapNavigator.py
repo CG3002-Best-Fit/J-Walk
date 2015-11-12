@@ -379,23 +379,32 @@ class GridMapNavigator(object):
                 possibleHeading.append(i)
                     
         if len(possibleHeading) > 0:
-            chosenHeading = self.chooseHeading(possibleHeading, curX, curY)
+            chosenHeading = self.chooseHeading(possibleHeading, curX, curY, realHeading)
             self.findDirectionToGo(realHeading, chosenHeading)
         else:
             print "Cannot find any direction! Try to turn right..."
             if (AudioManager.isBusy() == False) :
                 AudioManager.play("right")
             
-    def chooseHeading(self, possibleHeading, curX, curY):
-        maxDistToInvalidPoint = -1
+    def chooseHeading(self, possibleHeading, curX, curY, realHeading):
+        #maxDistToInvalidPoint = -1
+        #for i in range(0, len(possibleHeading)):
+        #    nextX = curX + self.nextDir[possibleHeading[i]][0]
+        #    nextY = curY + self.nextDir[possibleHeading[i]][1]
+        #    distToInvalidPoint = self.getDistToInvalidPoint(nextX, nextY)
+        #    if distToInvalidPoint > maxDistToInvalidPoint:
+        #        maxDistToInvalidPoint = distToInvalidPoint
+        #        chosenHeading = possibleHeading[i]
+        #return self.nextDir[chosenHeading][2]
+                
+        chosenHeading = possibleHeading[0]
         for i in range(0, len(possibleHeading)):
-            nextX = curX + self.nextDir[possibleHeading[i]][0]
-            nextY = curY + self.nextDir[possibleHeading[i]][1]
-            distToInvalidPoint = self.getDistToInvalidPoint(nextX, nextY)
-            if distToInvalidPoint > maxDistToInvalidPoint:
-                maxDistToInvalidPoint = distToInvalidPoint
+            angleDiff1 = self.getAngleDifference(chosenHeading, realHeading)
+            angleDiff2 = self.getAngleDifference(possibleHeading[i], realHeading)
+            if angleDiff2 < angleDiff1:
                 chosenHeading = possibleHeading[i]
-        return self.nextDir[chosenHeading][2]
+        return chosenHeading
+                
     
     def getDistToInvalidPoint(self, curX, curY):
         queue = [(curX, curY, 0)]
