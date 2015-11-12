@@ -43,8 +43,8 @@ class GridMapNavigator(object):
     nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
     
     def getCurrentPos(self):
-        #return [self.curX, self.curY, self.curHeading + self.offsetDirection]
-        return [self.curX, self.curY, self.curHeading]
+        return [self.curX, self.curY, self.curHeading + self.offsetDirection]
+        #return [self.curX, self.curY, self.curHeading]
     
     def isInsideMapGrid(self, x, y):
         return (0 <= x) and (x < self.maxXGrid) and (0 <= y) and (y < self.maxYGrid)
@@ -58,8 +58,8 @@ class GridMapNavigator(object):
     def stepAhead(self, numSteps):
         self.stepCount = self.stepCount + numSteps
         
-        #totalHeading = 90 - (self.curHeading + self.offsetDirection + self.mapHeading)
-        totalHeading = 90 - (self.curHeading + self.mapHeading)
+        totalHeading = 90 - (self.curHeading + self.offsetDirection + self.mapHeading)
+        #totalHeading = 90 - (self.curHeading + self.mapHeading)
         nextX = self.curX + numSteps * self.STEP_LENGTH * math.cos(math.radians(totalHeading))
         nextY = self.curY + numSteps * self.STEP_LENGTH * math.sin(math.radians(totalHeading))
         if self.isValidPoint(int(nextX / self.GRID_LENGTH), int(nextY / self.GRID_LENGTH)):
@@ -334,8 +334,8 @@ class GridMapNavigator(object):
             self.calculateDistanceToDestination(self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2]))
             self.hasUpdate = False
         
-        #realHeading = (self.mapHeading + self.curHeading + self.offsetDirection) % 360
-        realHeading = (self.mapHeading + self.curHeading) % 360
+        realHeading = (self.mapHeading + self.curHeading + self.offsetDirection) % 360
+        #realHeading = (self.mapHeading + self.curHeading) % 360
         #print realHeading
         curX = int(self.curX / self.GRID_LENGTH)
         curY = int(self.curY / self.GRID_LENGTH)
@@ -433,8 +433,8 @@ class GridMapNavigator(object):
         
     
     def putObstacle(self, heading):
-        #realHeading = (self.mapHeading + self.curHeading + self.offsetDirection + heading + 360)%360
-        realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
+        realHeading = (self.mapHeading + self.curHeading + self.offsetDirection + heading + 360)%360
+        #realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
         x, y = self.getNeighbor(int(self.curX/self.GRID_LENGTH), int(self.curY/self.GRID_LENGTH), realHeading)
         temp = self.markObstacle(x, y, True)
         if (temp > 0):
@@ -442,8 +442,8 @@ class GridMapNavigator(object):
             self.hasUpdate = True
     
     def removeObstacle(self, heading):
-        #realHeading = (self.mapHeading + self.curHeading + self.offsetDirection + heading + 360)%360
-        realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
+        realHeading = (self.mapHeading + self.curHeading + self.offsetDirection + heading + 360)%360
+        #realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
         x, y = self.getNeighbor(int(self.curX/self.GRID_LENGTH), int(self.curY/self.GRID_LENGTH), realHeading)
         temp = self.markObstacle(x, y, False)
         if (temp > 0):
