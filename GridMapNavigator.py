@@ -373,22 +373,42 @@ class GridMapNavigator(object):
             v = (curX + self.nextDir[i][0], curY + self.nextDir[i][1])
             #print v, self.minDist[v[0]][v[1]], self.minDist[curX][curY]
             if self.isValidPoint(v[0], v[1]) and (self.minDist[v[0]][v[1]] < self.minDist[curX][curY]):
-                possibleHeading.append(self.nextDir[i][2])
+                possibleHeading.append(i)
                     
         if len(possibleHeading) > 0:
-            chosenHeading = possibleHeading[0]
-            for i in range(0, len(possibleHeading)):
-                angleDiff1 = self.getAngleDifference(chosenHeading, realHeading)
-                angleDiff2 = self.getAngleDifference(possibleHeading[i], realHeading)
-                if angleDiff2 < angleDiff1:
-                    chosenHeading = possibleHeading[i]
-            
+            chosenHeading = self.chooseHeading(possibleHeading, curX, curY)
             self.findDirectionToGo(realHeading, chosenHeading)
         else:
             print "Cannot find any direction! Try to turn right..."
             if (AudioManager.isBusy() == False) :
                 AudioManager.play("right")
             
+    def chooseHeading(self, possibleHeading, curX, curY):
+        maxDistToInvalidPoint = -1
+        for i in range(0, len(possibleHeading)):
+            nextX = curX + self.nextDir[possibleHeading[i]][0]
+            nextY = curY + self.nextDir[possibleHeading[i]][1]
+            distToInvalidPoint = self.getDistToInvalidPoint(nextX, nextY)
+            if distToInvalidPoint > maxDistToInvalidPoint:
+                maxDistToInvalidPoint = distToInvalidPoint
+                chosenHeading = possibleHeading[i]
+        return self.nextDir[chosenHeading][2]
+    
+    def getDistToInvalidPoint(self, curX, curY):
+        queue = [(curX, curY, 0)]
+        visited = [(curX, curY)]
+        while len(queue) > 0:
+            u = queue.pop(0)
+            for i in range(0, 8):
+                nextX = u[0] + self.nextDir[i][0]
+                nextY = u[1] + self.nextDir[i][1]
+                if self.isValidPoint(nextX, nextY) == False:
+                    return u[2] + 1
+                if visited.count((nextX, nextY)) == 0:
+                    queue.append((nextX, nextY, u[2] + 1))
+                    visited.append((nextX, nextY))
+        
+    
     def getAngleDifference(self, theta1, theta2):
         angleDiff = abs(theta1 - theta2)
         if (angleDiff > 180) :
