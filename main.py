@@ -137,7 +137,7 @@ def pollData():
                         counterToPutObstacle2 = counterToPutObstacle2 - 1
                     if counterToPutObstacle2 == 0:
                         counterToPutObstacle2 = 2
-                        gridMapNavigator.putObstacle(-45)
+                        #gridMapNavigator.putObstacle(-45)
                 else :
                     counterToPutObstacle2 = 2
                 #    gridMapNavigator.removeObstacle(-45)
@@ -147,7 +147,7 @@ def pollData():
                         counterToPutObstacle3 = counterToPutObstacle3 - 1
                     if counterToPutObstacle3 == 0:
                         counterToPutObstacle3 = 2
-                        gridMapNavigator.putObstacle(45)
+                        #gridMapNavigator.putObstacle(45)
                 else:
                     counterToPutObstacle3 = 2
                 #    gridMapNavigator.removeObstacle(45)
