@@ -10,7 +10,7 @@
       "nodeName": "TO 1-3-18",
       "offset" : "-10",
       "linkTo": "16",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "2",
@@ -19,7 +19,7 @@
       "nodeName": "P2",
       "offset" : "-5",
       "linkTo": "3, 7, 14 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "3",
@@ -28,7 +28,7 @@
       "nodeName": "P3",
       "offset" : "0",
       "linkTo": "2, 4  ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "4",
@@ -37,7 +37,7 @@
       "nodeName": "P4",
       "offset" : "-15",
       "linkTo": "3, 5, 12 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "5",
@@ -46,7 +46,7 @@
       "nodeName": "Discussion Room 7",
       "offset" : "0",
       "linkTo": "4",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "6",
@@ -55,7 +55,7 @@
       "nodeName": "End of Corridor",
       "offset" : "0",
       "linkTo": "12",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "7",
@@ -64,7 +64,7 @@
       "nodeName": "Glass Door",
       "offset" : "5",
       "linkTo": "2, 8",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "8",
@@ -73,7 +73,7 @@
       "nodeName": "Wooden Door",
       "offset" : "10",
       "linkTo": "7, 9",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "9",
@@ -82,7 +82,7 @@
       "nodeName": "Another Door",
       "offset" : "-15",
       "linkTo": "8, 10",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "10",
@@ -91,7 +91,7 @@
       "nodeName": "Stairwell",
       "offset" : "-20",
       "linkTo": "9, 11",
-      "isStairCase" : true
+      "isStairCase" : "true"
     },
     {
       "nodeId": "11",
@@ -100,7 +100,7 @@
       "nodeName": "TO 2-2-16",
       "offset" : "-15",
       "linkTo": "10",
-      "isStairCase" : true
+      "isStairCase" : "true"
     },
     {
       "nodeId": "12",
@@ -109,7 +109,7 @@
       "nodeName": "P12",
       "offset" : "-15",
       "linkTo": "4, 6, 13",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "13",
@@ -118,7 +118,7 @@
       "nodeName": "Discussion Room 8",
       "offset" : "0",
       "linkTo": "12",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "14",
@@ -127,7 +127,7 @@
       "nodeName": "P14",
       "offset" : "0",
       "linkTo": "2, 15, 16 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "15",
@@ -136,7 +136,7 @@
       "nodeName": "Henry's Room",
       "offset" : "0",
       "linkTo": "14",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "16",
@@ -145,7 +145,7 @@
       "nodeName": "Mysterious Pt",
       "offset" : "-5",
       "linkTo": "1, 14",
-      "isStairCase" : false
+      "isStairCase" : "false"
     }
   ],
   "wifi": [

@@ -17,7 +17,10 @@ class Node(object):
         if (nodeInfo['offset'] != None):
             self.offset = int(nodeInfo['offset'])
         if (nodeInfo['isStaircase'] != None):
-            self.isStairCase = nodeInfo['isStairCase']
+            self.isStairCase = (nodeInfo['isStairCase'] == "true")
+        else:
+            self.isStairCase = False
+            
         self.specialLinkTo = None
         self.nodeName = nodeInfo['nodeName']
         nodeNameParams = self.nodeName.split(' ')

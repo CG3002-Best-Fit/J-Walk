@@ -10,7 +10,7 @@
       "nodeName": "TO 1-2-31",
       "offset" : "0",
       "linkTo": "17",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "2",
@@ -19,7 +19,7 @@
       "nodeName": "P2",
       "offset" : "0",
       "linkTo": "3, 5, 17",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "3",
@@ -28,7 +28,7 @@
       "nodeName": "Uncle Soo's Office",
       "offset" : "0",
       "linkTo": "2",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "4",
@@ -37,7 +37,7 @@
       "nodeName": "Colin's Office",
       "offset" : "0",
       "linkTo": "5",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "5",
@@ -46,7 +46,7 @@
       "nodeName": "P5",
       "offset" : "0",
       "linkTo": "2, 4, 19",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "6",
@@ -55,7 +55,7 @@
       "nodeName": "P6",
       "offset" : "-10",
       "linkTo": "7, 11, 19",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "7",
@@ -64,7 +64,7 @@
       "nodeName": "P7",
       "offset" : "-5",
       "linkTo": "6, 8",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "8",
@@ -73,7 +73,7 @@
       "nodeName": "P8",
       "offset" : "-10",
       "linkTo": "7, 9, 10",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "9",
@@ -82,7 +82,7 @@
       "nodeName": "Discussion Room 6",
       "offset" : "0",
       "linkTo": "8",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "10",
@@ -91,7 +91,7 @@
       "nodeName": "End of Corridor",
       "offset" : "0",
       "linkTo": "8",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "11",
@@ -100,7 +100,7 @@
       "nodeName": "Glass Door",
       "offset" : "0",
       "linkTo": "6, 12",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "12",
@@ -109,7 +109,7 @@
       "nodeName": "Wooden Door",
       "offset" : "5",
       "linkTo": "11, 13",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "13",
@@ -118,7 +118,7 @@
       "nodeName": "Another Door",
       "offset" : "0",
       "linkTo": "12, 14",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "14",
@@ -127,7 +127,7 @@
       "nodeName": "Stairwell",
       "offset" : "-20",
       "linkTo": "13, 15",
-      "isStairCase" : true
+      "isStairCase" : "true"
     },
     {
       "nodeId": "15",
@@ -136,7 +136,7 @@
       "nodeName": "Halfway",
       "offset" : "0",
       "linkTo": "14, 16",
-      "isStairCase" : true
+      "isStairCase" : "true"
     },
     {
       "nodeId": "16",
@@ -145,7 +145,7 @@
       "nodeName": "TO 2-3-11",
       "offset" : "0",
       "linkTo": "15",
-      "isStairCase" : true
+      "isStairCase" : "true"
     },
     {
       "nodeId": "17",
@@ -154,7 +154,7 @@
       "nodeName": "P17",
       "offset" : "0",
       "linkTo": "1, 2, 18",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "18",
@@ -163,7 +163,7 @@
       "nodeName": "Bimlesh's Office",
       "offset" : "-5",
       "linkTo": "17",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "19",
@@ -172,7 +172,7 @@
       "nodeName": "P19",
       "offset" : "0",
       "linkTo": "5, 6, 20 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "20",
@@ -181,7 +181,7 @@
       "nodeName": "Damith's Office",
       "offset" : "0",
       "linkTo": "19",
-      "isStairCase" : false
+      "isStairCase" : "false"
     }
   ],
   "wifi": [
