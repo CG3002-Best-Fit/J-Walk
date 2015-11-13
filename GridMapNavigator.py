@@ -475,7 +475,9 @@ class GridMapNavigator(object):
             x, y = self.getNeighbor(curXGrid, curYGrid, realHeading)
             #temp = self.markObstacle(x, y, False)
             if self.isWall(x, y):
+                print (x,y),"is wall!"
                 cellToMove = self.findNeighborWithEqualDistance(curXGrid, curYGrid)
+                print "Move to", cellToMove
                 newObstacleList = []
                 for i in range(0, len(self.obstacleList)):
                     newX = self.obstacleList[i][0] + cellToMove[0] - curXGrid
@@ -492,7 +494,7 @@ class GridMapNavigator(object):
         for i in range(0, 8):
             x1 = x + self.nextDir[i][0]
             y1 = y + self.nextDir[i][1]
-            if self.isInsideMapGrid(x1, y1) and self.minDist[x][y] == self.minDist[x1][y1]:
+            if self.isValidPoint(x1, y1) and self.minDist[x][y] == self.minDist[x1][y1]:
                 return (x1, y1)
         return (x, y)
     
