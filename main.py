@@ -130,6 +130,7 @@ def pollData():
                     if counterToRemoveObstacle1 == 0:
                         counterToRemoveObstacle1 = 2
                         gridMapNavigator.removeObstacle(0)
+                        gridMapNavigator.detectNoWall(0)
                     counterToPutObstacle1 = 2
                     
                 if (megaCommunicator.getSonar2() == 1): # left sonar
@@ -140,6 +141,7 @@ def pollData():
                         #gridMapNavigator.putObstacle(-45)
                 else :
                     counterToPutObstacle2 = 2
+                    gridMapNavigator.detectNoWall(-45)
                 #    gridMapNavigator.removeObstacle(-45)
                     
                 if (megaCommunicator.getSonar3() == 1): # right sonar
@@ -150,6 +152,7 @@ def pollData():
                         #gridMapNavigator.putObstacle(45)
                 else:
                     counterToPutObstacle3 = 2
+                    gridMapNavigator.detectNoWall(45)
                 #    gridMapNavigator.removeObstacle(45)
                     
                     

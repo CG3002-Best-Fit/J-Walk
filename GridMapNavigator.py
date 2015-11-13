@@ -14,7 +14,7 @@ from MapManager import MapManager
 class GridMapNavigator(object):
     mapManager = MapManager()
     map = []
-    obstacleMap = []
+    obstacleList = []
     minDist = []
     mapHeading = 0
     startNode = {}
@@ -50,7 +50,7 @@ class GridMapNavigator(object):
         return (0 <= x) and (x < self.maxXGrid) and (0 <= y) and (y < self.maxYGrid)
     
     def isValidPoint(self, x, y):
-        return self.isInsideMapGrid(x, y) and (self.map[x][y] != 0) and (self.obstacleMap[x][y] == False)
+        return self.isInsideMapGrid(x, y) and (self.map[x][y] != 0) and (self.obstacleList.count((x,y)) == 0)
     
     def isWall(self, x, y):
         return (self.isInsideMapGrid(x, y) == False) or (self.map[x][y] == 0)
@@ -80,9 +80,7 @@ class GridMapNavigator(object):
         print "finish creating map"
         self.minDist = self.create2DArray(self.maxXGrid, self.maxYGrid, 0)
         print "finish creating minDist"
-        self.obstacleMap = self.create2DArray(self.maxXGrid, self.maxYGrid, True)
-        print "finish creating obstacleMap"
-    
+        
     def dist(self, u, v):
         return math.sqrt(math.pow(v['x'] - u['x'],2) + math.pow(v['y'] - u['y'],2))
     
@@ -93,9 +91,7 @@ class GridMapNavigator(object):
                 y = int(u['y']/self.GRID_LENGTH) + j
                 if self.isInsideMapGrid(x, y):
                     self.map[x][y] = value
-                    if (value != 0) :
-                        self.obstacleMap[x][y] = False
-    
+                    
     def drawRoute(self, s, t, value):
         length = self.dist(s,t)
         direction = [(t['x'] - s['x']) / length*self.GRID_LENGTH, (t['y'] - s['y']) / length*self.GRID_LENGTH]    # 1 meter
@@ -184,7 +180,7 @@ class GridMapNavigator(object):
         for i in range(0, self.maxXGrid):
             for j in range(0, self.maxYGrid):
                 self.map[i][j] = 0
-                self.obstacleMap[i][j] = False
+                self.obstacleList = []
                 self.minDist[i][j] = self.INF
     
     def prepareRouteToNextPoint(self):
@@ -428,9 +424,15 @@ class GridMapNavigator(object):
         return angleDiff
             
     def markObstacle(self, x, y, value):
-        if self.isInsideMapGrid(x, y) and (self.obstacleMap[x][y] != value):
-            self.obstacleMap[x][y] = value
-            return 1
+        if self.isInsideMapGrid(x, y):
+            if value == True:
+                if self.obstacleList.count((x,y)) == 0:
+                    self.obstacleList.append((x,y))
+                    return 1
+            else:
+                if self.obstacleList.count((x,y)) > 0:
+                    self.obstacleList.remove((x,y))
+                    return 1
         return 0
     
     def getNeighbor(self, x, y, heading):
@@ -458,6 +460,35 @@ class GridMapNavigator(object):
         if (temp > 0):
             print "Removed obstacle", heading
             self.hasUpdate = True
+    
+    def detectNoWall(self, heading):
+        realHeading = (self.mapHeading + self.curHeading + self.offsetDirection + heading + 360)%360
+        #realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
+        curXGrid = int(self.curX/self.GRID_LENGTH)
+        curYGrid = int(self.curY/self.GRID_LENGTH)
+        x, y = self.getNeighbor(curXGrid, curYGrid, realHeading)
+        #temp = self.markObstacle(x, y, False)
+        if self.isWall(x, y):
+            cellToMove = self.findNeighborWithEqualDistance(curXGrid, curYGrid)
+            newObstacleList = []
+            for i in range(0, len(self.obstacleList)):
+                newX = self.obstacleList[i][0] + cellToMove[0] - curXGrid
+                newY = self.obstacleList[i][1] + cellToMove[1] - curYGrid
+                newObstacleList.append((newX,newY))
+            self.obstacleList = newObstacleList
+            
+            self.curX = self.curX + (cellToMove[0] - curXGrid) * self.GRID_LENGTH
+            self.curY = self.curY + (cellToMove[1] - curYGrid) * self.GRID_LENGTH
+            print "Moved You and Obstacles", heading,"from",(curXGrid, curYGrid),"to",cellToMove
+            self.hasUpdate = True
+    
+    def findNeighborWithEqualDistance(self, x, y):
+        for i in range(0, 8):
+            x1 = x + self.nextDir[i][0]
+            y1 = y + self.nextDir[i][1]
+            if self.isInsideMapGrid(x1, y1) and self.minDist[x][y] == self.minDist[x1][y1]:
+                return (x1, y1)
+        return (x, y)
     
 if __name__ == '__main__':
     AudioManager.init()
