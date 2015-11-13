@@ -409,25 +409,21 @@ class GridMapNavigator(object):
         #        maxDistToInvalidPoint = distToInvalidPoint
         #        chosenHeading = possibleHeading[i]
         #return self.nextDir[chosenHeading][2]
-        print "chooseHeading", possibleHeading
+        #print "chooseHeading", possibleHeading
         chosenHeading = possibleHeading[0]
         for i in range(0, len(possibleHeading)):
             #angleDiff1 = self.getAngleDifference(chosenHeading, realHeading)
             #angleDiff2 = self.getAngleDifference(possibleHeading[i], realHeading)
             #if angleDiff2 < angleDiff1:
             #    chosenHeading = possibleHeading[i]
-            print chosenHeading, possibleHeading[i]
             bestX = curX + self.nextDir[chosenHeading][0]
             bestY = curY + self.nextDir[chosenHeading][1]
             newX = curX + self.nextDir[possibleHeading[i]][0]
             newY = curY + self.nextDir[possibleHeading[i]][1]
-            print (newX, newY), (bestX, bestY)
-            print self.minDist
-            print self.minDist[newX, newY], self.minDist[bestX][bestY]
-            if self.isValidPoint(newX, newY) and self.isValidPoint(bestX, bestY) and (self.minDist[newX, newY] < self.minDist[bestX][bestY]):
+            if self.minDist[newX][newY] < self.minDist[bestX][bestY]:
                 chosenHeading = possibleHeading[i]
         #return chosenHeading
-        print "choose", chosenHeading,self.nextDir[chosenHeading][2]
+        #print "choose", chosenHeading,self.nextDir[chosenHeading][2]
         return self.nextDir[chosenHeading][2]
                 
     
