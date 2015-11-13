@@ -420,7 +420,7 @@ class GridMapNavigator(object):
             bestY = curY + self.nextDir[chosenHeading][1]
             newX = curX + self.nextDir[possibleHeading[i]][0]
             newY = curY + self.nextDir[possibleHeading[i]][1]
-            print (newX, newY)
+            print (newX, newY), (bestX, bestY)
             if (self.minDist[newX, newY] < self.minDist[bestX][bestY]):
                 chosenHeading = possibleHeading[i]
         #return chosenHeading
