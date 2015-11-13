@@ -16,7 +16,7 @@ class Node(object):
         self.y = int(nodeInfo['y'])
         if (nodeInfo['offset'] != None):
             self.offset = int(nodeInfo['offset'])
-        if (nodeInfo['isStaircase'] != None):
+        if (nodeInfo['isStairCase'] != None):
             self.isStairCase = (nodeInfo['isStairCase'] == "true")
         else:
             self.isStairCase = False

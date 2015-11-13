@@ -215,13 +215,15 @@ class GridMapNavigator(object):
             return
         print "Loading map", block, level
         mapFileName = "XXLevelYY.json".replace("XX",str(block)).replace("YY",str(level))
-        print "Finish loading map", block, level
         #Load the downloaded json file into the program
         with open(mapFileName) as json_file:
             mapInfo = json.load(json_file)
             self.mapManager.addMap(block, level, mapInfo)
             
+        print "get neighbor maps"
         nextMapList = self.mapManager.getNeighborMaps(block, level)
+        print "Finish loading map", block, level
+        
         for i in range(0, len(nextMapList)):
             self.downloadMap(nextMapList[i][0], nextMapList[i][1])
             
