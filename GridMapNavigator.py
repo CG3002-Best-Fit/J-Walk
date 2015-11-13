@@ -412,16 +412,16 @@ class GridMapNavigator(object):
         #print "chooseHeading", possibleHeading
         chosenHeading = possibleHeading[0]
         for i in range(0, len(possibleHeading)):
-            #angleDiff1 = self.getAngleDifference(chosenHeading, realHeading)
-            #angleDiff2 = self.getAngleDifference(possibleHeading[i], realHeading)
-            #if angleDiff2 < angleDiff1:
-            #    chosenHeading = possibleHeading[i]
             bestX = curX + self.nextDir[chosenHeading][0]
             bestY = curY + self.nextDir[chosenHeading][1]
             newX = curX + self.nextDir[possibleHeading[i]][0]
             newY = curY + self.nextDir[possibleHeading[i]][1]
-            if self.minDist[newX][newY] < self.minDist[bestX][bestY]:
-                chosenHeading = possibleHeading[i]
+            if abs(self.minDist[newX][newY] - self.minDist[bestX][bestY]) < 1:
+                angleDiff1 = self.getAngleDifference(self.nextDir[chosenHeading][2], realHeading)
+                angleDiff2 = self.getAngleDifference(self.nextDir[possibleHeading[i]][2], realHeading)
+                if angleDiff2 < angleDiff1:
+                    chosenHeading = possibleHeading[i]
+                
         #return chosenHeading
         #print "choose", chosenHeading,self.nextDir[chosenHeading][2]
         return self.nextDir[chosenHeading][2]
