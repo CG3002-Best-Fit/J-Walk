@@ -410,18 +410,28 @@ class GridMapNavigator(object):
         #        chosenHeading = possibleHeading[i]
         #return self.nextDir[chosenHeading][2]
         #print "chooseHeading", possibleHeading
-        chosenHeading = possibleHeading[0]
+        bestHeading = possibleHeading[0]
         for i in range(0, len(possibleHeading)):
-            bestX = curX + self.nextDir[chosenHeading][0]
-            bestY = curY + self.nextDir[chosenHeading][1]
+            bestX = curX + self.nextDir[bestHeading][0]
+            bestY = curY + self.nextDir[bestHeading][1]
             newX = curX + self.nextDir[possibleHeading[i]][0]
             newY = curY + self.nextDir[possibleHeading[i]][1]
-            #if abs(self.minDist[newX][newY] - self.minDist[bestX][bestY]) < 0.5:
-            #    angleDiff1 = self.getAngleDifference(self.nextDir[chosenHeading][2], realHeading)
-            #    angleDiff2 = self.getAngleDifference(self.nextDir[possibleHeading[i]][2], realHeading)
-            #    if angleDiff2 < angleDiff1:
             if self.minDist[newX][newY] < self.minDist[bestX][bestY]:
-                chosenHeading = possibleHeading[i]
+                bestHeading = possibleHeading[i]
+        bestX = curX + self.nextDir[bestHeading][0]
+        bestY = curY + self.nextDir[bestHeading][1]
+                
+        chosenHeading = possibleHeading[0]
+        for i in range(0, len(possibleHeading)):
+            newX = curX + self.nextDir[possibleHeading[i]][0]
+            newY = curY + self.nextDir[possibleHeading[i]][1]
+            if self.minDist[newX][newY] - self.minDist[bestX][bestY] < 1:
+                angleDiff1 = self.getAngleDifference(self.nextDir[chosenHeading][2], realHeading)
+                angleDiff2 = self.getAngleDifference(self.nextDir[possibleHeading[i]][2], realHeading)
+                if angleDiff2 < angleDiff1:
+                    chosenHeading = possibleHeading[i]
+            #if self.minDist[newX][newY] < self.minDist[bestX][bestY]:
+                #chosenHeading = possibleHeading[i]
                 
         #return chosenHeading
         #print "choose", chosenHeading,self.nextDir[chosenHeading][2]
