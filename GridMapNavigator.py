@@ -10,6 +10,7 @@ import AudioManager
 import os
 import heapq
 from MapManager import MapManager
+from math import sqrt, pow
 
 class GridMapNavigator(object):
     mapManager = MapManager()
@@ -84,7 +85,7 @@ class GridMapNavigator(object):
         print "finish creating minDist"
         
     def dist(self, u, v):
-        return math.sqrt(math.pow(v['x'] - u['x'],2) + math.pow(v['y'] - u['y'],2))
+        return sqrt(pow(v['x'] - u['x'],2) + math.pow(v['y'] - u['y'],2))
     
     def mark(self, u, value):
         for i in range(-2,3):
@@ -208,8 +209,6 @@ class GridMapNavigator(object):
             self.drawRoute({'x':node1.x, 'y':node1.y}, {'x':node2.x, 'y':node2.y}, -1)
             self.mark({'x':node1.x, 'y':node1.y}, self.pathToGo[0][2])
             self.mark({'x':node2.x, 'y':node2.y}, self.pathToGo[1][2])
-        
-
     def downloadMap(self, block, level):
         if self.mapManager.contains(block, level):
             return
@@ -318,15 +317,20 @@ class GridMapNavigator(object):
         sx = int(s.x/self.GRID_LENGTH)
         sy = int(s.y/self.GRID_LENGTH)
         self.minDist[sx][sy] = 0
-        queue.append((sx, sy))
+        queue.append((0, sx, sy))
+        
+        heapq.heapify(queue)
         
         while len(queue) > 0:
-            u = queue.pop(0)
+            u = heapq.heappop(queue)
+            if (u[0] > self.minDist[u[1]][u[2]]):
+                continue
             for i in range(0, 8):
-                v = (u[0] + self.nextDir[i][0], u[1] + self.nextDir[i][1])
-                if self.isValidPoint(v[0], v[1]) and (self.minDist[v[0]][v[1]] == self.INF):
-                    self.minDist[v[0]][v[1]] = self.minDist[u[0]][u[1]] + 1
-                    queue.append(v)
+                v = (u[1] + self.nextDir[i][0], u[2] + self.nextDir[i][1])
+                w = sqrt(pow(u[1] - v[0], 2) + pow(u[2] - v[1], 2))
+                if self.isValidPoint(v[0], v[1]) and (self.minDist[v[0]][v[1]] > self.minDist[u[1]][u[2]] + w):
+                    self.minDist[v[0]][v[1]] = self.minDist[u[1]][u[2]] + w
+                    heapq.heappush(queue, (self.minDist[v[0]][v[1]], v[0], v[1]))
         print "Finished recalculating distance"
     
     def getInstruction(self):
@@ -501,7 +505,7 @@ class GridMapNavigator(object):
         for i in range(0, 8):
             x1 = x + self.nextDir[i][0]
             y1 = y + self.nextDir[i][1]
-            if self.isValidPoint(x1, y1) and self.minDist[x][y] == self.minDist[x1][y1]:
+            if self.isValidPoint(x1, y1) and abs(self.minDist[x][y]- self.minDist[x1][y1]) < 0.5:
                 return (x1, y1)
         return (x, y)
     
