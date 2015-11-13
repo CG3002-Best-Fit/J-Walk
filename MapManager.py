@@ -14,7 +14,10 @@ class Node(object):
         self.code = str(self.block) + "-" + str(self.level) + "-" + str(self.nodeId)
         self.x = int(nodeInfo['x'])
         self.y = int(nodeInfo['y'])
-        self.offset = int(nodeInfo['offset'])
+        if (nodeInfo['offset'] != None):
+            self.offset = int(nodeInfo['offset'])
+        if (nodeInfo['isStaircase'] != None):
+            self.isStairCase = nodeInfo['isStairCase']
         self.specialLinkTo = None
         self.nodeName = nodeInfo['nodeName']
         nodeNameParams = self.nodeName.split(' ')

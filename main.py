@@ -119,7 +119,7 @@ def pollData():
                     gridMapNavigator.stepAhead(megaCommunicator.getStep())
                 #print "acc = " + str(megaCommunicator.getAcc())
                 
-                if (megaCommunicator.getSonar1() == 1): # straight ahead sonar
+                if (megaCommunicator.getSonar1() == 1) and (gridMapNavigator.isInStaircaseMode == False): # straight ahead sonar
                     if counterToPutObstacle1 > 0:
                         counterToPutObstacle1 = counterToPutObstacle1 - 1
                     if counterToPutObstacle1 == 0:
@@ -135,7 +135,7 @@ def pollData():
                         gridMapNavigator.detectNoWall(0)
                     counterToPutObstacle1 = 2
                     
-                if (megaCommunicator.getSonar2() == 1): # left sonar
+                if (megaCommunicator.getSonar2() == 1) and (gridMapNavigator.isInStaircaseMode == False): # left sonar
                     if counterToPutObstacle2 > 0:
                         counterToPutObstacle2 = counterToPutObstacle2 - 1
                     if counterToPutObstacle2 == 0:
@@ -146,7 +146,7 @@ def pollData():
                     gridMapNavigator.detectNoWall(-45)
                 #    gridMapNavigator.removeObstacle(-45)
                     
-                if (megaCommunicator.getSonar3() == 1): # right sonar
+                if (megaCommunicator.getSonar3() == 1) and (gridMapNavigator.isInStaircaseMode == False): # right sonar
                     if counterToPutObstacle3 > 0:
                         counterToPutObstacle3 = counterToPutObstacle3 - 1
                     if counterToPutObstacle3 == 0:

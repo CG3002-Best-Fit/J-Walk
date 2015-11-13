@@ -3,7 +3,7 @@ Created on Oct 23, 2015
 
 @author: bamboo3250
 '''
-import urllib
+#import urllib
 import json
 import math 
 import AudioManager
@@ -31,6 +31,7 @@ class GridMapNavigator(object):
     hasReachedDestination = False
     preStepCount = 0
     stepCount = 0
+    isInStaircaseMode = False
     
     ANGLE_LIMIT = 20
     INF = 1000000000
@@ -196,13 +197,14 @@ class GridMapNavigator(object):
             node = self.mapManager.getNode(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2])
             self.curX = node.x
             self.curY = node.y
+            self.isInStaircaseMode = node.isStairCase
             self.mapHeading = self.mapManager.getMapHeading(self.pathToGo[0][0], self.pathToGo[0][1])
             
         if len(self.pathToGo) > 1:
             self.clearMap()
             node1 = self.mapManager.getNode(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2])
             node2 = self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2])
-            
+            self.isInStaircaseMode = node1.isStairCase
             self.drawRoute({'x':node1.x, 'y':node1.y}, {'x':node2.x, 'y':node2.y}, -1)
             self.mark({'x':node1.x, 'y':node1.y}, self.pathToGo[0][2])
             self.mark({'x':node2.x, 'y':node2.y}, self.pathToGo[1][2])
