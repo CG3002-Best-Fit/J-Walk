@@ -8,7 +8,7 @@
       "x": "61",
       "y": "4024",
       "nodeName": "TO 1-2-31",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "17"
     },
     {
@@ -16,7 +16,7 @@
       "x": "1585",
       "y": "2561",
       "nodeName": "P2",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "3, 5, 17"
     },
     {
@@ -24,7 +24,7 @@
       "x": "1342",
       "y": "2378",
       "nodeName": "Uncle Soo's Office",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "2"
     },
     {
@@ -32,7 +32,7 @@
       "x": "2134",
       "y": "2317",
       "nodeName": "Colin's Office",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "5"
     },
     {
@@ -40,7 +40,7 @@
       "x": "1951",
       "y": "2195",
       "nodeName": "P5",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "2, 4, 19"
     },
     {
@@ -48,7 +48,7 @@
       "x": "2988",
       "y": "1098",
       "nodeName": "P6",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "7, 11, 19"
     },
     {
@@ -56,7 +56,7 @@
       "x": "3353",
       "y": "732",
       "nodeName": "P7",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "6, 8"
     },
     {
@@ -64,7 +64,7 @@
       "x": "4085",
       "y": "732",
       "nodeName": "P8",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "7, 9, 10"
     },
     {
@@ -72,7 +72,7 @@
       "x": "4085",
       "y": "976",
       "nodeName": "Discussion Room 6",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "8"
     },
     {
@@ -80,7 +80,7 @@
       "x": "8047",
       "y": "732",
       "nodeName": "End of Corridor",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "8"
     },
     {
@@ -88,7 +88,7 @@
       "x": "3475",
       "y": "1646",
       "nodeName": "Glass Door",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "6, 12"
     },
     {
@@ -96,7 +96,7 @@
       "x": "3780",
       "y": "1829",
       "nodeName": "Wooden Door",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "11, 13"
     },
     {
@@ -104,7 +104,7 @@
       "x": "4146",
       "y": "2012",
       "nodeName": "Another Door",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "12, 14"
     },
     {
@@ -112,7 +112,7 @@
       "x": "4329",
       "y": "2317",
       "nodeName": "Stairwell",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "13, 15"
     },
     {
@@ -120,7 +120,7 @@
       "x": "3841",
       "y": "2744",
       "nodeName": "Halfway",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "14, 16"
     },
     {
@@ -128,7 +128,7 @@
       "x": "3719",
       "y": "2622",
       "nodeName": "TO 2-3-11",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "15"
     },
     {
@@ -136,7 +136,7 @@
       "x": "1159",
       "y": "2927",
       "nodeName": "P17",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "1, 2, 18"
     },
     {
@@ -144,7 +144,7 @@
       "x": "915",
       "y": "2805",
       "nodeName": "Bimlesh's Office",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "17"
     },
     {
@@ -152,7 +152,7 @@
       "x": "2622",
       "y": "1464",
       "nodeName": "P19",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "5, 6, 20 "
     },
     {
@@ -160,7 +160,7 @@
       "x": "2378",
       "y": "1342",
       "nodeName": "Damith's Office",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "19"
     }
   ],
