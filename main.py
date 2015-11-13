@@ -152,7 +152,7 @@ def pollData():
                 else :
                     #print "Left clear!!!"
                     counterToPutObstacle2 = 2
-                    gridMapNavigator.detectNoWall(-45)
+                    gridMapNavigator.detectNoWall(-90)
                 #    gridMapNavigator.removeObstacle(-45)
                     
                 if (megaCommunicator.getSonar3() == 1) and (gridMapNavigator.isInStaircaseMode == False): # right sonar
@@ -165,7 +165,7 @@ def pollData():
                 else:
                     #print "Right clear!!!"
                     counterToPutObstacle3 = 2
-                    gridMapNavigator.detectNoWall(45)
+                    gridMapNavigator.detectNoWall(90)
                 #    gridMapNavigator.removeObstacle(45)
                     
                     
