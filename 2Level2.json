@@ -8,7 +8,7 @@
       "x": "61",
       "y": "4024",
       "nodeName": "TO 1-2-31",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "17"
     },
     {
@@ -48,7 +48,7 @@
       "x": "2988",
       "y": "1098",
       "nodeName": "P6",
-      "offset" : "0",
+      "offset" : "-10",
       "linkTo": "7, 11, 19"
     },
     {
@@ -56,7 +56,7 @@
       "x": "3353",
       "y": "732",
       "nodeName": "P7",
-      "offset" : "0",
+      "offset" : "-5",
       "linkTo": "6, 8"
     },
     {
@@ -64,7 +64,7 @@
       "x": "4085",
       "y": "732",
       "nodeName": "P8",
-      "offset" : "0",
+      "offset" : "-10",
       "linkTo": "7, 9, 10"
     },
     {
@@ -96,7 +96,7 @@
       "x": "3780",
       "y": "1829",
       "nodeName": "Wooden Door",
-      "offset" : "0",
+      "offset" : "5",
       "linkTo": "11, 13"
     },
     {
@@ -112,7 +112,7 @@
       "x": "4329",
       "y": "2317",
       "nodeName": "Stairwell",
-      "offset" : "0",
+      "offset" : "-20",
       "linkTo": "13, 15"
     },
     {
@@ -144,7 +144,7 @@
       "x": "915",
       "y": "2805",
       "nodeName": "Bimlesh's Office",
-      "offset" : "0",
+      "offset" : "-5",
       "linkTo": "17"
     },
     {

@@ -34,7 +34,7 @@ class GridMapNavigator(object):
     
     ANGLE_LIMIT = 20
     INF = 1000000000
-    STEP_LENGTH = 42
+    STEP_LENGTH = 35
     GRID_LENGTH = 50
     maxXGrid = 0
     maxYGrid = 0

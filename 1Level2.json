@@ -8,7 +8,7 @@
       "x": "0",
       "y": "2436",
       "nodeName": "TO LT15",
-      "offset" : "-18",
+      "offset" : "-15",
       "linkTo": "2 "
     },
     {
@@ -16,7 +16,7 @@
       "x": "2152",
       "y": "2436",
       "nodeName": "P2",
-      "offset" : "-15",
+      "offset" : "-25",
       "linkTo": "1, 3, 4  "
     },
     {
@@ -24,7 +24,7 @@
       "x": "2152",
       "y": "731",
       "nodeName": "Linkway",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "2"
     },
     {
@@ -40,7 +40,7 @@
       "x": "2883",
       "y": "1787",
       "nodeName": "P5",
-      "offset" : "-15",
+      "offset" : "-12",
       "linkTo": "4, 8 "
     },
     {
@@ -48,7 +48,7 @@
       "x": "2883",
       "y": "2924",
       "nodeName": "Seminar Room 6",
-      "offset" : "-15",
+      "offset" : "-5",
       "linkTo": "4"
     },
     {
@@ -56,7 +56,7 @@
       "x": "3776",
       "y": "2436",
       "nodeName": "Lobby ",
-      "offset" : "-15",
+      "offset" : "-10",
       "linkTo": "4, 10"
     },
     {
@@ -64,7 +64,7 @@
       "x": "3330",
       "y": "1787",
       "nodeName": "P8",
-      "offset" : "-15",
+      "offset" : "-30",
       "linkTo": "5, 9, 10 "
     },
     {
@@ -72,7 +72,7 @@
       "x": "3330",
       "y": "934",
       "nodeName": "Seminar Room 2",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "8"
     },
     {
@@ -80,7 +80,7 @@
       "x": "3776",
       "y": "1787",
       "nodeName": "P10",
-      "offset" : "-15",
+      "offset" : "-20",
       "linkTo": "7, 8, 11"
     },
     {
@@ -88,7 +88,7 @@
       "x": "5603",
       "y": "1787",
       "nodeName": "Student Area",
-      "offset" : "0",
+      "offset" : "-10",
       "linkTo": "10, 12, 13, 14"
     },
     {
@@ -96,7 +96,7 @@
       "x": "5603",
       "y": "2924",
       "nodeName": "Seminar Room 1",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "11"
     },
     {
@@ -104,7 +104,7 @@
       "x": "5603",
       "y": "609",
       "nodeName": "P13",
-      "offset" : "-15",
+      "offset" : "-20",
       "linkTo": "11, 36"
     },
     {
@@ -112,7 +112,7 @@
       "x": "7065",
       "y": "1787",
       "nodeName": "P14",
-      "offset" : "0",
+      "offset" : "-15",
       "linkTo": "11, 15, 37 "
     },
     {
@@ -136,7 +136,7 @@
       "x": "9014",
       "y": "2802",
       "nodeName": "P17",
-      "offset" : "-15",
+      "offset" : "-5",
       "linkTo": "39, 19, 21 "
     },
     {
@@ -152,7 +152,7 @@
       "x": "9014",
       "y": "2193",
       "nodeName": "Executive Classroom",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "17"
     },
     {
@@ -160,7 +160,7 @@
       "x": "8283",
       "y": "1056",
       "nodeName": "Tutorial Room 11",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "18"
     },
     {
@@ -168,7 +168,7 @@
       "x": "9460",
       "y": "2802",
       "nodeName": "P21",
-      "offset" : "-15",
+      "offset" : "-10",
       "linkTo": "17, 23, 24 "
     },
     {
@@ -176,7 +176,7 @@
       "x": "9744",
       "y": "731",
       "nodeName": "P22",
-      "offset" : "-15",
+      "offset" : "-20",
       "linkTo": "18, 25, 34"
     },
     {
@@ -184,7 +184,7 @@
       "x": "9460",
       "y": "3248",
       "nodeName": "Seminar Room 9",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "21"
     },
     {
@@ -192,7 +192,7 @@
       "x": "11003",
       "y": "2802",
       "nodeName": "P24",
-      "offset" : "-15",
+      "offset" : "5",
       "linkTo": "21, 27, 28"
     },
     {
@@ -200,7 +200,7 @@
       "x": "9744",
       "y": "1056",
       "nodeName": "NUS Hacker's Room",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "22"
     },
     {
@@ -208,7 +208,7 @@
       "x": "11003",
       "y": "691",
       "nodeName": "P26",
-      "offset" : "-15",
+      "offset" : "-10",
       "linkTo": "34, 28, 29 "
     },
     {
@@ -216,7 +216,7 @@
       "x": "11003",
       "y": "3248",
       "nodeName": "Seminar Room 11",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "24 "
     },
     {
@@ -232,7 +232,7 @@
       "x": "11571",
       "y": "691",
       "nodeName": "P29",
-      "offset" : "-15",
+      "offset" : "-10",
       "linkTo": "26, 31 "
     },
     {
@@ -240,7 +240,7 @@
       "x": "12180",
       "y": "731",
       "nodeName": "TO Canteen",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "28  "
     },
     {
@@ -248,7 +248,7 @@
       "x": "11815",
       "y": "406",
       "nodeName": "TO 2-2-1",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "29 "
     },
     {
@@ -256,7 +256,7 @@
       "x": "7552",
       "y": "2802",
       "nodeName": "P32",
-      "offset" : "-15",
+      "offset" : "-5",
       "linkTo": "15, 33, 39 "
     },
     {
@@ -264,7 +264,7 @@
       "x": "7552",
       "y": "3086",
       "nodeName": "Seminar Room 7",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "32"
     },
     {
@@ -272,7 +272,7 @@
       "x": "10272",
       "y": "731",
       "nodeName": "P34",
-      "offset" : "-15",
+      "offset" : "-20",
       "linkTo": "22, 26, 35 "
     },
     {
@@ -280,7 +280,7 @@
       "x": "10272",
       "y": "447",
       "nodeName": "Tutorial Room 5",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "34 "
     },
     {
@@ -288,7 +288,7 @@
       "x": "4263",
       "y": "609",
       "nodeName": "Cerebro",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "13"
     },
     {
@@ -296,7 +296,7 @@
       "x": "7065",
       "y": "1543",
       "nodeName": "P37",
-      "offset" : "0",
+      "offset" : "-15",
       "linkTo": "14, 16, 38 "
     },
     {
@@ -304,7 +304,7 @@
       "x": "7552",
       "y": "1543",
       "nodeName": "SR3 Front",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "37"
     },
     {
@@ -312,7 +312,7 @@
       "x": "8811",
       "y": "2802",
       "nodeName": "P39",
-      "offset" : "-15",
+      "offset" : "-10",
       "linkTo": "17, 32, 40 "
     },
     {
@@ -320,7 +320,7 @@
       "x": "8811",
       "y": "2436",
       "nodeName": "SR3 Back",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "39"
     }
   ],

@@ -8,7 +8,7 @@
       "x": "61",
       "y": "4024",
       "nodeName": "TO 1-3-18",
-      "offset" : "-15",
+      "offset" : "-10",
       "linkTo": "16"
     },
     {
@@ -16,7 +16,7 @@
       "x": "2988",
       "y": "1098",
       "nodeName": "P2",
-      "offset" : "-15",
+      "offset" : "-5",
       "linkTo": "3, 7, 14 "
     },
     {
@@ -24,7 +24,7 @@
       "x": "3353",
       "y": "732",
       "nodeName": "P3",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "2, 4  "
     },
     {
@@ -40,7 +40,7 @@
       "x": "3902",
       "y": "976",
       "nodeName": "Discussion Room 7",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "4"
     },
     {
@@ -48,7 +48,7 @@
       "x": "8047",
       "y": "732",
       "nodeName": "End of Corridor",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "12"
     },
     {
@@ -56,7 +56,7 @@
       "x": "3475",
       "y": "1646",
       "nodeName": "Glass Door",
-      "offset" : "-15",
+      "offset" : "5",
       "linkTo": "2, 8"
     },
     {
@@ -64,7 +64,7 @@
       "x": "3780",
       "y": "1829",
       "nodeName": "Wooden Door",
-      "offset" : "-15",
+      "offset" : "10",
       "linkTo": "7, 9"
     },
     {
@@ -80,7 +80,7 @@
       "x": "4207",
       "y": "2134",
       "nodeName": "Stairwell",
-      "offset" : "-15",
+      "offset" : "-20",
       "linkTo": "9, 11"
     },
     {
@@ -104,7 +104,7 @@
       "x": "4085",
       "y": "976",
       "nodeName": "Discussion Room 8",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "12"
     },
     {
@@ -112,7 +112,7 @@
       "x": "2134",
       "y": "1951",
       "nodeName": "P14",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "2, 15, 16 "
     },
     {
@@ -120,7 +120,7 @@
       "x": "2317",
       "y": "2012",
       "nodeName": "Henry's Room",
-      "offset" : "-15",
+      "offset" : "0",
       "linkTo": "14"
     },
     {
@@ -128,7 +128,7 @@
       "x": "1524",
       "y": "2500",
       "nodeName": "Mysterious Pt",
-      "offset" : "-15",
+      "offset" : "-5",
       "linkTo": "1, 14"
     }
   ],
