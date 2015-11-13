@@ -110,7 +110,8 @@ def pollData():
         while isProgramAlive:
             while gridMapNavigator.isCalculating:
                 #print "gridMapNavigator is calculating"
-                pass
+                time.sleep(0.5)
+                
             print "polling data"
             isSuccessful = megaCommunicator.pollData()
             if isSuccessful:
