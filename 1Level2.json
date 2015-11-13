@@ -10,7 +10,7 @@
       "nodeName": "TO LT15",
       "offset" : "-15",
       "linkTo": "2 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "2",
@@ -19,7 +19,7 @@
       "nodeName": "P2",
       "offset" : "-25",
       "linkTo": "1, 3, 4  ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "3",
@@ -28,7 +28,7 @@
       "nodeName": "Linkway",
       "offset" : "0",
       "linkTo": "2",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "4",
@@ -37,7 +37,7 @@
       "nodeName": "P4",
       "offset" : "-15",
       "linkTo": "2, 5, 6, 7",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "5",
@@ -46,7 +46,7 @@
       "nodeName": "P5",
       "offset" : "-12",
       "linkTo": "4, 8 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "6",
@@ -55,7 +55,7 @@
       "nodeName": "Seminar Room 6",
       "offset" : "-5",
       "linkTo": "4",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "7",
@@ -64,7 +64,7 @@
       "nodeName": "Lobby ",
       "offset" : "-10",
       "linkTo": "4, 10",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "8",
@@ -73,7 +73,7 @@
       "nodeName": "P8",
       "offset" : "-30",
       "linkTo": "5, 9, 10 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "9",
@@ -82,7 +82,7 @@
       "nodeName": "Seminar Room 2",
       "offset" : "0",
       "linkTo": "8",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "10",
@@ -91,7 +91,7 @@
       "nodeName": "P10",
       "offset" : "-20",
       "linkTo": "7, 8, 11",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "11",
@@ -100,7 +100,7 @@
       "nodeName": "Student Area",
       "offset" : "-10",
       "linkTo": "10, 12, 13, 14",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "12",
@@ -109,7 +109,7 @@
       "nodeName": "Seminar Room 1",
       "offset" : "0",
       "linkTo": "11",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "13",
@@ -118,7 +118,7 @@
       "nodeName": "P13",
       "offset" : "-20",
       "linkTo": "11, 36",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "14",
@@ -127,7 +127,7 @@
       "nodeName": "P14",
       "offset" : "-15",
       "linkTo": "11, 15, 37 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "15",
@@ -136,7 +136,7 @@
       "nodeName": "P15",
       "offset" : "-15",
       "linkTo": "14, 32 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "16",
@@ -145,7 +145,7 @@
       "nodeName": "P16",
       "offset" : "-15",
       "linkTo": "18, 37",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "17",
@@ -154,7 +154,7 @@
       "nodeName": "P17",
       "offset" : "-5",
       "linkTo": "39, 19, 21 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "18",
@@ -163,7 +163,7 @@
       "nodeName": "P18",
       "offset" : "-15",
       "linkTo": "16, 20, 22",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "19",
@@ -172,7 +172,7 @@
       "nodeName": "Executive Classroom",
       "offset" : "0",
       "linkTo": "17",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "20",
@@ -181,7 +181,7 @@
       "nodeName": "Tutorial Room 11",
       "offset" : "0",
       "linkTo": "18",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "21",
@@ -190,7 +190,7 @@
       "nodeName": "P21",
       "offset" : "-10",
       "linkTo": "17, 23, 24 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "22",
@@ -199,7 +199,7 @@
       "nodeName": "P22",
       "offset" : "-20",
       "linkTo": "18, 25, 34",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "23",
@@ -208,7 +208,7 @@
       "nodeName": "Seminar Room 9",
       "offset" : "0",
       "linkTo": "21",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "24",
@@ -217,7 +217,7 @@
       "nodeName": "P24",
       "offset" : "5",
       "linkTo": "21, 27, 28",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "25",
@@ -226,7 +226,7 @@
       "nodeName": "NUS Hacker's Room",
       "offset" : "0",
       "linkTo": "22",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "26",
@@ -235,7 +235,7 @@
       "nodeName": "P26",
       "offset" : "-10",
       "linkTo": "34, 28, 29 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "27",
@@ -244,7 +244,7 @@
       "nodeName": "Seminar Room 11",
       "offset" : "0",
       "linkTo": "24 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "28",
@@ -253,7 +253,7 @@
       "nodeName": "P28",
       "offset" : "-15",
       "linkTo": "24, 26, 30",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "29",
@@ -262,7 +262,7 @@
       "nodeName": "P29",
       "offset" : "-10",
       "linkTo": "26, 31 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "30",
@@ -271,7 +271,7 @@
       "nodeName": "TO Canteen",
       "offset" : "0",
       "linkTo": "28  ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "31",
@@ -280,7 +280,7 @@
       "nodeName": "TO 2-2-1",
       "offset" : "0",
       "linkTo": "29 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "32",
@@ -289,7 +289,7 @@
       "nodeName": "P32",
       "offset" : "-5",
       "linkTo": "15, 33, 39 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "33",
@@ -298,7 +298,7 @@
       "nodeName": "Seminar Room 7",
       "offset" : "0",
       "linkTo": "32",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "34",
@@ -307,7 +307,7 @@
       "nodeName": "P34",
       "offset" : "-20",
       "linkTo": "22, 26, 35 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "35",
@@ -316,7 +316,7 @@
       "nodeName": "Tutorial Room 5",
       "offset" : "0",
       "linkTo": "34 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "36",
@@ -325,7 +325,7 @@
       "nodeName": "Cerebro",
       "offset" : "0",
       "linkTo": "13",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "37",
@@ -334,7 +334,7 @@
       "nodeName": "P37",
       "offset" : "-15",
       "linkTo": "14, 16, 38 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "38",
@@ -343,7 +343,7 @@
       "nodeName": "SR3 Front",
       "offset" : "0",
       "linkTo": "37",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "39",
@@ -352,7 +352,7 @@
       "nodeName": "P39",
       "offset" : "-10",
       "linkTo": "17, 32, 40 ",
-      "isStairCase" : false
+      "isStairCase" : "false"
     },
     {
       "nodeId": "40",
@@ -361,7 +361,7 @@
       "nodeName": "SR3 Back",
       "offset" : "0",
       "linkTo": "39",
-      "isStairCase" : false
+      "isStairCase" : "false"
     }
   ],
   "wifi": [
