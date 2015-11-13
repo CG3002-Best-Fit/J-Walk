@@ -116,10 +116,12 @@ def pollData():
                 gridMapNavigator.curHeading = megaCommunicator.getHeading()
                 if (megaCommunicator.getStep() > 0):
                     #mapNavigator.stepAhead(megaCommunicator.getStep())
+                    print "Stepped ahead", megaCommunicator.getStep()
                     gridMapNavigator.stepAhead(megaCommunicator.getStep())
                 #print "acc = " + str(megaCommunicator.getAcc())
                 
                 if (megaCommunicator.getSonar1() == 1) and (gridMapNavigator.isInStaircaseMode == False): # straight ahead sonar
+                    print "Front clear!!!"
                     if counterToPutObstacle1 > 0:
                         counterToPutObstacle1 = counterToPutObstacle1 - 1
                     if counterToPutObstacle1 == 0:
@@ -127,6 +129,7 @@ def pollData():
                         gridMapNavigator.putObstacle(0)
                     counterToRemoveObstacle1 = 2
                 else :
+                    print "Front not clear!!!"
                     if counterToRemoveObstacle1 > 0:
                         counterToRemoveObstacle1 = counterToRemoveObstacle1 - 1
                     if counterToRemoveObstacle1 == 0:
@@ -136,23 +139,27 @@ def pollData():
                     counterToPutObstacle1 = 2
                     
                 if (megaCommunicator.getSonar2() == 1) and (gridMapNavigator.isInStaircaseMode == False): # left sonar
+                    print "Left clear!!!"
                     if counterToPutObstacle2 > 0:
                         counterToPutObstacle2 = counterToPutObstacle2 - 1
                     if counterToPutObstacle2 == 0:
                         counterToPutObstacle2 = 2
                         #gridMapNavigator.putObstacle(-45)
                 else :
+                    print "Left not clear!!!"
                     counterToPutObstacle2 = 2
                     gridMapNavigator.detectNoWall(-45)
                 #    gridMapNavigator.removeObstacle(-45)
                     
                 if (megaCommunicator.getSonar3() == 1) and (gridMapNavigator.isInStaircaseMode == False): # right sonar
+                    print "Right clear!!!"
                     if counterToPutObstacle3 > 0:
                         counterToPutObstacle3 = counterToPutObstacle3 - 1
                     if counterToPutObstacle3 == 0:
                         counterToPutObstacle3 = 2
                         #gridMapNavigator.putObstacle(45)
                 else:
+                    print "Right not clear!!!"
                     counterToPutObstacle3 = 2
                     gridMapNavigator.detectNoWall(45)
                 #    gridMapNavigator.removeObstacle(45)
