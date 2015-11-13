@@ -206,6 +206,7 @@ class GridMapNavigator(object):
             self.drawRoute({'x':node1.x, 'y':node1.y}, {'x':node2.x, 'y':node2.y}, -1)
             self.mark({'x':node1.x, 'y':node1.y}, self.pathToGo[0][2])
             self.mark({'x':node2.x, 'y':node2.y}, self.pathToGo[1][2])
+        
 
     def downloadMap(self, block, level):
         if self.mapManager.contains(block, level):
@@ -306,7 +307,6 @@ class GridMapNavigator(object):
                 AudioManager.play("left")
     
     def calculateDistanceToDestination(self, s):
-        self.isCalculating = True
         print "Recalculate distance"
         self.clearMinDist()
         
@@ -324,7 +324,6 @@ class GridMapNavigator(object):
                     self.minDist[v[0]][v[1]] = self.minDist[u[0]][u[1]] + 1
                     queue.append(v)
         print "Finished recalculating distance"
-        self.isCalculating = False
     
     def getInstruction(self):
         if len(self.pathToGo) <= 1:
@@ -343,6 +342,7 @@ class GridMapNavigator(object):
         
         # if cannot reach destination,
         if self.minDist[curX][curY] == self.INF:
+            self.isCalculating = True
             print "Path is blocked! Finding another path..."
             self.mapManager.blockPath(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2], self.pathToGo[1][2])
             
@@ -351,7 +351,8 @@ class GridMapNavigator(object):
                 print "You will never reach the destination!!!"
                 return
             self.calculateDistanceToDestination(self.mapManager.getNode(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2]))
-        
+            self.isCalculating = False
+            
         #print self.minDist[curX][curY]
         if (self.map[curX][curY] == self.pathToGo[1][2]): 
             self.preStepCount = self.stepCount
@@ -360,6 +361,7 @@ class GridMapNavigator(object):
             AudioManager.play('node')
             AudioManager.playNumber(self.map[curX][curY])
             
+            self.isCalculating = True
             self.prepareRouteToNextPoint()
             curNode = self.mapManager.getNode(self.pathToGo[0][0], self.pathToGo[0][1], self.pathToGo[0][2])
             self.offsetDirection = curNode.offset
@@ -369,6 +371,7 @@ class GridMapNavigator(object):
                 self.hasReachedDestination = True
                 return
             self.calculateDistanceToDestination(self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2]))
+            self.isCalculating = False
         
         self.printMap()
         

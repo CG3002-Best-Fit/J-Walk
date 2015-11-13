@@ -108,6 +108,8 @@ def pollData():
         counterToPutObstacle3 = 2
         counterToRemoveObstacle1 = 2
         while isProgramAlive:
+            while gridMapNavigator.isCalculating:
+                pass
             isSuccessful = megaCommunicator.pollData()
             if isSuccessful:
                 #mapNavigator.setHeading(megaCommunicator.getHeading())
