@@ -40,6 +40,7 @@ class GridMapNavigator(object):
     maxYGrid = 0
     
     hasUpdate = False
+    isCalculating = False
     nextDir = [[0,1,0],[1,1,45],[1,0,90],[1,-1,135],[0,-1, 180],[-1,-1, 225],[-1, 0, 270],[-1,1, 315]]
     
     def getCurrentPos(self):
@@ -123,6 +124,7 @@ class GridMapNavigator(object):
         print "Finished clearing minDist", count, "cells"
     
     def dijkstra(self, startNode, endNode):
+        self.isCalculating = True
         #print "dijkstra from",startNode.code," to", endNode.code
         d = {}
         parent = {}
@@ -168,6 +170,7 @@ class GridMapNavigator(object):
             temp = result[i]
             result[i] = result[len(result) - 1 - i]
             result[len(result) - 1 - i] = temp
+        self.isCalculating = False
         return result
                     
     def isInputValid(self, userInput):
@@ -303,6 +306,7 @@ class GridMapNavigator(object):
                 AudioManager.play("left")
     
     def calculateDistanceToDestination(self, s):
+        self.isCalculating = True
         print "Recalculate distance"
         self.clearMinDist()
         
@@ -320,6 +324,7 @@ class GridMapNavigator(object):
                     self.minDist[v[0]][v[1]] = self.minDist[u[0]][u[1]] + 1
                     queue.append(v)
         print "Finished recalculating distance"
+        self.isCalculating = False
     
     def getInstruction(self):
         if len(self.pathToGo) <= 1:
@@ -462,25 +467,26 @@ class GridMapNavigator(object):
             self.hasUpdate = True
     
     def detectNoWall(self, heading):
-        realHeading = (self.mapHeading + self.curHeading + self.offsetDirection + heading + 360)%360
-        #realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
-        curXGrid = int(self.curX/self.GRID_LENGTH)
-        curYGrid = int(self.curY/self.GRID_LENGTH)
-        x, y = self.getNeighbor(curXGrid, curYGrid, realHeading)
-        #temp = self.markObstacle(x, y, False)
-        if self.isWall(x, y):
-            cellToMove = self.findNeighborWithEqualDistance(curXGrid, curYGrid)
-            newObstacleList = []
-            for i in range(0, len(self.obstacleList)):
-                newX = self.obstacleList[i][0] + cellToMove[0] - curXGrid
-                newY = self.obstacleList[i][1] + cellToMove[1] - curYGrid
-                newObstacleList.append((newX,newY))
-            self.obstacleList = newObstacleList
-            
-            self.curX = self.curX + (cellToMove[0] - curXGrid) * self.GRID_LENGTH
-            self.curY = self.curY + (cellToMove[1] - curYGrid) * self.GRID_LENGTH
-            print "Moved You and Obstacles", heading,"from",(curXGrid, curYGrid),"to",cellToMove
-            self.hasUpdate = True
+        if self.isCalculating == False: 
+            realHeading = (self.mapHeading + self.curHeading + self.offsetDirection + heading + 360)%360
+            #realHeading = (self.mapHeading + self.curHeading + heading + 360)%360
+            curXGrid = int(self.curX/self.GRID_LENGTH)
+            curYGrid = int(self.curY/self.GRID_LENGTH)
+            x, y = self.getNeighbor(curXGrid, curYGrid, realHeading)
+            #temp = self.markObstacle(x, y, False)
+            if self.isWall(x, y):
+                cellToMove = self.findNeighborWithEqualDistance(curXGrid, curYGrid)
+                newObstacleList = []
+                for i in range(0, len(self.obstacleList)):
+                    newX = self.obstacleList[i][0] + cellToMove[0] - curXGrid
+                    newY = self.obstacleList[i][1] + cellToMove[1] - curYGrid
+                    newObstacleList.append((newX,newY))
+                self.obstacleList = newObstacleList
+                
+                self.curX = self.curX + (cellToMove[0] - curXGrid) * self.GRID_LENGTH
+                self.curY = self.curY + (cellToMove[1] - curYGrid) * self.GRID_LENGTH
+                print "Moved You and Obstacles", heading,"from",(curXGrid, curYGrid),"to",cellToMove
+                self.hasUpdate = True
     
     def findNeighborWithEqualDistance(self, x, y):
         for i in range(0, 8):
