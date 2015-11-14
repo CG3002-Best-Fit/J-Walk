@@ -113,7 +113,13 @@ def pollData():
                 time.sleep(0.5)
                 
             print "polling data"
-            isSuccessful = megaCommunicator.pollData()
+            isSuccessful = False
+            try:
+                isSuccessful = megaCommunicator.pollData()
+            except :
+                print "Polling threw exception"
+                isSuccessful = False
+                
             if isSuccessful:
                 print "got data"
                 #mapNavigator.setHeading(megaCommunicator.getHeading())
