@@ -369,7 +369,9 @@ class GridMapNavigator(object):
             self.preStepCount = self.stepCount
             self.stepCount = 0
             print 'You have reached node' ,self.map[curX][curY]
-            AudioManager.play(str(gridMapNavigator.curBuilding) + "-" + str(gridMapNavigator.curLevel) + "-" + str(self.map[curX][curY]))
+            audioName = str(gridMapNavigator.curBuilding) + "-" + str(gridMapNavigator.curLevel) + "-" + str(self.map[curX][curY])
+            print audioName
+            AudioManager.play(audioName)
             #AudioManager.playNumber(self.map[curX][curY])
             
             self.isCalculating = True
