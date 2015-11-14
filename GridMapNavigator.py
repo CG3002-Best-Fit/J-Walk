@@ -227,6 +227,7 @@ class GridMapNavigator(object):
             self.downloadMap(nextMapList[i][0], nextMapList[i][1])
             
     def setStartAndEndPoint(self, userInput):
+        self.hasReachedDestination = False
         self.curBuilding    = userInput['startBlock']
         self.curLevel       = userInput['startLevel']
         self.source         = (userInput['startBlock'], userInput['startLevel'], userInput['startId'])
@@ -337,6 +338,8 @@ class GridMapNavigator(object):
         if len(self.pathToGo) <= 1:
             print "No more node!"
             return
+        if self.hasReachedDestination:
+            return
         
         if self.hasUpdate:
             self.calculateDistanceToDestination(self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2]))
@@ -366,8 +369,8 @@ class GridMapNavigator(object):
             self.preStepCount = self.stepCount
             self.stepCount = 0
             print 'You have reached node' ,self.map[curX][curY]
-            AudioManager.play('node')
-            AudioManager.playNumber(self.map[curX][curY])
+            AudioManager.play(str(gridMapNavigator.curBuilding) + "-" + str(gridMapNavigator.curLevel) + "-" + str(self.map[curX][curY]))
+            #AudioManager.playNumber(self.map[curX][curY])
             
             self.isCalculating = True
             self.prepareRouteToNextPoint()
@@ -376,6 +379,7 @@ class GridMapNavigator(object):
             
             if len(self.pathToGo) <= 1:
                 print "You reached the destination!"
+                AudioManager.play('destination_reached')
                 self.hasReachedDestination = True
                 return
             self.calculateDistanceToDestination(self.mapManager.getNode(self.pathToGo[1][0], self.pathToGo[1][1], self.pathToGo[1][2]))

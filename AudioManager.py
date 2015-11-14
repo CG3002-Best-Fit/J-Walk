@@ -47,7 +47,7 @@ audioDict['node'] = pygame.mixer.Sound("Audio/node.wav")
 audioDict['enter_building'] = pygame.mixer.Sound("Audio/enter_building.wav")
 audioDict['enter_level'] = pygame.mixer.Sound("Audio/enter_level.wav")
 audioDict['enter'] = pygame.mixer.Sound("Audio/enter.wav")
-
+audioDict['destination_reached'] = pygame.mixer.Sound("Audio//44100Hz/destination_reached.wav")
 
 audioDict['0'] = pygame.mixer.Sound("Audio/0.wav")
 audioDict['1'] = pygame.mixer.Sound("Audio/1.wav")
@@ -61,6 +61,13 @@ audioDict['8'] = pygame.mixer.Sound("Audio/8.wav")
 audioDict['9'] = pygame.mixer.Sound("Audio/9.wav")
 audioDict['*'] = pygame.mixer.Sound("Audio/clear.wav")
 audioDict['#'] = pygame.mixer.Sound("Audio/enter.wav")
+
+for i in range(1, 41):
+    audioDict['1-2-' + str(i)] = pygame.mixer.Sound("Audio/Node Audio/com1lvl2/" + str(i) + ".wav")
+for i in range(1, 21):
+    audioDict['2-2-' + str(i)] = pygame.mixer.Sound("Audio/Node Audio/com2lvl2/" + str(i) + ".wav")
+for i in range(1, 17):
+    audioDict['2-3-' + str(i)] = pygame.mixer.Sound("Audio/Node Audio/com2lvl3/" + str(i) + ".wav")
 
 mainChan = pygame.mixer.Channel(1)
 mainChan.set_volume(1.0)
